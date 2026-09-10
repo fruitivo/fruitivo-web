@@ -1,0 +1,466 @@
+{
+  "brand": {
+    "name": "KOŘENY",
+    "tagline": "Obnova poškozené půdy a pěstování prémie ovoce na živé zemi",
+    "mission_cz": "Vracíme život vyčerpané půdě. Na obnovených polích pěstujeme ovoce nejvyšší čistoty a chuti, bez průmyslové chemie, v souladu s přírodními cykly.",
+    "language": "cs"
+  },
+  "color_palette": {
+    "base": {
+      "warm_stone": "#EEEBE1",
+      "charcoal_ink": "#211E1B",
+      "soft_sand": "#F5F3EC",
+      "muted_border": "#D8D4C7",
+      "card_bg": "#E6E2D6"
+    },
+    "category_accents": {
+      "tropical": {
+        "name": "Tropické ovoce",
+        "primary": "#E06A26",
+        "bg_tint": "#F7EBE4",
+        "dark_tint": "#2B1D16"
+      },
+      "citrus": {
+        "name": "Citrusy",
+        "primary": "#688F35",
+        "bg_tint": "#EFF5E8",
+        "dark_tint": "#1D2615"
+      },
+      "rare_wild": {
+        "name": "Vzácné a divoké",
+        "primary": "#D49013",
+        "bg_tint": "#FAF3E4",
+        "dark_tint": "#2B2213"
+      },
+      "orchard_classics": {
+        "name": "Klasické sady",
+        "primary": "#9E2A2B",
+        "bg_tint": "#F7E9E9",
+        "dark_tint": "#291515"
+      },
+      "processed": {
+        "name": "Zpracované produkty",
+        "primary": "#5C3A21",
+        "bg_tint": "#F2EBE5",
+        "dark_tint": "#211A15"
+      }
+    }
+  },
+  "typography": {
+    "headline_font": "Fraunces, Playfair Display, serif",
+    "body_font": "Plus Jakarta Sans, Manrope, sans-serif",
+    "mono_font": "JetBrains Mono, monospace",
+    "rules": {
+      "headline_italic": "Use italic serif style for editorial emphasis in headlines and key manifesto quotes",
+      "nav_labels": "Uppercase, clean neutral sans, tracking-[0.2em], text-xs or text-sm",
+      "hierarchy": {
+        "h1": "text-4xl sm:text-5xl lg:text-6xl font-serif tracking-tight leading-[1.08]",
+        "h2": "text-2xl sm:text-3xl lg:text-4xl font-serif tracking-tight leading-tight",
+        "h3": "text-xl sm:text-2xl font-serif leading-snug",
+        "body": "text-base leading-relaxed font-sans text-[#211E1B]/80",
+        "label": "text-xs tracking-[0.25em] uppercase font-sans text-[#211E1B]/60 font-semibold"
+      }
+    }
+  },
+  "layout_architecture": {
+    "header": {
+      "type": "fixed_top",
+      "style": "backdrop-blur-md bg-[#EEEBE1]/85 border-b border-[#D8D4C7]/60 z-50",
+      "items": [
+        {"id": "01", "label": "01 Příběh", "target": "#pribeh"},
+        {"id": "02", "label": "02 Sady", "target": "#sady"},
+        {"id": "03", "label": "03 Produkty", "target": "#produkty"},
+        {"id": "04", "label": "04 Žurnál", "target": "#zurnal"},
+        {"id": "05", "label": "05 Kontakt", "target": "#kontakt"}
+      ],
+      "overlay_menu": {
+        "trigger": "Hamburger / Numbered trigger button",
+        "style": "Full-screen overlay with large typography (text-3xl sm:text-5xl), subtle reveal stagger, background dimming and category preview links"
+      }
+    },
+    "hero_section": {
+      "type": "cinematic_full_bleed",
+      "height": "100vh",
+      "elements": [
+        "Atmospheric background photography with subtle ambient video/canvas grain layer",
+        "Masked line-by-line headline reveal animation using framer-motion",
+        "Czech main statement: 'OBNOVA POŠKOZENÉ PŮDY • OVOCE PĚSTOVANÉ NA ŽIVÉ ZEMI'",
+        "One entry action button: 'Prozkoumat sklizeň' scrolling to #produkty",
+        "Ambient sound toggle in bottom-right/top-right corner (Web Audio nature ambient generator / synthesized gentle wind & leaves sound)",
+        "Scroll cue indicator with animated line / slow down-arrow"
+      ]
+    },
+    "product_catalog": {
+      "structure": "Delassus-inspired interactive category showcase",
+      "categories": [
+        {
+          "id": "tropical",
+          "name_cz": "Tropické ovoce",
+          "accent": "#E06A26",
+          "products": [
+            {
+              "id": "mango",
+              "name_cz": "Mango",
+              "subtitle_cz": "Odrůda Kent z lesních komunitních sadů",
+              "description_cz": "Šťavnatá dužina s tóny medu a borovicové pryskyřice, vypěstovaná v půdě obohacené organickým kompostem.",
+              "flavor_notes": ["Med", "Citrusová kůra", "Tropický nektar"],
+              "soil_type_cz": "Hluboká červená jílovitá půda s vysokým podílem humusu",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Čerstvé Mango KOŘENY"
+              }
+            },
+            {
+              "id": "papaya",
+              "name_cz": "Papája",
+              "subtitle_cz": "Sladká papája Formosa s jemnou texturou",
+              "description_cz": "Přirozeně enzymatické ovoce dozrávající přímo na stromě bez použití chemických dozráváren.",
+              "flavor_notes": ["Karamel", "Meloun", "Vanilka"],
+              "soil_type_cz": "Vulkanický popel a regenerovaná lesní prsť",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1617112848923-cc2234396a8d?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Čerstvá Papája KOŘENY"
+              }
+            },
+            {
+              "id": "dragonfruit",
+              "name_cz": "Dračí ovoce",
+              "subtitle_cz": "Červená pitahaya s purpurovou dužinou",
+              "description_cz": "Křupavá struktura plná antioxidantů. Kaktusové výsadby zpevňují erozí ohrožené svahy.",
+              "flavor_notes": ["Kivi", "Ostružiny", "Limetková svěžest"],
+              "soil_type_cz": "Písčitohlinitá drenážovaná půda s biouhlem",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1527325678964-549216468488?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Dračí ovoce KOŘENY"
+              }
+            },
+            {
+              "id": "lychee",
+              "name_cz": "Liči",
+              "subtitle_cz": "Královské liči s růžovým nádechem",
+              "description_cz": "Perleťová sladká dužina s lehkým opojným květinovým aroma.",
+              "flavor_notes": ["Růže", "Muškátový hrozen", "Bílý čaj"],
+              "soil_type_cz": "Aluviální naplaveniny bohaté na minerály",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1596489370783-f3f2d244f772?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Čerstvé Liči KOŘENY"
+              }
+            },
+            {
+              "id": "passionfruit",
+              "name_cz": "Marakuja",
+              "subtitle_cz": "Intenzivní mučenka jedlá",
+              "description_cz": "Kyselavý výbuch chuti s vysokým obsahem přírodních esenciálních olejů.",
+              "flavor_notes": ["Marakuja", "Žlutý citrón", "Divoký med"],
+              "soil_type_cz": "Mulčované terasy s krycími plodinami",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1582282577232-a38618e47087?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Čerstvá Marakuja KOŘENY"
+              }
+            }
+          ]
+        },
+        {
+          "id": "citrus",
+          "name_cz": "Citrusy",
+          "accent": "#688F35",
+          "products": [
+            {
+              "id": "lime",
+              "name_cz": "Limetka",
+              "subtitle_cz": "Šťavnatá mexická limetka",
+              "description_cz": "Přírodní esence svěžesti s jedlou kůrou bez jakýchkoli voskových postřiků.",
+              "flavor_notes": ["Ostrá kyselost", "Citrusový květ", "Kůra"],
+              "soil_type_cz": "Vápencové podloží s organickým mulčem",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1536511135883-8a3556093d39?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Čerstvá Limetka KOŘENY"
+              }
+            },
+            {
+              "id": "lemon",
+              "name_cz": "Citron",
+              "subtitle_cz": "Aromatický citron Eureka",
+              "description_cz": "Bohatý na vitamín C a esenciální oleje. Pěstován na jižních prosluněných terasách.",
+              "flavor_notes": ["Svěží kyselost", "Eukalyptus", "Květinový tón"],
+              "soil_type_cz": "Regenerovaná kamenitá půda s jíchami z kopřiv",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1534531141161-e4160408544f?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Čerstvý Citron KOŘENY"
+              }
+            }
+          ]
+        },
+        {
+          "id": "rare_wild",
+          "name_cz": "Vzácné a divoké",
+          "accent": "#D49013",
+          "products": [
+            {
+              "id": "physalis",
+              "name_cz": "Mochyně",
+              "subtitle_cz": "Incká třešeň v přírodním kalichu",
+              "description_cz": "Klenot starobylého zemědělství. Sladkokyselá kulička plná vitamínu A a bioflavonoidů.",
+              "flavor_notes": ["Ananas", "Angrešt", "Karamel"],
+              "soil_type_cz": "Suché obnovené stráně s lokální mykorhitou",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1589135233689-d523171f11a4?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Mochyně KOŘENY"
+              }
+            },
+            {
+              "id": "pawpaw",
+              "name_cz": "Asimina",
+              "subtitle_cz": "Severoamerický banánovec",
+              "description_cz": "Vzácné ovoce s krémovou texturou kombinující chuť banánu, manga a vanilkového pudinku.",
+              "flavor_notes": ["Banánový krém", "Mango", "Kokosové mléko"],
+              "soil_type_cz": "Hluboké lužní půdy s bohatým opadem",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1528825871115-3581a5387919?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Asimina KOŘENY"
+              }
+            }
+          ]
+        },
+        {
+          "id": "orchard_classics",
+          "name_cz": "Klasické sady",
+          "accent": "#9E2A2B",
+          "products": [
+            {
+              "id": "pomegranate",
+              "name_cz": "Granátové jablko",
+              "subtitle_cz": "Rubínová zrna plná síly",
+              "description_cz": "Symbol plodnosti a regenerace. Šťáva lisovaná z plodů starých sadů.",
+              "flavor_notes": ["Trpké rubínové víno", "Brusinky", "Dřevo"],
+              "soil_type_cz": "Kamenné terasy s hlubokým kořenovým systémem",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Granátové jablko KOŘENY"
+              }
+            },
+            {
+              "id": "kiwi",
+              "name_cz": "Kiwi",
+              "subtitle_cz": "Zlaté a zelené kiwi z rodinných výsadeb",
+              "description_cz": "Sladká osvěžující dužina s jemnými semínky, pěstované bez syntetických hormonů.",
+              "flavor_notes": ["Svěží jahoda", "Tráva", "Citrusové tóny"],
+              "soil_type_cz": "Vlhké humózní půdy s mikrobiálním životem",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1585059895524-72fd5965c4b8?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Čerstvé Kiwi KOŘENY"
+              }
+            },
+            {
+              "id": "avocado",
+              "name_cz": "Avokádo",
+              "subtitle_cz": "Krémové avokádo Hass",
+              "description_cz": "Máslová konzistence s oříškovým podtónem. Zavlažované dešťovou vodou z retencí.",
+              "flavor_notes": ["Lískový oříšek", "Máslo", "Čerstvé obilí"],
+              "soil_type_cz": "Pórovitá úrodná hliněná půda",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Čerstvé Avokádo KOŘENY"
+              }
+            },
+            {
+              "id": "banana",
+              "name_cz": "Banán",
+              "subtitle_cz": "Malý horský banán Gros Michel",
+              "description_cz": "Plná intenzivní sladkost a pevná textura, jakou měly banány před průmyslovou monokulturou.",
+              "flavor_notes": ["Vanilkový pudink", "Med", "Pečená jablka"],
+              "soil_type_cz": "Agrolesnický systém s banánovníkovým mulčem",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Čerstvý Banán KOŘENY"
+              }
+            },
+            {
+              "id": "watermelon",
+              "name_cz": "Vodní meloun",
+              "subtitle_cz": "Sladký meloun z jihomoravských písků",
+              "description_cz": "Křupavý, chladivý a přirozeně sladký meloun pěstovaný v biodynamickém režimu.",
+              "flavor_notes": ["Cukrová voda", "Růžové poupě", "Okurková svěžest"],
+              "soil_type_cz": "Písčité duny vyhřívané letním sluncem",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1587049352847-4a222e784d38?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Vodní meloun KOŘENY"
+              }
+            }
+          ]
+        },
+        {
+          "id": "processed",
+          "name_cz": "Zpracované produkty",
+          "accent": "#5C3A21",
+          "products": [
+            {
+              "id": "raspberry_smoothie",
+              "name_cz": "Malinové smoothie",
+              "subtitle_cz": "100% čisté pyré z lesních malin",
+              "description_cz": "Za studena lisovaná ovocná šťáva bez přidaného cukru, vody či konzervantů.",
+              "flavor_notes": ["Divoké maliny", "Šípkový nektar", "Jemná trpkost"],
+              "soil_type_cz": "Podhorská paseka s bohatou bio-rozmanitostí",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1553530666-ba11a7da3888?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Malinové smoothie KOŘENY"
+              }
+            },
+            {
+              "id": "cocoa_beans",
+              "name_cz": "Kakaové boby",
+              "subtitle_cz": "Fermentované nepražené boby Criollo",
+              "is_linked_pair": true,
+              "linked_product_id": "chocolate_fruit",
+              "linked_pair_badge_cz": "Od bobu ke tabulce (1/2)",
+              "description_cz": "Surové kakaové boby z agrolesnických výsadeb. První krok v našem uzavřeném řetězci kvality.",
+              "flavor_notes": ["Hořká čokoláda", "Sušené švestky", "Tabákový list"],
+              "soil_type_cz": "Stínové kakaové háje na vulkanickém podloží",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Kakaové boby KOŘENY"
+              }
+            },
+            {
+              "id": "chocolate_fruit",
+              "name_cz": "Čokoláda s kousky ovoce",
+              "subtitle_cz": "80% výběrová čokoláda s mrazem sušenými fudy",
+              "is_linked_pair": true,
+              "linked_product_id": "cocoa_beans",
+              "linked_pair_badge_cz": "Od bobu ke tabulce (2/2)",
+              "description_cz": "Ručně vyráběná čokoláda spojená s kousky našeho lyofilizovaného manga a malin.",
+              "flavor_notes": ["Sametové kakao", "Křupavé mango", "Ovocná acidita"],
+              "soil_type_cz": "Udržitelná sklizeň spojená s řemeslnou pražírnou",
+              "asset": {
+                "type": "image",
+                "src": "https://images.unsplash.com/photo-1549007994-cb92caebd54b?q=80&w=1000&auto=format&fit=crop",
+                "alt": "Čokoláda s kousky ovoce KOŘENY"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "philosophy_roots_manifesto": {
+      "section_id": "pribeh",
+      "title_cz": "Filozofie KOŘENŮ",
+      "subtitle_cz": "Návrat ke skutečným hodnotám půdy",
+      "chapters": [
+        {
+          "number": "01",
+          "title_cz": "Obnova poškozené půdy",
+          "text_cz": "Odbouráváme chemické zátěže desetiletí průmyslového zemědělství. Pomocí biouhlu, kompostování a krycích plodin vracíme do země mikrobiální život."
+        },
+        {
+          "number": "02",
+          "title_cz": "Život bez syntetiky",
+          "text_cz": "Žádné syntetické pesticidy ani průmyslová hnojiva. Ochrana úrody probíhá přirozenou biologickou rovnováhou a podporou ptactva a užitečného hmyzu."
+        },
+        {
+          "number": "03",
+          "title_cz": "Trpělivost a čas",
+          "text_cz": "Ovoce nespěchá. Dozrává na slunci až do plné biologické zralosti. Výsledkem je nesrovnatelně bohatší chuť, aroma a koncentrace živin."
+        },
+        {
+          "number": "04",
+          "title_cz": "Od bobu ke tabulce",
+          "text_cz": "Kontrolujeme celý řetězec od prvního semínka až po finální balení. Věříme v absolutní transparentnost a úctu k lidské práci."
+        }
+      ]
+    },
+    "orchards_map_section": {
+      "section_id": "sady",
+      "title_cz": "Naše obnovené sady",
+      "subtitle_cz": "Živá území v České republice a partnerských oblastech",
+      "locations": [
+        {"id": "litomerice", "name_cz": "Sad Litoměřice", "type_cz": "Mírné pásmo • Jablka, Hrušky, Mochyně", "coords": "50.5338° N, 14.1318° E", "status_cz": "100% Regenerováno"},
+        {"id": "palava", "name_cz": "Terasy Pálava", "type_cz": "Teplé svahy • Granátová jablka, Fíky, Melouny", "coords": "48.8055° N, 16.6436° E", "status_cz": "Aktivní regenerace"},
+        {"id": "polabi", "name_cz": "Polabská nížina", "type_cz": "Lužní půda • Asimina, Kiwi, Bobuloviny", "coords": "50.1500° N, 15.1000° E", "status_cz": "100% Regenerováno"},
+        {"id": "chriby", "name_cz": "Chřibské vrchy", "type_cz": "Agrolesnictví • Kakaové a ovocné háje", "coords": "49.1000° N, 17.3000° E", "status_cz": "Rozšiřování územi"}
+      ]
+    },
+    "editorial_marquee": {
+      "text": "OBNOVA POŠKOZENÉ PŮDY • ČISTÉ BIO OVOCE • OD BOBU KE TABULCE • NÁVRAT KE KOŘENŮM • BEZ CHEMIE • POCTIVÉ ZEMĚDĚLSTVÍ • KOŘENY 2026"
+    },
+    "journal_section": {
+      "section_id": "zurnal",
+      "title_cz": "Žurnál půdy & sklizně",
+      "articles": [
+        {
+          "title_cz": "Jak biouhel vrací vodu do vyprahlé země",
+          "date": "12. Července 2026",
+          "read_time_cz": "5 min čtení",
+          "excerpt_cz": "Praktické zkušenosti z tříletého experimentu na terasách Pálavy s regenerací půdního humusu."
+        },
+        {
+          "title_cz": "Příběh od bobu ke tabulce: Fermentace kakaa",
+          "date": "28. Června 2026",
+          "read_time_cz": "8 min čtení",
+          "excerpt_cz": "Cesta našich kakaových bobů z biodynamického háje až po ruční balení tabulkové čokolády."
+        }
+      ]
+    },
+    "footer": {
+      "section_id": "kontakt",
+      "brand_statement_cz": "KOŘENY — Poctivé ovocnářství na obnovené půdě.",
+      "contact_info": {
+        "email": "info@koreny-ovoce.cz",
+        "phone": "+420 800 567 369",
+        "address": "Sadařská 108, 412 01 Litoměřice, Česká republika"
+      },
+      "copyright_cz": "© 2026 KOŘENY. Všechna práva vyhrazena. Navrženo pro čistou přírodu."
+    }
+  },
+  "interactive_states": {
+    "product_switcher": {
+      "behavior": "Clicking product title in minimal vertical switcher updates active index within active category. Triggers smooth background tone transition and subtle rotational tilt reveal of product photo.",
+      "crossfade_duration": 0.4,
+      "rotation_on_scroll": "Product hero photo rotates slightly (-8deg to +8deg) as user scrolls through the category showcase section."
+    },
+    "ambient_sound": {
+      "default_muted": true,
+      "synth_type": "Web Audio API Brownian noise + low-pass filter gentle wind and rustling leaves texture",
+      "toggle_button": "Fixed icon in bottom-right corner with data-testid='ambient-sound-toggle'"
+    }
+  },
+  "testing_attributes": {
+    "header": "data-testid='main-header'",
+    "nav_link": "data-testid='nav-link-01' through 'nav-link-05'",
+    "menu_overlay_toggle": "data-testid='menu-overlay-toggle'",
+    "menu_overlay": "data-testid='fullscreen-menu-overlay'",
+    "ambient_sound_toggle": "data-testid='ambient-sound-toggle'",
+    "hero_cta": "data-testid='hero-explore-cta'",
+    "category_tab": "data-testid='category-tab-{id}'",
+    "product_switcher_item": "data-testid='product-switcher-item-{id}'",
+    "product_hero_visual": "data-testid='product-hero-visual'",
+    "linked_pair_badge": "data-testid='linked-bean-to-bar-badge'",
+    "manifesto_chapter": "data-testid='manifesto-chapter-{number}'",
+    "orchard_map_pin": "data-testid='orchard-map-pin-{id}'",
+    "footer_email_link": "data-testid='footer-email-link'"
+  },
+  "instructions_to_main_agent": [
+    "Follow delassus.com visual rhythm: full bleed opening cinematic screen, ultra-clean navigation, generous padding, centered bold product showcase with category accent background tint changes.",
+    "ALL text on screen must be in CZECH language as provided in this spec.",
+    "Implement Lenis smooth scroll or Framer Motion scroll triggers for line-by-line masked text entrance.",
+    "Ensure product switcher handles crossfade smoothly with category accent background shifts.",
+    "Include 'Od bobu ke tabulce' linked indicator when viewing Kakaové boby or Čokoláda s kousky ovoce.",
+    "Attach data-testid attributes to all interactive elements according to testing_attributes spec.",
+    "No dark purple/blue gradients or generic AI slop. Stick strictly to warm stone (#EEEBE1) and charcoal ink (#211E1B) with category accent highlights."
+  ]
+}
