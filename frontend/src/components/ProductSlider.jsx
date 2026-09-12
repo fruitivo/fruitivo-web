@@ -124,7 +124,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
         </div>
 
         {/* název produktu nízko pod kompozicí */}
-        <h2 className="select-none pb-[13vh] text-center font-display font-semibold uppercase leading-[0.95] tracking-tight text-[12.5vw] sm:text-[9vw] lg:text-[6.2vw]">
+        <h2 className="select-none pb-[19vh] text-center font-display font-semibold uppercase leading-[0.95] tracking-tight text-[12.5vw] sm:text-[9vw] lg:text-[6.2vw]">
           {scene.name.split(" ").map((word, wi) => (
             <span key={wi} className="block overflow-hidden">
               <motion.span
@@ -279,38 +279,39 @@ export const ProductSlider = () => {
         })}
       </motion.div>
 
-      {/* tlačítko Objevit — větší, blíž středu, s oválným okrajem */}
+      {/* tlačítko Více — obdélník se zaoblenými rohy, zarovnaný s jednoslovným nápisem */}
       <button
         data-testid={`product-detail-open-${active.id}`}
         onClick={() => setSelected(active)}
-        className="group absolute bottom-[19vh] right-[10%] z-20 flex items-center gap-2.5 px-10 py-5 text-sm font-semibold uppercase tracking-[0.35em] transition-transform duration-500 hover:scale-105 sm:right-[15%]"
+        className="group absolute bottom-[24vh] right-[6%] z-20 transition-transform duration-500 hover:scale-105 sm:right-[8%]"
         style={{ color: ink }}
       >
-        <span
-          aria-hidden
-          className="absolute left-1/2 top-1/2 h-[230%] w-[155%] -translate-x-1/2 -translate-y-1/2 rounded-[100%] border transition-[transform,border-color] duration-700 ease-out group-hover:rotate-[28deg] group-hover:scale-110"
-          style={{ borderColor: `${ink}70` }}
-        />
-        <span
-          aria-hidden
-          className="absolute left-1/2 top-1/2 h-[230%] w-[155%] -translate-x-1/2 -translate-y-1/2 rounded-[100%] bg-current opacity-0 transition-opacity duration-500 group-hover:opacity-10"
-        />
-        <span className="relative">Objevit</span>
-        <ArrowRight size={17} className="relative transition-transform duration-500 group-hover:translate-x-1.5" />
+        <span className="relative block px-8 py-4 text-base font-semibold uppercase tracking-[0.3em]">
+          <span
+            aria-hidden
+            className="absolute inset-0 rounded-2xl border transition-transform duration-700 ease-out group-hover:-rotate-3 group-hover:scale-110"
+            style={{ borderColor: `${ink}75` }}
+          />
+          <span aria-hidden className="absolute inset-0 rounded-2xl bg-current opacity-0 transition-opacity duration-500 group-hover:opacity-10" />
+          <span className="relative flex items-center gap-2">
+            Více
+            <ArrowRight size={18} className="transition-transform duration-500 group-hover:translate-x-1.5" />
+          </span>
+        </span>
       </button>
 
       {/* roletka produktů s časovačem */}
       <div className="absolute inset-x-0 bottom-[6vh] z-20 flex justify-center" style={{ color: ink }}>
         <div
           data-testid="slider-tabs"
-          className="no-scrollbar flex max-w-full items-end gap-6 overflow-x-auto px-5 pb-1 pt-3 sm:gap-8 sm:px-10"
+          className="no-scrollbar flex max-w-full items-end justify-center gap-4 overflow-x-auto px-4 pb-1 pt-3 sm:gap-5 sm:px-8"
         >
           {SCENES.map((s, i) => (
             <button
               key={s.id}
               data-testid={`slider-tab-${s.id}`}
               onClick={() => go(i)}
-              className="relative shrink-0 pb-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] transition-opacity duration-300 sm:text-xs"
+              className="relative shrink-0 pb-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] transition-opacity duration-300 sm:text-[11px]"
               style={{ opacity: i === center ? 1 : 0.45 }}
             >
               {s.displayName}

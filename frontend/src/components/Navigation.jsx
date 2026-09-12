@@ -81,7 +81,7 @@ export const Navigation = () => {
             data-testid="menu-overlay-toggle"
             onClick={() => setOpen(true)}
             style={{ color: navColor }}
-            className={`text-[11px] font-semibold uppercase tracking-[0.25em] transition-colors duration-500 ${scrolled ? "text-ink" : ""}`}
+            className={`text-[11px] font-semibold uppercase tracking-[0.25em] transition-colors duration-500 lg:hidden ${scrolled ? "text-ink" : ""}`}
           >
             Menu —
           </button>

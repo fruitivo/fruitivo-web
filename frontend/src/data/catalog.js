@@ -11,8 +11,7 @@ export const NAV_ITEMS = [
   { id: "01", label: "Příběh", target: "#pribeh" },
   { id: "02", label: "Sady", target: "#sady" },
   { id: "03", label: "Produkty", target: "#produkty" },
-  { id: "04", label: "Žurnál", target: "#zurnal" },
-  { id: "05", label: "Kontakt", target: "#kontakt" },
+  { id: "04", label: "Kontakt", target: "#kontakt" },
 ];
 
 export const MARQUEE_TEXT =
@@ -51,14 +50,6 @@ export const CATEGORIES = [
         notes: ["Lískový oříšek", "Máslo", "Čerstvé obilí"],
         soil: "Pórovitá úrodná hlinitá půda",
         sceneBg: "#4C7A3C", sceneInk: "light",
-      },
-      {
-        id: "banana", name: "banán", displayName: "Banán", latin: "Musa acuminata",
-        subtitle: "Horský banán Gros Michel",
-        description: "Plná intenzivní sladkost a pevná textura, jakou měly banány před průmyslovou monokulturou.",
-        notes: ["Vanilkový pudink", "Med", "Pečené jablko"],
-        soil: "Agrolesnický systém s banánovníkovým mulčem",
-        sceneBg: "#E8C84C", sceneInk: "dark",
       },
       {
         id: "watermelon", name: "vodní meloun", displayName: "Vodní meloun", latin: "Citrullus lanatus",
@@ -175,7 +166,7 @@ export const CATEGORIES = [
 // Seřazeno podle ODSTÍNU barev (zelená → žlutá → oranžová → červená → růžová),
 // aby přechody barev pozadí působily přirozeně a plynule; smyčka se uzavírá zpět do zelené.
 const SCENE_ORDER = [
-  "avocado", "kiwi", "lime", "pawpaw", "lemon", "banana", "passionfruit",
+  "avocado", "kiwi", "lime", "pawpaw", "lemon", "passionfruit",
   "physalis", "mango", "papaya", "watermelon", "pomegranate", "dragonfruit", "lychee",
 ];
 const ALL_SCENES = CATEGORIES.flatMap((cat) =>

@@ -14,6 +14,14 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 12. 9. 2026 — Více tlačítko, kód v patičce, menu jen na mobilu
+- Nápisy produktů posunuty výš (pb 19 vh) — více prostoru nad roletkou.
+- Banán odstraněn z katalogu (13 produktů); roletka zmenšena (menší písmo a mezery), všechny produkty se vejdou na jednu řádku.
+- „Objevit" → „Více": menší obdélník se zaoblenými rohy a větším textem, zarovnaný s úrovní názvu produktu (bottom 24 vh), hover animace zachována.
+- Navigace: ze záložek pryč Žurnál (01 Příběh / 02 Sady / 03 Produkty / 04 Kontakt); na desktopu zmizelo tlačítko Menu (jen číslované záložky), na mobilu naopak jen Menu.
+- Patička: nové pole „Vstup pro pozvané" — input pro přístupový kód + tlačítko Vstoupit (zatím placeholder hláška, TODO napojení na budoucí uzavřenou část).
+- Meloun bez vyčnívajících prvků (hladké tvary, odstraněny pruhy přes okraj), mango oválnější.
+
 ### 12. 9. 2026 — oválné Objevit, průlet bez zastavení, čistý detail
 - Tlačítko Objevit: větší, posunuté blíž ke středu (right ~15 %), s oválným obrysem, který se při najetí myší plynule pootočí, zvětší a jemně zvýrazní.
 - Ruční skok na vzdálenější produkt = JEDEN souvislý rychlý průlet přes mezilehlé scény bez zastavování (rozšířené renderovací okno + jediná tween animace 0,45 + 0,3 s/scénu); barva pozadí se přelévá sama na cílový odstín.

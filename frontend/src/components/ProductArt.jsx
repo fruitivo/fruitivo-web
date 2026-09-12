@@ -16,12 +16,12 @@ const Leaf = ({ x, y, r = 0, fill = "#3E6B34" }) => (
 const ART = {
   mango: (
     <>
-      <path d="M108 236 C88 162 152 104 224 116 C296 128 322 202 288 262 C254 322 138 318 108 236 Z" fill="#7E8F42" />
-      <path d="M108 236 C88 162 152 104 224 116 C262 122 290 148 302 184 C282 240 220 296 150 292 C126 278 114 258 108 236 Z" fill="#A9B85C" />
-      <ellipse cx="248" cy="150" rx="36" ry="24" fill="#E2703A" opacity="0.55" transform="rotate(-14 248 150)" />
-      <ellipse cx="182" cy="168" rx="44" ry="28" fill="#C4CF7E" opacity="0.8" transform="rotate(-18 182 168)" />
-      <ellipse cx="240" cy="200" rx="18" ry="12" fill="#E8912D" opacity="0.4" />
-      <Leaf x={228} y={110} r={-58} fill="#4E7A3C" />
+      <ellipse cx="200" cy="214" rx="98" ry="120" fill="#7E8F42" transform="rotate(-12 200 214)" />
+      <ellipse cx="195" cy="209" rx="90" ry="112" fill="#A9B85C" transform="rotate(-12 195 209)" />
+      <ellipse cx="232" cy="152" rx="34" ry="24" fill="#E2703A" opacity="0.55" transform="rotate(-24 232 152)" />
+      <ellipse cx="166" cy="170" rx="40" ry="32" fill="#C4CF7E" opacity="0.75" transform="rotate(-24 166 170)" />
+      <ellipse cx="230" cy="222" rx="16" ry="12" fill="#E8912D" opacity="0.4" />
+      <Leaf x={212} y={102} r={-40} fill="#4E7A3C" />
     </>
   ),
   papaya: (
@@ -150,16 +150,13 @@ const ART = {
   ),
   watermelon: (
     <>
-      <path d="M92 168 C120 264 190 316 204 316 C218 316 288 264 312 168 C260 144 144 144 92 168 Z" fill="#33582B" />
-      <path d="M100 166 C148 146 256 146 304 166" stroke="#26471F" strokeWidth="7" fill="none" opacity="0.55" />
-      <path d="M160 300 C 150 262 146 216 148 178" stroke="#26471F" strokeWidth="6" fill="none" opacity="0.4" />
-      <path d="M248 300 C 258 262 262 216 260 178" stroke="#26471F" strokeWidth="6" fill="none" opacity="0.4" />
-      <path d="M104 170 C130 252 192 300 204 300 C216 300 274 252 300 170 C252 150 152 150 104 170 Z" fill="#DCE1C9" />
-      <path d="M118 172 C142 238 194 282 204 282 C214 282 262 238 286 172 C244 156 160 156 118 172 Z" fill="#E05252" />
-      {[[180, 200], [216, 206], [196, 232], [230, 236], [168, 230], [206, 258]].map(([cx, cy]) => (
+      <path d="M96 180 C96 286 150 322 204 322 C258 322 308 286 308 180 C256 158 148 158 96 180 Z" fill="#33582B" />
+      <path d="M108 182 C110 272 156 306 204 306 C252 306 296 272 296 182 C250 164 154 164 108 182 Z" fill="#DCE1C9" />
+      <path d="M122 184 C126 258 166 288 204 288 C242 288 280 258 282 184 C242 170 162 170 122 184 Z" fill="#E05252" />
+      {[[180, 204], [216, 208], [196, 232], [230, 236], [168, 230], [206, 254]].map(([cx, cy]) => (
         <ellipse key={`${cx}${cy}`} cx={cx} cy={cy} rx="4.5" ry="7" fill="#2B1710" />
       ))}
-      <path d="M150 176 C170 168 240 168 258 176" stroke="#B03A3A" strokeWidth="5" fill="none" opacity="0.6" />
+      <path d="M150 186 C170 178 240 178 258 186" stroke="#B03A3A" strokeWidth="5" fill="none" opacity="0.6" />
     </>
   ),
 };
@@ -303,10 +300,10 @@ const EXTRA = {
   ),
   watermelon: (
     <>
-      <path d="M120 140 L200 300 L280 140 Z" fill="#33582B" />
-      <path d="M132 148 L200 284 L268 148 Z" fill="#DCE1C9" />
-      <path d="M144 156 L200 268 L256 156 Z" fill="#E05252" />
-      {[[180, 190], [220, 190], [200, 224]].map(([cx, cy]) => (
+      <path d="M120 138 C 160 250 184 288 200 296 C 216 288 240 250 280 138 C 240 122 160 122 120 138 Z" fill="#33582B" />
+      <path d="M132 146 C 166 240 188 272 200 280 C 212 272 234 240 268 146 C 234 134 166 134 132 146 Z" fill="#DCE1C9" />
+      <path d="M144 154 C 172 232 190 258 200 264 C 210 258 228 232 256 154 C 228 144 172 144 144 154 Z" fill="#E05252" />
+      {[[180, 186], [220, 186], [200, 216]].map(([cx, cy]) => (
         <ellipse key={`${cx}${cy}`} cx={cx} cy={cy} rx="5" ry="8" fill="#2B1710" />
       ))}
     </>
