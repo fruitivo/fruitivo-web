@@ -226,15 +226,38 @@ const ART = {
   ),
 };
 
-// satelitní plovoucí prvky scény (hloubkové vrstvy pro parallax)
+// satelitní plovoucí prvky scény — nenápadná flora: listí, květy, pupeny
+const Flower = ({ x, y, r = 0, s = 1, ink }) => (
+  <g transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`} opacity="0.22">
+    {[0, 72, 144, 216, 288].map((a) => (
+      <circle key={a} cx={Math.cos((a * Math.PI) / 180) * 11} cy={Math.sin((a * Math.PI) / 180) * 11} r="7.5" fill={ink} />
+    ))}
+    <circle r="5" fill={ink} opacity="0.8" />
+  </g>
+);
+
+const Sprig = ({ x, y, r = 0, s = 1, ink }) => (
+  <g transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`} opacity="0.2" stroke={ink} fill="none" strokeWidth="3.5" strokeLinecap="round">
+    <path d="M0 30 C 4 10 -2 -12 2 -30" />
+    <path d="M1 12 C -12 6 -18 -4 -16 -12 C -6 -10 0 -2 1 12 Z" fill={ink} stroke="none" />
+    <path d="M1 -2 C 12 -8 18 -18 16 -26 C 6 -24 0 -14 1 -2 Z" fill={ink} stroke="none" />
+  </g>
+);
+
 export const Satellites = ({ ink }) => (
   <>
-    <circle cx="46" cy="80" r="10" fill={ink} opacity="0.25" />
-    <circle cx="352" cy="60" r="5" fill={ink} opacity="0.35" />
-    <circle cx="368" cy="330" r="8" fill={ink} opacity="0.2" />
-    <circle cx="30" cy="320" r="4" fill={ink} opacity="0.35" />
-    <path d="M340 150 C352 138 368 136 376 144 C366 154 348 156 340 150 Z" fill={ink} opacity="0.3" />
-    <path d="M40 180 C52 168 68 166 76 174 C66 184 48 186 40 180 Z" fill={ink} opacity="0.25" />
+    <circle cx="46" cy="80" r="10" fill={ink} opacity="0.22" />
+    <circle cx="352" cy="60" r="5" fill={ink} opacity="0.3" />
+    <circle cx="368" cy="330" r="8" fill={ink} opacity="0.18" />
+    <circle cx="30" cy="320" r="4" fill={ink} opacity="0.3" />
+    <path d="M340 150 C352 138 368 136 376 144 C366 154 348 156 340 150 Z" fill={ink} opacity="0.26" />
+    <path d="M40 180 C52 168 68 166 76 174 C66 184 48 186 40 180 Z" fill={ink} opacity="0.22" />
+    <Flower x={58} y={252} r={-12} s={1.15} ink={ink} />
+    <Flower x={352} y={236} r={18} s={0.85} ink={ink} />
+    <Sprig x={84} y={120} r={-24} s={1.1} ink={ink} />
+    <Sprig x={330} y={300} r={30} s={0.9} ink={ink} />
+    <circle cx="330" cy="110" r="3.5" fill={ink} opacity="0.28" />
+    <circle cx="70" cy="290" r="3" fill={ink} opacity="0.25" />
   </>
 );
 

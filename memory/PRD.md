@@ -14,6 +14,12 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 12. 9. 2026 — barevné řazení, plynulé pozadí, flora
+- Produkty seřazeny podle odstínu barev do uzavřeného kruhu (avokádo → kiwi → limetka → asimina → citron → banán → marakuja → mochyně → mango → papája → vodní meloun → granátové jablko → dračí ovoce → liči → zpět na avokádo).
+- Pozadí odděleno od posuvníku: zůstává stát a 1,9 s plynule proniká do barvy další scény; do strany se posouvají jen produkty a názvy.
+- Kompozice sjednoceny do skupin kusů podobné velikosti (hlavní plod + půlka/celek přimknutý vpravo; limetka a mochyně mají 3 kusy).
+- Přidána nenápadná flora v pozadí (květy, větvičky s listy, pupeny — nízká krytí, parallaxní vrstva).
+
 ### 12. 9. 2026 — velké kompozice na míru, bílý text, pomalejší přejíždění
 - Produkty zvětšeny (základ ~44–56 vmin) a každý má vlastní layout (LAYOUT mapa v ProductSlider.jsx): scale + natočení + druhý kus / více kusů. Vodní meloun = jeden velký kus, mochyně = hlavní plod + dvě menší vedle, vše s jemným houpavým natáčením („kontrolovaný chaos").
 - Všechny texty slideru i detailu jednotně bílé (#F5F3EC) na všech barvách scén.

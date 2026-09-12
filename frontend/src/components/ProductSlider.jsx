@@ -11,34 +11,36 @@ const wrap = (i) => ((i % N) + N) % N;
 const inkOf = () => "#F5F3EC";
 
 // ── velikost a natočení kompozice na míru každému produktu ───────────────────
-// scale = velikost hlavního kusu · rot = natočení · extra: false = jen jeden kus
-// extras = další kusy vedle (kontrolovaný chaos — více menších plodů)
+// Kusy v kompozici jsou sobě podobné velikosti a tvoří jeden celek.
+// scale = velikost celé skupiny · rot = natočení · extra: false = jen jeden kus
+// extras = další kusy skupiny (více menších plodů vedle sebe)
 const LAYOUT = {
-  pomegranate: { scale: 1.2, rot: -8, extraRot: 16 },
-  kiwi: { scale: 1.1, rot: 7, extraRot: -14 },
-  avocado: { scale: 1.28, rot: -6, extraRot: 18 },
-  banana: { scale: 1.32, rot: -12, extraRot: 22 },
-  watermelon: { scale: 1.4, rot: 4, extra: false }, // jeden velký kus
-  lime: { scale: 1.02, rot: -13, extraRot: 20 },
-  lemon: { scale: 1.12, rot: 9, extraRot: -16 },
-  mango: { scale: 1.22, rot: -10, extraRot: 15 },
-  papaya: { scale: 1.18, rot: 6, extraRot: -18 },
-  dragonfruit: { scale: 1.22, rot: -8, extraRot: 14 },
-  lychee: { scale: 1.05, rot: 10, extraRot: -20 },
-  passionfruit: { scale: 1.1, rot: -7, extraRot: 17 },
+  avocado: { scale: 1.24, rot: -6, extraRot: 16 },
+  kiwi: { scale: 1.12, rot: 7, extraRot: -12 },
+  lime: {
+    scale: 1.02, rot: -10, extraRot: 18,
+    extras: [{ art: "main", scale: 0.72, rot: 16, left: "-36%", top: "28%" }],
+  },
+  pawpaw: { scale: 1.15, rot: 6, extraRot: -14 },
+  lemon: { scale: 1.1, rot: 8, extraRot: -16 },
+  banana: { scale: 1.28, rot: -12, extraRot: 20 },
+  passionfruit: { scale: 1.08, rot: -6, extraRot: 15 },
   physalis: {
-    scale: 0.95,
-    rot: -10,
-    extra: false,
+    scale: 0.98, rot: -8, extra: false,
     extras: [
-      { art: "main", scale: 0.62, rot: 16, left: "-30%", top: "38%" },
-      { art: "extra", scale: 0.55, rot: -22, left: "72%", top: "46%" },
+      { art: "main", scale: 0.8, rot: 14, left: "-38%", top: "30%" },
+      { art: "extra", scale: 0.74, rot: -18, left: "70%", top: "40%" },
     ],
   },
-  pawpaw: { scale: 1.16, rot: 7, extraRot: -15 },
+  mango: { scale: 1.2, rot: -9, extraRot: 13 },
+  papaya: { scale: 1.16, rot: 6, extraRot: -15 },
+  watermelon: { scale: 1.38, rot: 4, extra: false }, // jeden velký kus
+  pomegranate: { scale: 1.2, rot: -8, extraRot: 14 },
+  dragonfruit: { scale: 1.2, rot: -8, extraRot: 15 },
+  lychee: { scale: 1.06, rot: 9, extraRot: -18 },
 };
 
-// ── jedna scéna: produkt NAD názvem, název celý vidět ─────────────────────────
+// ── jedna scéna: produkt NAD názvem, pozadí řeší slider (plynulé přebarvení) ──
 const Slide = ({ scene, smx, smy, hidden, instant }) => {
   const ink = inkOf();
   const L = LAYOUT[scene.id] || {};
@@ -50,12 +52,8 @@ const Slide = ({ scene, smx, smy, hidden, instant }) => {
   const t = instant ? { duration: 0 } : undefined;
 
   return (
-    <section
-      data-testid={`scene-${scene.id}`}
-      className="relative h-full w-full overflow-hidden"
-      style={{ backgroundColor: scene.sceneBg, color: ink }}
-    >
-      {/* satelitní plovoucí prvky (horní část) */}
+    <section data-testid={`scene-${scene.id}`} className="relative h-full w-full overflow-hidden" style={{ color: ink }}>
+      {/* nenápadná flora — květy a listí rostlin v hloubkové vrstvě */}
       <motion.div style={{ x: bx, y: by }} className="pointer-events-none absolute inset-x-0 top-0 hidden h-[62%] sm:block">
         <svg viewBox="0 0 400 400" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
           <Satellites ink={ink} />
@@ -63,7 +61,7 @@ const Slide = ({ scene, smx, smy, hidden, instant }) => {
       </motion.div>
 
       <div className="flex h-full flex-col items-center justify-center px-5">
-        {/* produktová kompozice — velikost a natočení dle produktu */}
+        {/* kompozice — skupina kusů podobné velikosti, společně škálovaná */}
         <motion.div
           initial={instant ? false : { opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -71,64 +69,64 @@ const Slide = ({ scene, smx, smy, hidden, instant }) => {
           className={`relative ${hidden ? "invisible" : ""}`}
         >
           <motion.div layoutId={`art-${scene.id}`} transition={{ duration: 0.6, ease: EASE }}>
-            <motion.div style={{ x: ax, y: ay, scale: L.scale ?? 1.15 }}>
+            <motion.div style={{ x: ax, y: ay }}>
               <motion.div
+                style={{ scale: L.scale ?? 1.15 }}
                 animate={{ rotate: [rot - 3, rot + 3, rot - 3] }}
                 transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
               >
-                <motion.div animate={{ y: [0, -16, 0] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}>
-                  <ProductArt
-                    id={scene.id}
-                    className="h-auto w-[56vmin] max-w-[620px] sm:w-[48vmin] lg:w-[44vmin] drop-shadow-[0_36px_44px_rgba(0,0,0,0.2)]"
-                  />
-                </motion.div>
+                <div className="relative">
+                  <motion.div animate={{ y: [0, -16, 0] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}>
+                    <ProductArt
+                      id={scene.id}
+                      className="h-auto w-[52vmin] max-w-[580px] sm:w-[46vmin] lg:w-[42vmin] drop-shadow-[0_36px_44px_rgba(0,0,0,0.2)]"
+                    />
+                  </motion.div>
+
+                  {/* druhý kus — podobná velikost, přimknutý ke skupině */}
+                  {L.extra !== false && (
+                    <motion.div
+                      initial={instant ? false : { opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={t || { duration: 0.6, delay: 0.2 }}
+                      className="absolute -bottom-[4%] -right-[26%]"
+                      style={{ rotate: L.extraRot ?? 12 }}
+                    >
+                      <motion.div
+                        animate={{ y: [0, -10, 0] }}
+                        transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+                      >
+                        <ExtraArt id={scene.id} className="h-auto w-[30vmin] max-w-[340px] sm:w-[27vmin] lg:w-[24vmin]" />
+                      </motion.div>
+                    </motion.div>
+                  )}
+
+                  {/* další kusy skupiny (více plodů vedle sebe) */}
+                  {(L.extras || []).map((e, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute"
+                      style={{ left: e.left, top: e.top, rotate: e.rot }}
+                      initial={instant ? false : { opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={t || { duration: 0.6, delay: 0.26 + i * 0.08 }}
+                    >
+                      <motion.div
+                        animate={{ y: [0, -9, 0] }}
+                        transition={{ duration: 5 + i, repeat: Infinity, ease: "easeInOut", delay: 0.4 * i }}
+                      >
+                        {e.art === "main" ? (
+                          <ProductArt id={scene.id} className="h-auto w-[34vmin] max-w-[360px] sm:w-[30vmin] lg:w-[26vmin]" />
+                        ) : (
+                          <ExtraArt id={scene.id} className="h-auto w-[30vmin] max-w-[320px] sm:w-[27vmin] lg:w-[23vmin]" />
+                        )}
+                      </motion.div>
+                    </motion.div>
+                  ))}
+                </div>
               </motion.div>
             </motion.div>
           </motion.div>
-
-          {/* druhý kus (půlka / celek) — natočený opačně */}
-          {L.extra !== false && (
-            <motion.div
-              initial={instant ? false : { opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={t || { duration: 0.7, ease: EASE, delay: 0.22 }}
-              className="absolute -bottom-5 -right-14 sm:-right-20"
-            >
-              <motion.div style={{ x: bx, y: by, scale: L.extraScale ?? 1 }}>
-                <motion.div
-                  animate={{ y: [0, -10, 0], rotate: [(L.extraRot ?? 10) - 4, (L.extraRot ?? 10) + 4, (L.extraRot ?? 10) - 4] }}
-                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
-                >
-                  <ExtraArt id={scene.id} className="h-auto w-[22vmin] max-w-[240px] sm:w-[18vmin]" />
-                </motion.div>
-              </motion.div>
-            </motion.div>
-          )}
-
-          {/* další kusy vedle — např. několik menších mochyní */}
-          {(L.extras || []).map((e, i) => (
-            <motion.div
-              key={i}
-              className="absolute"
-              style={{ left: e.left, top: e.top }}
-              initial={instant ? false : { opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: e.scale }}
-              transition={t || { duration: 0.7, ease: EASE, delay: 0.28 + i * 0.08 }}
-            >
-              <motion.div style={{ x: bx, y: by }}>
-                <motion.div
-                  animate={{ rotate: [e.rot - 4, e.rot + 4, e.rot - 4] }}
-                  transition={{ duration: 8 + i, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  {e.art === "main" ? (
-                    <ProductArt id={scene.id} className="h-auto w-[30vmin] max-w-[300px]" />
-                  ) : (
-                    <ExtraArt id={scene.id} className="h-auto w-[26vmin] max-w-[260px]" />
-                  )}
-                </motion.div>
-              </motion.div>
-            </motion.div>
-          ))}
         </motion.div>
 
         {/* název produktu pod kompozicí — celý vidět */}
@@ -242,7 +240,15 @@ export const ProductSlider = () => {
         my.set(e.clientY / window.innerHeight - 0.5);
       }}
     >
-      <motion.div style={{ x }} className="flex h-full w-full">
+      {/* pozadí zůstává stát — jen plynule proniká do barvy dalšího produktu */}
+      <motion.div
+        className="absolute inset-0"
+        initial={{ backgroundColor: SCENES[0].sceneBg }}
+        animate={{ backgroundColor: active.sceneBg }}
+        transition={{ duration: 1.9, ease: "easeInOut" }}
+      />
+
+      <motion.div style={{ x }} className="relative flex h-full w-full">
         {order.map((i) => (
           <div key={SCENES[i].id} className="h-full w-full shrink-0">
             <Slide scene={SCENES[i]} smx={smx} smy={smy} hidden={!!selected && i === center} instant={firstDone.current} />
@@ -355,7 +361,7 @@ export const ProductSlider = () => {
                 {activeLayout.extra !== false && (
                   <motion.div
                     style={{ x: dax, y: day, rotate: activeLayout.extraRot ?? 10 }}
-                    className="absolute -bottom-4 -right-4 w-2/5"
+                    className="absolute -bottom-[4%] -right-[8%] w-3/5"
                   >
                     <ExtraArt id={selected.id} className="h-auto w-full" />
                   </motion.div>

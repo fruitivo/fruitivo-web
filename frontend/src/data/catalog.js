@@ -172,9 +172,16 @@ export const CATEGORIES = [
 ];
 
 // plochý seznam scén pro slider (nekonečná smyčka)
-export const SCENES = CATEGORIES.flatMap((cat) =>
+// Seřazeno podle ODSTÍNU barev (zelená → žlutá → oranžová → červená → růžová),
+// aby přechody barev pozadí působily přirozeně a plynule; smyčka se uzavírá zpět do zelené.
+const SCENE_ORDER = [
+  "avocado", "kiwi", "lime", "pawpaw", "lemon", "banana", "passionfruit",
+  "physalis", "mango", "papaya", "watermelon", "pomegranate", "dragonfruit", "lychee",
+];
+const ALL_SCENES = CATEGORIES.flatMap((cat) =>
   cat.products.map((p) => ({ ...p, categoryId: cat.id, categoryName: cat.name, accent: cat.accent }))
 );
+export const SCENES = SCENE_ORDER.map((id) => ALL_SCENES.find((p) => p.id === id));
 
 export const sceneIndexOf = (productId) => SCENES.findIndex((s) => s.id === productId);
 export const categoryStartIndex = (categoryId) => SCENES.findIndex((s) => s.categoryId === categoryId);
