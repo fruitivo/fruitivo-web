@@ -54,9 +54,9 @@ export const Navigation = () => {
             data-testid="brand-home-button"
             onClick={() => go("#produkty")}
             style={{ color: navColor }}
-            className={`font-display text-lg lowercase tracking-[0.08em] transition-colors duration-500 ${scrolled ? "text-ink" : ""}`}
+            className={`font-display text-xl uppercase tracking-[0.12em] transition-colors duration-500 ${scrolled ? "text-ink" : ""}`}
           >
-            xxx
+            XXX
           </button>
 
           <nav className="hidden items-center gap-8 lg:flex">
@@ -98,7 +98,7 @@ export const Navigation = () => {
             className="grain fixed inset-0 z-50 flex flex-col bg-ink text-stone"
           >
             <div className="flex items-center justify-between px-5 py-4 sm:px-10">
-              <span className="font-display text-lg lowercase tracking-[0.08em]">xxx</span>
+              <span className="font-display text-xl uppercase tracking-[0.12em]">XXX</span>
               <button
                 data-testid="menu-overlay-close"
                 onClick={() => setOpen(false)}

@@ -14,6 +14,12 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 12. 9. 2026 — velké kompozice na míru, bílý text, pomalejší přejíždění
+- Produkty zvětšeny (základ ~44–56 vmin) a každý má vlastní layout (LAYOUT mapa v ProductSlider.jsx): scale + natočení + druhý kus / více kusů. Vodní meloun = jeden velký kus, mochyně = hlavní plod + dvě menší vedle, vše s jemným houpavým natáčením („kontrolovaný chaos").
+- Všechny texty slideru i detailu jednotně bílé (#F5F3EC) na všech barvách scén.
+- Značka XXX capslockem a větší (hlavička, overlay menu, patička).
+- Přejíždění scén zpomaleno: běžný krok 1,15 s, průjezd mezilehlými 0,55 s/krok.
+
 ### 12. 9. 2026 — souvislý nekonečný slider, jen rostliny
 - Katalog zúžen na 14 rostlinných produktů (odebrána kategorie Zpracované produkty — smoothie, kakao, čokoláda). Nové pořadí: Klasické sady → Citrusy → Tropické ovoce → Vzácné a divoké.
 - Slider přepsán na souvislý pás 3 sousedních scén (motion value + animate) — nekonečná smyčka dokola, přechody jsou čisté dva barevné scény bez bílých pásů.

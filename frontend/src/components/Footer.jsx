@@ -47,11 +47,10 @@ export const Footer = () => (
 
       <p
         aria-hidden
-        className="text-outline-stone pointer-events-none -mb-4 select-none text-center font-display lowercase leading-[0.8] text-[24vw]"
+        className="text-outline-stone pointer-events-none -mb-4 select-none text-center font-display uppercase leading-[0.8] text-[26vw]"
       >
-        xxx
+        XXX
       </p>
-
       <div className="flex flex-col justify-between gap-3 border-t border-stone/15 pt-6 text-[11px] uppercase tracking-[0.15em] text-stone/40 sm:flex-row">
         <span>{FOOTER.copyright}</span>
         <span>Obnovená půda · Čisté ovoce</span>
