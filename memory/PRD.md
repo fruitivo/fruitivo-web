@@ -14,6 +14,12 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 12. 9. 2026 — minimalizace slideru + nová typografie
+- Písmo produktových názvů: Clash Display (Fontshare), názvy CAPS LOCK přes produkt — produkt je ve vrstvě PŘED textem, aby byl vždy vidět.
+- Produktová kompozice zvětšena (celek ~64vmin + půlka/kousek ~26vmin).
+- Slider obsahuje POUZE: produkt, název, roletku názvů s časovačem (zvednutou pod kompozici) a odkaz „Objevit". Odstraněny popisky, kategorie, počítadlo a šipky ze scény.
+- Detail = statická informační stránka: klik na „Objevit" → produkt animací (layoutId shared-element) „přeletí/zvětší" se do detailu, kolem něj text (kategorie, latinsky, podtitul, popis, poznámky, půda, pár bob→tabulka). Tlačítko „Zpět" → produkt se animací vrátí a roletka i auto-přepínání pokračují.
+
 ### 12. 9. 2026 — přestavba dle zpětné vazby
 - Název značky zatím odstraněn → placeholder „xxx" (navigace, overlay menu, patička, titulek stránky, e-mail).
 - Produkty jsou nyní PRVNÍ obsah stránky: pevný full-viewport slider místo scroll-driven scén. Automatické přepínání po 3 s (posuv do boku), pauza při najetí myší / otevřeném detailu, ruční přepínání řadou názvů produktů dole + šipkami; normální scroll stránky pod sliderem zůstává volný.

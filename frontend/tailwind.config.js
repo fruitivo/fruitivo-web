@@ -11,7 +11,7 @@ module.exports = {
       fontFamily: {
         serif: ['Fraunces', 'Georgia', 'serif'],
         sans: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['"Archivo Black"', 'Arial Black', 'sans-serif'],
+        display: ['"Clash Display"', '"Archivo Black"', 'Arial Black', 'sans-serif'],
       },
       colors: {
         stone: '#EEEBE1',

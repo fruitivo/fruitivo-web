@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowLeft, ArrowRight, Sprout, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Sprout } from "lucide-react";
 import { SCENES, sceneIndexOf } from "../data/catalog";
 import { ExtraArt, ProductArt, Satellites } from "./ProductArt";
 
@@ -14,15 +14,13 @@ const slideVariants = {
   exit: (d) => ({ x: d >= 0 ? "-100%" : "100%" }),
 };
 
-const Slide = ({ scene, dir, smx, smy, onOpen, onJump }) => {
+// ── jedna scéna: velký produkt + název CAPS přes něj, nic víc ────────────────
+const Slide = ({ scene, dir, smx, smy, hidden }) => {
   const ink = inkOf(scene);
-  const linked = scene.linkedId ? SCENES.find((s) => s.id === scene.linkedId) : null;
-
-  // parallaxní hloubkové vrstvy řízené kurzorem
-  const ax = useTransform(smx, (v) => v * 30);
-  const ay = useTransform(smy, (v) => v * 20);
-  const bx = useTransform(smx, (v) => v * 58);
-  const by = useTransform(smy, (v) => v * 40);
+  const ax = useTransform(smx, (v) => v * 28);
+  const ay = useTransform(smy, (v) => v * 18);
+  const bx = useTransform(smx, (v) => v * 54);
+  const by = useTransform(smy, (v) => v * 36);
 
   return (
     <motion.section
@@ -33,26 +31,45 @@ const Slide = ({ scene, dir, smx, smy, onOpen, onJump }) => {
       animate="center"
       exit="exit"
       transition={{ duration: 0.85, ease: EASE }}
-      className="absolute inset-0 flex flex-col lg:grid lg:grid-cols-2"
+      className="absolute inset-0"
       style={{ backgroundColor: scene.sceneBg, color: ink }}
     >
-      {/* levá polovina — kompozice více kusů produktu */}
-      <div className="relative flex h-[44%] shrink-0 items-center justify-center lg:h-full">
-        <motion.div style={{ x: bx, y: by }} className="pointer-events-none absolute inset-0 hidden lg:block">
-          <svg viewBox="0 0 400 400" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
-            <Satellites ink={ink} />
-          </svg>
-        </motion.div>
+      {/* satelitní plovoucí prvky */}
+      <motion.div style={{ x: bx, y: by }} className="pointer-events-none absolute inset-0 hidden sm:block">
+        <svg viewBox="0 0 400 400" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
+          <Satellites ink={ink} />
+        </svg>
+      </motion.div>
 
+      {/* název produktu ZA kompozicí — produkt zůstává vždy vidět */}
+      <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
+        <h2 className="select-none text-center font-display font-semibold uppercase leading-[0.92] tracking-tight text-[14vw] lg:text-[12vw]">
+          {scene.name.split(" ").map((word, wi) => (
+            <span key={wi} className="block overflow-hidden">
+              <motion.span
+                initial={{ y: "112%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.75, ease: EASE, delay: 0.25 + wi * 0.08 }}
+                className="block"
+              >
+                {word}
+              </motion.span>
+            </span>
+          ))}
+        </h2>
+      </div>
+
+      {/* velká produktová kompozice VPŘEDU */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center">
         <motion.div
-          initial={{ opacity: 0, x: -70, rotate: -8 }}
-          animate={{ opacity: 1, x: 0, rotate: 0 }}
+          initial={{ opacity: 0, x: -70, scale: 0.92 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ duration: 0.8, ease: EASE, delay: 0.15 }}
-          className="relative"
+          className={`relative ${hidden ? "invisible" : ""}`}
         >
-          <motion.div style={{ x: ax, y: ay }}>
-            <motion.div animate={{ y: [0, -16, 0] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}>
-              <ProductArt id={scene.id} className="h-auto w-[36vmin] max-w-[420px] drop-shadow-[0_30px_40px_rgba(0,0,0,0.18)]" />
+          <motion.div style={{ x: ax, y: ay }} layoutId={`art-${scene.id}`}>
+            <motion.div animate={{ y: [0, -18, 0] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}>
+              <ProductArt id={scene.id} className="h-auto w-[64vmin] max-w-[700px] drop-shadow-[0_40px_50px_rgba(0,0,0,0.2)]" />
             </motion.div>
           </motion.div>
 
@@ -60,108 +77,18 @@ const Slide = ({ scene, dir, smx, smy, onOpen, onJump }) => {
             initial={{ opacity: 0, x: 50, rotate: 12 }}
             animate={{ opacity: 1, x: 0, rotate: 0 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.3 }}
-            className="absolute -bottom-4 -right-10 sm:-right-16"
+            className="absolute -bottom-8 -right-16 sm:-right-24"
           >
             <motion.div style={{ x: bx, y: by }}>
               <motion.div
-                animate={{ y: [0, -10, 0] }}
+                animate={{ y: [0, -11, 0] }}
                 transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
               >
-                <ExtraArt id={scene.id} className="h-auto w-[19vmin] max-w-[210px]" />
+                <ExtraArt id={scene.id} className="h-auto w-[26vmin] max-w-[280px]" />
               </motion.div>
             </motion.div>
           </motion.div>
         </motion.div>
-      </div>
-
-      {/* pravá polovina — typografie a informace */}
-      <div className="relative flex flex-1 items-center">
-        <div className="w-full px-5 pb-24 sm:px-10 lg:max-w-2xl lg:pb-28 lg:pr-20">
-          <motion.p
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 0.65, y: 0 }}
-            transition={{ duration: 0.6, ease: EASE, delay: 0.25 }}
-            className="text-[11px] font-semibold uppercase tracking-[0.3em]"
-          >
-            {scene.categoryName} · {scene.latin}
-          </motion.p>
-
-          <h2 className="mt-2 font-display lowercase leading-[0.95] tracking-tight text-[clamp(2.6rem,6.5vw,5.6rem)]">
-            {scene.name.split(" ").map((word, wi) => (
-              <span key={wi} className="block overflow-hidden">
-                <motion.span
-                  initial={{ y: "112%" }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 0.7, ease: EASE, delay: 0.3 + wi * 0.08 }}
-                  className="block"
-                >
-                  {word}
-                </motion.span>
-              </span>
-            ))}
-          </h2>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.8 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-3 font-serif text-lg italic font-light sm:text-xl"
-          >
-            {scene.subtitle}
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.75 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="mt-4 hidden max-w-md text-sm leading-relaxed sm:block sm:text-base"
-          >
-            {scene.description}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="mt-6 hidden flex-wrap gap-2 sm:flex"
-          >
-            {scene.notes.map((n) => (
-              <span
-                key={n}
-                className="rounded-full border px-3 py-1.5 text-[11px] uppercase tracking-[0.12em]"
-                style={{ borderColor: `${ink}40` }}
-              >
-                {n}
-              </span>
-            ))}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: EASE, delay: 0.8 }}
-            className="mt-7 flex flex-wrap items-center gap-3"
-          >
-            <button
-              data-testid={`product-detail-open-${scene.id}`}
-              onClick={() => onOpen(scene)}
-              className="rounded-full border px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] transition-transform duration-300 hover:scale-105"
-              style={{ borderColor: `${ink}66`, backgroundColor: `${ink}0d` }}
-            >
-              detail +
-            </button>
-            {linked && (
-              <button
-                data-testid="linked-bean-to-bar-badge"
-                onClick={() => onJump(linked.id)}
-                className="flex items-center gap-2 rounded-full border px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] transition-transform duration-300 hover:scale-105"
-                style={{ borderColor: `${ink}55` }}
-              >
-                od bobu ke tabulce <ArrowRight size={13} />
-              </button>
-            )}
-          </motion.div>
-        </div>
       </div>
     </motion.section>
   );
@@ -198,7 +125,6 @@ export const ProductSlider = () => {
     document.documentElement.style.setProperty("--nav-ink", inkOf(active));
   }, [index]);
 
-  // kurzor pro parallaxu
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const smx = useSpring(mx, { stiffness: 55, damping: 18 });
@@ -220,127 +146,86 @@ export const ProductSlider = () => {
       }}
     >
       <AnimatePresence initial={false} custom={dir}>
-        <Slide
-          key={index}
-          scene={active}
-          dir={dir}
-          smx={smx}
-          smy={smy}
-          onOpen={setSelected}
-          onJump={(id) => go(sceneIndexOf(id), 1)}
-        />
+        <Slide key={index} scene={active} dir={dir} smx={smx} smy={smy} hidden={!!selected} />
       </AnimatePresence>
 
-      {/* počítadlo */}
-      <div className="absolute bottom-[92px] left-5 z-20 sm:left-10" style={{ color: ink }}>
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={index}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.35 }}
-            className="font-display text-3xl leading-none sm:text-4xl"
-          >
-            {String(index + 1).padStart(2, "0")}
-            <span className="text-lg opacity-50"> / {N}</span>
-          </motion.p>
-        </AnimatePresence>
-      </div>
-
-      {/* šipky */}
-      <div className="absolute bottom-[86px] right-5 z-20 flex gap-2 sm:right-10">
-        <button
-          data-testid="slider-prev"
-          aria-label="Předchozí produkt"
-          onClick={() => go(index - 1, -1)}
-          className="flex h-10 w-10 items-center justify-center rounded-full border transition-transform hover:scale-110"
-          style={{ borderColor: `${ink}55`, color: ink }}
+      {/* spodní blok: roletka produktů zvednutá pod název + objevit */}
+      <div className="absolute inset-x-0 bottom-[7vh] z-20 flex flex-col items-center sm:bottom-[8vh]" style={{ color: ink }}>
+        <div
+          data-testid="slider-tabs"
+          className="no-scrollbar flex max-w-full items-end gap-6 overflow-x-auto px-5 pb-1 pt-3 sm:gap-8 sm:px-10"
         >
-          <ArrowLeft size={15} />
-        </button>
+          {SCENES.map((s, i) => (
+            <button
+              key={s.id}
+              data-testid={`slider-tab-${s.id}`}
+              onClick={() => go(i)}
+              className="relative shrink-0 pb-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] transition-opacity duration-300 sm:text-xs"
+              style={{ opacity: i === index ? 1 : 0.45 }}
+            >
+              {s.displayName}
+              {i === index && !paused && !selected && (
+                <motion.span
+                  key={`progress-${index}`}
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 3, ease: "linear" }}
+                  className="absolute bottom-0 left-0 h-[2px] bg-current"
+                />
+              )}
+            </button>
+          ))}
+        </div>
+
         <button
-          data-testid="slider-next"
-          aria-label="Další produkt"
-          onClick={() => go(index + 1, 1)}
-          className="flex h-10 w-10 items-center justify-center rounded-full border transition-transform hover:scale-110"
-          style={{ borderColor: `${ink}55`, color: ink }}
+          data-testid={`product-detail-open-${active.id}`}
+          onClick={() => setSelected(active)}
+          className="group mb-5 mt-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] opacity-70 transition-opacity hover:opacity-100"
         >
-          <ArrowRight size={15} />
+          Objevit
+          <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
         </button>
       </div>
 
-      {/* ruční přepínač produktů */}
-      <div
-        className="no-scrollbar absolute inset-x-0 bottom-0 z-20 flex items-end gap-6 overflow-x-auto border-t px-5 pb-4 pt-3 sm:px-10"
-        style={{ borderColor: `${ink}22`, color: ink }}
-      >
-        {SCENES.map((s, i) => (
-          <button
-            key={s.id}
-            data-testid={`slider-tab-${s.id}`}
-            onClick={() => go(i)}
-            className="relative shrink-0 pb-1 text-[11px] font-semibold uppercase tracking-[0.18em] transition-opacity duration-300"
-            style={{ opacity: i === index ? 1 : 0.45 }}
-          >
-            {s.displayName}
-            {i === index && !paused && !selected && (
-              <motion.span
-                key={`progress-${index}`}
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 3, ease: "linear" }}
-                className="absolute -bottom-0.5 left-0 h-[2px] bg-current"
-              />
-            )}
-          </button>
-        ))}
-      </div>
-
-      {/* detail produktu — mask reveal */}
+      {/* informační stránka produktu — produkt se animací zvětší a text ho obklopí */}
       <AnimatePresence>
         {selected && (
           <motion.div
             data-testid="product-detail-overlay"
-            initial={{ clipPath: "circle(0% at 50% 50%)" }}
-            animate={{ clipPath: "circle(142% at 50% 50%)" }}
-            exit={{ clipPath: "circle(0% at 50% 50%)" }}
-            transition={{ duration: 0.75, ease: EASE }}
-            className="grain fixed inset-0 z-50 overflow-y-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-50 overflow-y-auto"
             style={{ backgroundColor: selected.sceneBg, color: inkOf(selected) }}
           >
-            <button
-              data-testid="product-detail-close"
-              onClick={() => setSelected(null)}
-              className="fixed right-5 top-5 z-10 flex items-center gap-2 rounded-full border px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.25em] transition-transform hover:scale-105"
-              style={{ borderColor: `${inkOf(selected)}55` }}
-            >
-              Zavřít <X size={15} />
-            </button>
-
-            <div className="mx-auto grid min-h-full max-w-6xl grid-cols-1 items-center gap-10 px-5 py-24 sm:px-10 lg:grid-cols-2">
-              <div className="relative mx-auto w-full max-w-md">
-                <motion.div
-                  animate={{ y: [0, -14, 0] }}
-                  transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-                >
+            <div className="mx-auto grid min-h-full max-w-6xl grid-cols-1 items-center gap-10 px-5 py-24 sm:px-10 lg:grid-cols-2 lg:gap-16">
+              <div className="relative mx-auto w-full max-w-lg">
+                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.6, ease: EASE }}>
                   <ProductArt id={selected.id} className="h-auto w-full" />
                 </motion.div>
-                <motion.div
-                  animate={{ y: [0, -9, 0] }}
-                  transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="absolute -bottom-2 -right-2 w-2/5"
-                >
+                <div className="absolute -bottom-4 -right-4 w-2/5">
                   <ExtraArt id={selected.id} className="h-auto w-full" />
-                </motion.div>
+                </div>
               </div>
 
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.55, ease: EASE, delay: 0.35 }}
+              >
                 <p className="text-[11px] font-semibold uppercase tracking-[0.3em] opacity-60">
                   {selected.categoryName} · {selected.latin}
                 </p>
-                <h3 className="mt-3 font-display lowercase leading-[0.95] text-5xl sm:text-6xl">{selected.name}</h3>
-                <p className="mt-3 font-serif text-xl italic font-light opacity-80">{selected.subtitle}</p>
+                <h3 className="mt-3 font-display font-semibold uppercase leading-[0.95] tracking-tight text-5xl sm:text-6xl">
+                  {selected.name.split(" ").map((w, i) => (
+                    <span key={i} className="mr-[0.24em] inline-block last:mr-0">
+                      {w}
+                    </span>
+                  ))}
+                </h3>
+                <p className="mt-4 font-serif text-xl italic font-light opacity-80">{selected.subtitle}</p>
                 <p className="mt-6 max-w-md text-sm leading-relaxed opacity-80 sm:text-base">{selected.description}</p>
 
                 <div className="mt-6 flex flex-wrap gap-2">
@@ -355,13 +240,14 @@ export const ProductSlider = () => {
                   ))}
                 </div>
 
-                <p className="mt-6 flex items-start gap-2 text-xs leading-relaxed opacity-70">
+                <p className="mt-6 flex max-w-md items-start gap-2 text-xs leading-relaxed opacity-70 sm:text-sm">
                   <Sprout size={15} className="mt-0.5 shrink-0" />
                   {selected.soil}
                 </p>
 
                 {selected.linkedId && (
                   <button
+                    data-testid="linked-bean-to-bar-badge"
                     onClick={() => {
                       const target = selected.linkedId;
                       setSelected(null);
@@ -392,8 +278,17 @@ export const ProductSlider = () => {
                 <p className="mt-8 text-[10px] uppercase tracking-[0.2em] opacity-40">
                   TODO · Finální fotografický / 3D asset ve výrobě
                 </p>
-              </div>
+              </motion.div>
             </div>
+
+            <button
+              data-testid="product-detail-close"
+              onClick={() => setSelected(null)}
+              className="fixed left-5 top-5 z-10 flex items-center gap-2 rounded-full border px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.25em] transition-transform hover:scale-105 sm:left-10"
+              style={{ borderColor: `${inkOf(selected)}55`, backgroundColor: selected.sceneBg }}
+            >
+              <ArrowLeft size={14} /> Zpět
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
