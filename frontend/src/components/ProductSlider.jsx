@@ -13,21 +13,22 @@ const INK = "#211E1B";
 const inkOf = () => "#F5F3EC";
 
 // ── velikost a natočení kompozice na míru každému produktu ───────────────────
+// Vždy dva RŮZNÉ kusy (celek + rozřezaná půlka), meloun jediný velký kus.
 const LAYOUT = {
   avocado: { scale: 1.16, rot: -6, extraRot: 16 },
-  kiwi: { scale: 1.06, rot: 7, extraRot: -12 },
-  lime: { scale: 0.98, rot: -10, extraRot: 18, extraMain: { rot: 16 } }, // tři kusy
-  pawpaw: { scale: 1.1, rot: 6, extraRot: -14 },
-  lemon: { scale: 1.04, rot: 8, extraRot: -16 },
+  kiwi: { scale: 1.1, rot: 7, extraRot: -12 },
+  lime: { scale: 1.02, rot: -10, extraRot: 18 },
+  pawpaw: { scale: 1.12, rot: 6, extraRot: -14 },
+  lemon: { scale: 1.06, rot: 8, extraRot: -16 },
   banana: { scale: 1.18, rot: -12, extraRot: 20 },
-  passionfruit: { scale: 1.04, rot: -6, extraRot: 15 },
-  physalis: { scale: 0.95, rot: -8, extraRot: -18, extraMain: { rot: 14 } }, // tři kusy
+  passionfruit: { scale: 1.06, rot: -6, extraRot: 15 },
+  physalis: { scale: 1.0, rot: -8, extraRot: -16 }, // lampionek + volná kulatá plodina
   mango: { scale: 1.14, rot: -9, extraRot: 13 },
-  papaya: { scale: 1.1, rot: 6, extraRot: -15 },
-  watermelon: { scale: 1.15, rot: 4, extra: false }, // jeden velký kus
+  papaya: { scale: 1.12, rot: 6, extraRot: -15 },
+  watermelon: { scale: 1.12, rot: 4, extra: false }, // jeden velký kus
   pomegranate: { scale: 1.14, rot: -8, extraRot: 14 },
   dragonfruit: { scale: 1.14, rot: -8, extraRot: 15 },
-  lychee: { scale: 1.02, rot: 9, extraRot: -18 },
+  lychee: { scale: 1.04, rot: 9, extraRot: -18 },
 };
 
 // různé pozice flóry — každá scéna dostane jiné rozmístění (posun dle indexu)
@@ -50,19 +51,13 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
   const by = useTransform(smy, (v) => v * 36);
   const t = instant ? { duration: 0 } : undefined;
 
-  // vycentrovaná skupina kusů (celek + rozřezaný, případně třetí)
-  const pieces = [
-    { art: "main", rot },
-    ...(L.extra !== false ? [{ art: "extra", rot: L.extraRot ?? 12 }] : []),
-    ...(L.extraMain ? [{ art: "main", rot: L.extraMain.rot }] : []),
-  ];
+  // vycentrovaný pár RŮZNÝCH kusů (celek + půlka), případně jediný kus
+  const pieces = [{ art: "main", rot }, ...(L.extra !== false ? [{ art: "extra", rot: L.extraRot ?? 12 }] : [])];
   const sizeCls =
     pieces.length === 1
-      ? "w-[84vmin] sm:w-[74vmin] lg:w-[64vmin] max-w-[720px]"
-      : pieces.length === 2
-        ? "w-[58vmin] sm:w-[52vmin] lg:w-[44vmin] max-w-[600px]"
-        : "w-[42vmin] sm:w-[38vmin] lg:w-[32vmin] max-w-[430px]";
-  const lift = ["0%", "9%", "-5%"];
+      ? "w-[88vmin] sm:w-[78vmin] lg:w-[66vmin] max-w-[760px]"
+      : "w-[62vmin] sm:w-[56vmin] lg:w-[47vmin] max-w-[640px]";
+  const lift = ["0%", "9%"];
 
   const spots = [0, 1, 2].map((k) => FLORA_SPOTS[(idx + k) % FLORA_SPOTS.length]);
 
@@ -84,7 +79,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
       </motion.div>
 
       <div className="flex h-full flex-col items-center">
-        {/* vycentrovaná kompozice — kusy vedle sebe, podobné velikosti */}
+        {/* vycentrovaná kompozice */}
         <div className="flex flex-1 items-center justify-center">
           <motion.div
             initial={instant ? false : { opacity: 0, scale: 0.92 }}
@@ -230,9 +225,16 @@ export const ProductSlider = () => {
   const dax = useTransform(smx, (v) => v * 24);
   const day = useTransform(smy, (v) => v * 16);
 
-  const activeLayout = LAYOUT[active.id] || {};
   const selLayout = selected ? LAYOUT[selected.id] || {} : {};
   const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
+
+  // plovoucí panel detailu — nedotýká se okrajů, blíž hornímu okraji
+  const panelInitial = isMobile
+    ? { top: "34%", left: "50%", x: "-50%", y: "-50%", width: "86vmin", height: "86vmin", borderRadius: 40 }
+    : { top: "46%", left: "50%", x: "-50%", y: "-50%", width: "62vmin", height: "62vmin", borderRadius: 40 };
+  const panelTarget = isMobile
+    ? { top: "5%", left: "6%", x: "0%", y: "0%", width: "88%", height: "44%", borderRadius: 24 }
+    : { top: "10%", left: "54%", x: "0%", y: "0%", width: "42%", height: "68%", borderRadius: 28 };
 
   return (
     <section
@@ -300,7 +302,7 @@ export const ProductSlider = () => {
         </div>
       </div>
 
-      {/* detail: barevný obdélník se vytvoří kolem produktu a odjede doprava, vlevo text na barvě webu */}
+      {/* detail: plovoucí barevný obdélník s produktem vpravo, text vlevo na barvě webu */}
       <AnimatePresence>
         {selected && (
           <motion.div
@@ -312,23 +314,11 @@ export const ProductSlider = () => {
             className="fixed inset-0 z-50 overflow-y-auto"
             style={{ backgroundColor: STONE, color: INK }}
           >
-            {/* barevný panel s produktem */}
+            {/* barevný panel s produktem — plovoucí, mimo okraje */}
             <motion.div
-              initial={
-                isMobile
-                  ? { top: "38%", left: "50%", x: "-50%", y: "-50%", width: "86vmin", height: "86vmin", borderRadius: 40 }
-                  : { top: "50%", left: "50%", x: "-50%", y: "-50%", width: "62vmin", height: "62vmin", borderRadius: 40 }
-              }
-              animate={
-                isMobile
-                  ? { top: 0, left: 0, x: "0%", y: "0%", width: "100%", height: "46%", borderRadius: 0 }
-                  : { top: 0, left: "50%", x: "0%", y: "0%", width: "50%", height: "100%", borderRadius: 0 }
-              }
-              exit={
-                isMobile
-                  ? { top: "38%", left: "50%", x: "-50%", y: "-50%", width: "86vmin", height: "86vmin", borderRadius: 40 }
-                  : { top: "50%", left: "50%", x: "-50%", y: "-50%", width: "62vmin", height: "62vmin", borderRadius: 40 }
-              }
+              initial={panelInitial}
+              animate={panelTarget}
+              exit={panelInitial}
               transition={{ duration: 0.75, ease: EASE, delay: 0.25 }}
               className="absolute overflow-hidden"
               style={{ backgroundColor: selected.sceneBg }}
@@ -336,22 +326,18 @@ export const ProductSlider = () => {
               <ProductFlora
                 id={selected.id}
                 ink={inkOf()}
-                className="pointer-events-none absolute -right-10 -top-8 h-auto w-[34vmin] opacity-25"
+                className="pointer-events-none absolute -right-10 -top-8 h-auto w-[30vmin] opacity-25"
               />
               <ProductFlora
                 id={selected.id}
                 ink={inkOf()}
-                className="pointer-events-none absolute -bottom-10 left-6 h-auto w-[22vmin] -scale-x-100 opacity-20"
+                className="pointer-events-none absolute -bottom-10 left-6 h-auto w-[20vmin] -scale-x-100 opacity-20"
               />
 
               <div className="flex h-full items-center justify-center">
-                <motion.div
-                  layoutId={`art-${selected.id}`}
-                  transition={{ duration: 0.65, ease: EASE }}
-                  className="relative"
-                >
+                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.65, ease: EASE }} className="relative">
                   <motion.div style={{ x: dax, y: day, rotate: selLayout.rot ?? 0 }} className="relative">
-                    <ProductArt id={selected.id} className="h-auto w-[52vmin] max-w-[500px] sm:w-[44vmin] lg:w-[36vw] lg:max-w-[560px]" />
+                    <ProductArt id={selected.id} className="h-auto w-[46vmin] max-w-[440px] lg:w-[24vw] lg:max-w-[480px]" />
                     {selLayout.extra !== false && (
                       <motion.div style={{ rotate: selLayout.extraRot ?? 10 }} className="absolute left-[62%] top-[14%] w-full">
                         <ExtraArt id={selected.id} className="h-auto w-full" />
@@ -368,7 +354,7 @@ export const ProductSlider = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, transition: { duration: 0.2 } }}
               transition={{ duration: 0.55, ease: EASE, delay: 0.75 }}
-              className="relative flex items-center px-5 pb-20 pt-[52svh] sm:px-12 lg:absolute lg:left-0 lg:top-0 lg:h-full lg:w-1/2 lg:py-24"
+              className="relative flex items-center px-5 pb-20 pt-[58svh] sm:px-12 lg:absolute lg:left-0 lg:top-0 lg:h-full lg:w-1/2 lg:py-24"
             >
               <div className="max-w-lg">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-ink/55">

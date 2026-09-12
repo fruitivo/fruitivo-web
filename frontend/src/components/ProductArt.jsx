@@ -53,27 +53,21 @@ const ART = {
   ),
   lychee: (
     <>
-      <circle cx="168" cy="216" r="86" fill="#B83848" />
-      <path d="M168 130 A86 86 0 0 1 254 216 A86 86 0 0 1 168 302 C 210 260 210 172 168 130 Z" fill="#D94F57" opacity="0.85" />
-      {[[150, 180], [180, 200], [146, 226], [184, 246], [160, 266], [196, 166]].map(([cx, cy]) => (
+      <circle cx="200" cy="216" r="92" fill="#B83848" />
+      <path d="M200 124 A92 92 0 0 1 292 216 A92 92 0 0 1 200 308 C 248 262 248 170 200 124 Z" fill="#D94F57" opacity="0.85" />
+      {[[178, 176], [212, 198], [172, 228], [216, 246], [188, 268], [228, 160]].map(([cx, cy]) => (
         <circle key={`${cx}${cy}`} cx={cx} cy={cy} r="4" fill="#8E2837" />
       ))}
-      <circle cx="282" cy="252" r="44" fill="#F7F2E8" />
-      <ellipse cx="268" cy="238" rx="14" ry="10" fill="#FFFFFF" opacity="0.9" />
-      <path d="M150 138 C158 112 184 100 204 104" stroke="#4E7A3C" strokeWidth="7" fill="none" strokeLinecap="round" />
-      <Leaf x={206} y={104} r={-30} fill="#4E7A3C" />
+      <path d="M192 132 C198 106 220 94 240 96" stroke="#4E7A3C" strokeWidth="7" fill="none" strokeLinecap="round" />
+      <Leaf x={240} y={96} r={-20} fill="#4E7A3C" />
     </>
   ),
   passionfruit: (
     <>
-      <circle cx="164" cy="204" r="88" fill="#4A2450" />
-      <path d="M164 116 A88 88 0 0 1 252 204 C 226 260 150 290 104 250 C 88 200 116 138 164 116 Z" fill="#5B2D5E" />
-      <ellipse cx="132" cy="164" rx="20" ry="30" fill="#7A4472" opacity="0.8" transform="rotate(-16 132 164)" />
-      <circle cx="284" cy="248" r="52" fill="#4A2450" />
-      <circle cx="284" cy="248" r="42" fill="#F2C230" />
-      {[[272, 236], [292, 240], [280, 258], [298, 258], [270, 254]].map(([cx, cy]) => (
-        <circle key={`${cx}${cy}`} cx={cx} cy={cy} r="5.5" fill="#3B2A1E" />
-      ))}
+      <circle cx="200" cy="205" r="96" fill="#4A2450" />
+      <path d="M200 109 A96 96 0 0 1 296 205 C 268 276 168 306 112 258 C 92 202 132 130 200 109 Z" fill="#5B2D5E" />
+      <ellipse cx="164" cy="162" rx="22" ry="34" fill="#7A4472" opacity="0.8" transform="rotate(-16 164 162)" />
+      <path d="M196 112 C198 96 206 86 218 82" stroke="#4E7A3C" strokeWidth="6" fill="none" strokeLinecap="round" />
     </>
   ),
   lime: (
@@ -122,25 +116,17 @@ const ART = {
       <path d="M186 118 L178 92 L192 104 L200 84 L208 104 L222 92 L214 118 Z" fill="#8E2424" />
       <circle cx="200" cy="222" r="94" fill="#8E2424" />
       <path d="M200 128 A94 94 0 0 1 294 222 C 268 292 172 320 118 272 C 98 216 136 146 200 128 Z" fill="#B03232" />
-      <path d="M226 182 C260 196 276 232 264 264 C252 296 214 310 186 296 C158 282 148 246 160 218 C172 190 196 172 226 182 Z" fill="#E8A0A0" />
-      {[[206, 212], [228, 220], [196, 236], [222, 244], [240, 238], [208, 262], [232, 266]].map(([cx, cy]) => (
-        <circle key={`${cx}${cy}`} cx={cx} cy={cy} r="7" fill="#A82828" />
-      ))}
-      <ellipse cx="146" cy="176" rx="20" ry="30" fill="#D05252" opacity="0.8" transform="rotate(-18 146 176)" />
+      <ellipse cx="158" cy="180" rx="22" ry="34" fill="#D05252" opacity="0.8" transform="rotate(-18 158 180)" />
     </>
   ),
   kiwi: (
     <>
-      <ellipse cx="160" cy="212" rx="72" ry="92" fill="#6E5236" transform="rotate(-12 160 212)" />
-      <ellipse cx="160" cy="206" rx="66" ry="86" fill="#8A6B4A" transform="rotate(-12 160 206)" />
-      <ellipse cx="140" cy="168" rx="18" ry="30" fill="#A3845E" opacity="0.8" transform="rotate(-20 140 168)" />
-      <circle cx="278" cy="240" r="56" fill="#6E5236" />
-      <circle cx="278" cy="240" r="47" fill="#8DB63F" />
-      <circle cx="278" cy="240" r="16" fill="#E9EFD2" />
-      {Array.from({ length: 12 }).map((_, i) => {
-        const a = (i / 12) * Math.PI * 2;
-        return <circle key={i} cx={278 + Math.cos(a) * 30} cy={240 + Math.sin(a) * 30} r="3" fill="#3B2A1E" />;
-      })}
+      <ellipse cx="200" cy="210" rx="80" ry="100" fill="#6E5236" transform="rotate(-8 200 210)" />
+      <ellipse cx="200" cy="204" rx="74" ry="94" fill="#8A6B4A" transform="rotate(-8 200 204)" />
+      <ellipse cx="176" cy="164" rx="20" ry="34" fill="#A3845E" opacity="0.8" transform="rotate(-16 176 164)" />
+      {[[186, 250], [216, 258], [200, 272]].map(([cx, cy]) => (
+        <circle key={`${cx}${cy}`} cx={cx} cy={cy} r="3.5" fill="#6E5236" opacity="0.7" />
+      ))}
     </>
   ),
   avocado: (
@@ -216,13 +202,12 @@ const EXTRA = {
   ),
   lychee: (
     <>
-      <path d="M200 96 C196 130 190 150 176 168" stroke="#6E5236" strokeWidth="7" fill="none" strokeLinecap="round" />
-      <Leaf x={202} y={96} r={-20} fill="#4E7A3C" />
-      <circle cx="164" cy="212" r="62" fill="#D94F57" />
-      <circle cx="246" cy="236" r="54" fill="#B83848" />
-      {[[150, 196], [178, 222], [238, 222], [256, 248]].map(([cx, cy]) => (
-        <circle key={`${cx}${cy}`} cx={cx} cy={cy} r="3.5" fill="#8E2837" />
-      ))}
+      <circle cx="168" cy="216" r="66" fill="#F7F2E8" />
+      <ellipse cx="150" cy="196" rx="20" ry="14" fill="#FFFFFF" opacity="0.9" />
+      <circle cx="258" cy="242" r="54" fill="#EFE7DA" />
+      <ellipse cx="244" cy="228" rx="15" ry="11" fill="#FFFFFF" opacity="0.85" />
+      <path d="M150 158 C158 132 182 118 204 120" stroke="#4E7A3C" strokeWidth="6" fill="none" strokeLinecap="round" />
+      <Leaf x={204} y={120} r={-24} fill="#4E7A3C" />
     </>
   ),
   passionfruit: (
@@ -287,9 +272,14 @@ const EXTRA = {
   ),
   kiwi: (
     <>
-      <ellipse cx="200" cy="210" rx="76" ry="96" fill="#6E5236" />
-      <ellipse cx="200" cy="204" rx="70" ry="90" fill="#8A6B4A" />
-      <ellipse cx="180" cy="168" rx="16" ry="28" fill="#A3845E" opacity="0.8" transform="rotate(-16 180 168)" />
+      <circle cx="200" cy="205" r="98" fill="#6E5236" />
+      <circle cx="200" cy="205" r="84" fill="#8DB63F" />
+      <circle cx="200" cy="205" r="28" fill="#E9EFD2" />
+      {Array.from({ length: 14 }).map((_, i) => {
+        const a = (i / 14) * Math.PI * 2;
+        return <circle key={i} cx={200 + Math.cos(a) * 56} cy={205 + Math.sin(a) * 56} r="4" fill="#3B2A1E" />;
+      })}
+      <ellipse cx="168" cy="168" rx="20" ry="14" fill="#A8CC55" opacity="0.7" transform="rotate(-20 168 168)" />
     </>
   ),
   avocado: (

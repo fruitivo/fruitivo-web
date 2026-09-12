@@ -14,6 +14,12 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 12. 9. 2026 — oprava Satellites, plovoucí panel, bez duplicit
+- Oprava pádu náhledu: odstraněn zbytkový import Satellites (hláška „Satellites was not found in ./ProductArt") + restart frontendu pro vyčištění build cache.
+- Panel detailu je plovoucí obdélník se zaoblením (28 px), nedotýká se okrajů (vpravo 4 %, shora 10 %, zdola 22 % — blíž hornímu okraji), na mobilu horní pás s okraji.
+- Žádné duplicitní kusy: kiwi = celek + plátek, marakuja = celek + půlka, granátové jablko = celek + půlka, liči = červený plod + oloupané plody, limetka = celek + půlka (třetí kus zrušen), mochyně = lampionek + volná plodina.
+- Ovoce ještě zvětšeno (pár ~47–56 vmin, meloun ~66 vmin).
+
 ### 12. 9. 2026 — panelový detail, dvojnásobné ovoce, rozptýlená flora
 - Detail produktu přepsán: klik na Objevit → kolem produktu se vytvoří obdélník v barvě scény, který se plynule posune do pravé poloviny obrazovky (na mobilu horní pás); vlevo text na barvě webu (stone, tmavý ink). Celá animace = jen přesun + změna velikosti, bez záseků; Zpět animaci přehrává pozpátku.
 - Ovoce ~2× zvětšené (pár kusů ~44–52 vmin, jednotlivý meloun ~64 vmin), název posunutý níž (pb-[13vh]).
