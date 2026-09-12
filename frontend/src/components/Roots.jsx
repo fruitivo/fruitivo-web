@@ -17,28 +17,34 @@ export const Roots = () => (
       </motion.p>
 
       <h2 className="font-serif tracking-tight leading-[1.05] text-4xl sm:text-5xl lg:text-6xl max-w-3xl">
-        <span className="block overflow-hidden">
+        <motion.span
+          className="block overflow-hidden"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+        >
           <motion.span
-            initial={{ y: "110%" }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            variants={{ hidden: { y: "110%" }, show: { y: 0 } }}
             transition={{ duration: 0.9, ease: EASE }}
             className="block"
           >
             {ROOTS.title}
           </motion.span>
-        </span>
-        <span className="block overflow-hidden">
+        </motion.span>
+        <motion.span
+          className="block overflow-hidden"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+        >
           <motion.span
-            initial={{ y: "110%" }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            variants={{ hidden: { y: "110%" }, show: { y: 0 } }}
             transition={{ duration: 0.9, ease: EASE, delay: 0.12 }}
             className="block italic font-light text-ink/70 text-2xl sm:text-3xl lg:text-4xl mt-3"
           >
-            {ROOTS.subtitle}
+            {ROOTS.lead}
           </motion.span>
-        </span>
+        </motion.span>
       </h2>
 
       <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14">

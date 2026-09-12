@@ -11,33 +11,32 @@ const wrap = (i) => ((i % N) + N) % N;
 const inkOf = () => "#F5F3EC";
 
 // ── velikost a natočení kompozice na míru každému produktu ───────────────────
-// Kusy v kompozici jsou sobě podobné velikosti a tvoří jeden celek.
+// Dva kusy (celek + rozřezaný) v podobné velikosti jako pár, případně více kusů.
 // scale = velikost celé skupiny · rot = natočení · extra: false = jen jeden kus
-// extras = další kusy skupiny (více menších plodů vedle sebe)
 const LAYOUT = {
-  avocado: { scale: 1.24, rot: -6, extraRot: 16 },
-  kiwi: { scale: 1.12, rot: 7, extraRot: -12 },
+  avocado: { scale: 1.16, rot: -6, extraRot: 16 },
+  kiwi: { scale: 1.06, rot: 7, extraRot: -12 },
   lime: {
-    scale: 1.02, rot: -10, extraRot: 18,
-    extras: [{ art: "main", scale: 0.72, rot: 16, left: "-36%", top: "28%" }],
+    scale: 0.98, rot: -10, extraRot: 18,
+    extras: [{ art: "main", scale: 0.85, rot: 16, left: "-40%", top: "30%" }],
   },
-  pawpaw: { scale: 1.15, rot: 6, extraRot: -14 },
-  lemon: { scale: 1.1, rot: 8, extraRot: -16 },
-  banana: { scale: 1.28, rot: -12, extraRot: 20 },
-  passionfruit: { scale: 1.08, rot: -6, extraRot: 15 },
+  pawpaw: { scale: 1.1, rot: 6, extraRot: -14 },
+  lemon: { scale: 1.04, rot: 8, extraRot: -16 },
+  banana: { scale: 1.2, rot: -12, extraRot: 20 },
+  passionfruit: { scale: 1.04, rot: -6, extraRot: 15 },
   physalis: {
-    scale: 0.98, rot: -8, extra: false,
+    scale: 0.95, rot: -8, extra: false,
     extras: [
-      { art: "main", scale: 0.8, rot: 14, left: "-38%", top: "30%" },
-      { art: "extra", scale: 0.74, rot: -18, left: "70%", top: "40%" },
+      { art: "main", scale: 0.9, rot: 14, left: "-44%", top: "32%" },
+      { art: "extra", scale: 0.85, rot: -18, left: "74%", top: "42%" },
     ],
   },
-  mango: { scale: 1.2, rot: -9, extraRot: 13 },
-  papaya: { scale: 1.16, rot: 6, extraRot: -15 },
-  watermelon: { scale: 1.38, rot: 4, extra: false }, // jeden velký kus
-  pomegranate: { scale: 1.2, rot: -8, extraRot: 14 },
-  dragonfruit: { scale: 1.2, rot: -8, extraRot: 15 },
-  lychee: { scale: 1.06, rot: 9, extraRot: -18 },
+  mango: { scale: 1.14, rot: -9, extraRot: 13 },
+  papaya: { scale: 1.1, rot: 6, extraRot: -15 },
+  watermelon: { scale: 1.32, rot: 4, extra: false }, // jeden velký kus
+  pomegranate: { scale: 1.14, rot: -8, extraRot: 14 },
+  dragonfruit: { scale: 1.14, rot: -8, extraRot: 15 },
+  lychee: { scale: 1.02, rot: 9, extraRot: -18 },
 };
 
 // ── jedna scéna: produkt NAD názvem, pozadí řeší slider (plynulé přebarvení) ──
@@ -50,6 +49,7 @@ const Slide = ({ scene, smx, smy, hidden, instant }) => {
   const bx = useTransform(smx, (v) => v * 54);
   const by = useTransform(smy, (v) => v * 36);
   const t = instant ? { duration: 0 } : undefined;
+  const pieceClass = "h-auto w-[52vmin] max-w-[580px] sm:w-[46vmin] lg:w-[42vmin]";
 
   return (
     <section data-testid={`scene-${scene.id}`} className="relative h-full w-full overflow-hidden" style={{ color: ink }}>
@@ -61,7 +61,7 @@ const Slide = ({ scene, smx, smy, hidden, instant }) => {
       </motion.div>
 
       <div className="flex h-full flex-col items-center justify-center px-5">
-        {/* kompozice — skupina kusů podobné velikosti, společně škálovaná */}
+        {/* kompozice — pár kusů stejné velikosti (celek + rozřezaný) */}
         <motion.div
           initial={instant ? false : { opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -71,54 +71,51 @@ const Slide = ({ scene, smx, smy, hidden, instant }) => {
           <motion.div layoutId={`art-${scene.id}`} transition={{ duration: 0.6, ease: EASE }}>
             <motion.div style={{ x: ax, y: ay }}>
               <motion.div
-                style={{ scale: L.scale ?? 1.15 }}
+                style={{ scale: L.scale ?? 1.1 }}
                 animate={{ rotate: [rot - 3, rot + 3, rot - 3] }}
                 transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
               >
                 <div className="relative">
                   <motion.div animate={{ y: [0, -16, 0] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}>
-                    <ProductArt
-                      id={scene.id}
-                      className="h-auto w-[52vmin] max-w-[580px] sm:w-[46vmin] lg:w-[42vmin] drop-shadow-[0_36px_44px_rgba(0,0,0,0.2)]"
-                    />
+                    <ProductArt id={scene.id} className={`${pieceClass} drop-shadow-[0_36px_44px_rgba(0,0,0,0.2)]`} />
                   </motion.div>
 
-                  {/* druhý kus — podobná velikost, přimknutý ke skupině */}
+                  {/* druhý kus — stejná velikost, překrytý v páru */}
                   {L.extra !== false && (
                     <motion.div
                       initial={instant ? false : { opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={t || { duration: 0.6, delay: 0.2 }}
-                      className="absolute -bottom-[4%] -right-[26%]"
+                      className="absolute left-[62%] top-[14%]"
                       style={{ rotate: L.extraRot ?? 12 }}
                     >
                       <motion.div
-                        animate={{ y: [0, -10, 0] }}
+                        animate={{ y: [0, -12, 0] }}
                         transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
                       >
-                        <ExtraArt id={scene.id} className="h-auto w-[30vmin] max-w-[340px] sm:w-[27vmin] lg:w-[24vmin]" />
+                        <ExtraArt id={scene.id} className={`${pieceClass} drop-shadow-[0_24px_30px_rgba(0,0,0,0.16)]`} />
                       </motion.div>
                     </motion.div>
                   )}
 
-                  {/* další kusy skupiny (více plodů vedle sebe) */}
+                  {/* další kusy skupiny (více plodů vedle sebe, podobná velikost) */}
                   {(L.extras || []).map((e, i) => (
                     <motion.div
                       key={i}
                       className="absolute"
-                      style={{ left: e.left, top: e.top, rotate: e.rot }}
+                      style={{ left: e.left, top: e.top, rotate: e.rot, scale: e.scale }}
                       initial={instant ? false : { opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={t || { duration: 0.6, delay: 0.26 + i * 0.08 }}
                     >
                       <motion.div
-                        animate={{ y: [0, -9, 0] }}
+                        animate={{ y: [0, -10, 0] }}
                         transition={{ duration: 5 + i, repeat: Infinity, ease: "easeInOut", delay: 0.4 * i }}
                       >
                         {e.art === "main" ? (
-                          <ProductArt id={scene.id} className="h-auto w-[34vmin] max-w-[360px] sm:w-[30vmin] lg:w-[26vmin]" />
+                          <ProductArt id={scene.id} className="h-auto w-[44vmin] max-w-[460px] sm:w-[40vmin] lg:w-[36vmin]" />
                         ) : (
-                          <ExtraArt id={scene.id} className="h-auto w-[30vmin] max-w-[320px] sm:w-[27vmin] lg:w-[23vmin]" />
+                          <ExtraArt id={scene.id} className="h-auto w-[44vmin] max-w-[460px] sm:w-[40vmin] lg:w-[36vmin]" />
                         )}
                       </motion.div>
                     </motion.div>
@@ -151,6 +148,7 @@ const Slide = ({ scene, smx, smy, hidden, instant }) => {
 
 export const ProductSlider = () => {
   const [center, setCenter] = useState(0);
+  const [bgIndex, setBgIndex] = useState(0); // barva pozadí míří na cíl hned při startu posunu
   const [selected, setSelected] = useState(null);
   const centerRef = useRef(0);
   const pos = useMotionValue(0); // 0 = prostřední scéna; animace na ±1
@@ -184,6 +182,9 @@ export const ProductSlider = () => {
 
   const enqueue = (steps) => {
     pending.current.push(...steps);
+    // pozadí se začíná přebarvovat už v době posunu, ne až po doběhnutí
+    const total = steps.reduce((a, b) => a + b, 0);
+    if (total !== 0) setBgIndex(wrap(centerRef.current + total));
     run();
   };
 
@@ -240,12 +241,12 @@ export const ProductSlider = () => {
         my.set(e.clientY / window.innerHeight - 0.5);
       }}
     >
-      {/* pozadí zůstává stát — jen plynule proniká do barvy dalšího produktu */}
+      {/* pozadí zůstává stát a rychle, plynule proniká do barvy cílové scény */}
       <motion.div
         className="absolute inset-0"
         initial={{ backgroundColor: SCENES[0].sceneBg }}
-        animate={{ backgroundColor: active.sceneBg }}
-        transition={{ duration: 1.9, ease: "easeInOut" }}
+        animate={{ backgroundColor: SCENES[bgIndex].sceneBg }}
+        transition={{ duration: 1.0, ease: "easeInOut" }}
       />
 
       <motion.div style={{ x }} className="relative flex h-full w-full">
@@ -351,17 +352,17 @@ export const ProductSlider = () => {
                 </p>
               </motion.div>
 
-              {/* produkt vpravo — zachovaná parallaxa myší i natočení scény */}
+              {/* produkt vpravo — pár kusů, zachovaná parallaxa myši i natočení */}
               <div className="relative order-1 mx-auto w-full max-w-lg lg:order-2">
                 <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.6, ease: EASE }}>
-                  <motion.div style={{ x: dax, y: day, rotate: activeLayout.rot ?? 0, scale: (activeLayout.scale ?? 1.15) * 0.9 }}>
+                  <motion.div style={{ x: dax, y: day, rotate: activeLayout.rot ?? 0, scale: (activeLayout.scale ?? 1.1) * 0.85 }}>
                     <ProductArt id={selected.id} className="h-auto w-full" />
                   </motion.div>
                 </motion.div>
                 {activeLayout.extra !== false && (
                   <motion.div
                     style={{ x: dax, y: day, rotate: activeLayout.extraRot ?? 10 }}
-                    className="absolute -bottom-[4%] -right-[8%] w-3/5"
+                    className="absolute left-[62%] top-[14%] w-full"
                   >
                     <ExtraArt id={selected.id} className="h-auto w-full" />
                   </motion.div>

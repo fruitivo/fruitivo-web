@@ -188,12 +188,12 @@ export const categoryStartIndex = (categoryId) => SCENES.findIndex((s) => s.cate
 
 export const ROOTS = {
   title: "Náš příběh",
-  subtitle: "Filozofie návratu ke skutečným hodnotám půdy",
+  lead: "XXX vzniklo z jednoho přání — přivézt sem ovoce, které tu nikdy neroste, a udělat to poctivě.",
   chapters: [
-    { number: "01", title: "Obnova poškozené půdy", text: "Odbouráváme chemické zátěže desetiletí průmyslového zemědělství. Pomocí biouhlu, kompostu a krycích plodin vracíme do země mikrobiální život." },
-    { number: "02", title: "Život bez syntetiky", text: "Žádné syntetické pesticidy ani průmyslová hnojiva. Ochrana úrody probíhá přirozenou biologickou rovnováhou a podporou ptactva a užitečného hmyzu." },
-    { number: "03", title: "Trpělivost a čas", text: "Ovoce nespěchá. Dozrává na slunci až do plné biologické zralosti. Výsledkem je nesrovnatelně bohatší chuť, aroma i koncentrace živin." },
-    { number: "04", title: "Čistý řetězec", text: "Kontrolujeme celý řetězec od prvního semínka až po finální balení. Věříme v absolutní transparentnost a úctu k lidské práci." },
+    { number: "01", title: "Tam, kam patří", text: "Jezdíme za ním tam, kam patří. Do míst, kde slunce svítí skoro celý rok, ale kde má půda za sebou těžké roky — sucho, požáry, vyčerpanou zemi. Tyhle pozemky kupujeme a dáváme jim čas se zase nadechnout." },
+    { number: "02", title: "Neděláme to sami", text: "Učíme se od lidí, kteří tam žijí a starají se o zem odjakživa. Oni vědí, jak s půdou a rostlinami zacházet — my jim pomáháme s obnovou a časem, který to potřebuje." },
+    { number: "03", title: "Kousek jiného světa", text: "Když sad zase začne rodit, ovoce dovezeme domů. Chceme, aby si u nás lidé mohli vychutnat kousek jiného světa — takového, jaký doopravdy je, bez zbytečných oklik." },
+    { number: "04", title: "Zpátky k zemi a lidem", text: "A protože nám na těch místech záleží dál, část z každého prodeje se vrací zpátky tam, odkud ovoce přišlo — k zemi i k lidem, kteří nám s ní pomáhají." },
   ],
 };
 

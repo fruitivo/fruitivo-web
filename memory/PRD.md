@@ -14,6 +14,12 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 12. 9. 2026 — rychlejší přebarvení, pár kusů, příběh značky
+- Přebarvení pozadí zrychleno (1,0 s) a spouští se HNED při startu posunu produktu (cílová barva se nastavuje při zařazení kroku do fronty, ne po doběhnutí).
+- Druhý kus kompozice zvětšen na stejnou velikost jako hlavní (celek + rozřezaný kus jako překrytý pár); limetka a mochyně mají 3 kusy podobné velikosti.
+- Sekce Příběh naplněna skutečným příběhem značky: lead „XXX vzniklo z jednoho přání…" + 4 kapitoly (Tam, kam patří / Neděláme to sami / Kousek jiného světa / Zpátky k zemi a lidem).
+- Oprava: maskovaný reveal nadpisu Příběhu se nespouštěl (whileInView na potomkovi oříznutém overflow-hidden rodičem měl nulový intersection) — přepsáno na variant-based reveal (pozorování na rodiči, animace potomka).
+
 ### 12. 9. 2026 — barevné řazení, plynulé pozadí, flora
 - Produkty seřazeny podle odstínu barev do uzavřeného kruhu (avokádo → kiwi → limetka → asimina → citron → banán → marakuja → mochyně → mango → papája → vodní meloun → granátové jablko → dračí ovoce → liči → zpět na avokádo).
 - Pozadí odděleno od posuvníku: zůstává stát a 1,9 s plynule proniká do barvy další scény; do strany se posouvají jen produkty a názvy.
