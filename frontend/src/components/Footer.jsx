@@ -1,33 +1,33 @@
 import { FOOTER } from "../data/catalog";
 
 export const Footer = () => (
-  <footer id="kontakt" data-testid="footer-section" className="relative bg-ink text-stone grain px-5 sm:px-10 pt-24 sm:pt-32 pb-10 overflow-hidden">
-    <div className="max-w-6xl mx-auto relative z-10">
-      <p className="text-[11px] tracking-[0.35em] uppercase font-semibold text-stone/50 mb-6">05 · Kontakt</p>
+  <footer id="kontakt" data-testid="footer-section" className="grain relative overflow-hidden bg-ink px-5 pb-10 pt-24 text-stone sm:px-10 sm:pt-32">
+    <div className="relative z-10 mx-auto max-w-6xl">
+      <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.35em] text-stone/50">05 · Kontakt</p>
 
-      <h2 className="font-serif tracking-tight leading-[1.05] text-4xl sm:text-6xl lg:text-7xl max-w-3xl mb-20">
+      <h2 className="mb-20 max-w-3xl font-serif text-4xl leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
         {FOOTER.statement.split("živé zemi.")[0]}
         <em className="font-light">živé zemi.</em>
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 border-t border-stone/15 pt-12 mb-20">
+      <div className="mb-20 grid grid-cols-1 gap-12 border-t border-stone/15 pt-12 sm:grid-cols-3">
         <div>
-          <p className="text-[10px] tracking-[0.3em] uppercase text-stone/40 mb-4">Napište nám</p>
+          <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-stone/40">Napište nám</p>
           <a
             data-testid="footer-email-link"
             href={`mailto:${FOOTER.email}`}
-            className="font-serif text-xl sm:text-2xl underline-offset-4 hover:italic hover:underline transition-all"
+            className="font-serif text-xl underline-offset-4 transition-all hover:italic hover:underline sm:text-2xl"
           >
             {FOOTER.email}
           </a>
           <p className="mt-3 text-sm text-stone/60">{FOOTER.phone}</p>
         </div>
         <div>
-          <p className="text-[10px] tracking-[0.3em] uppercase text-stone/40 mb-4">Sídlo</p>
+          <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-stone/40">Sídlo</p>
           <p className="text-sm leading-relaxed text-stone/70">{FOOTER.address}</p>
         </div>
         <div>
-          <p className="text-[10px] tracking-[0.3em] uppercase text-stone/40 mb-4">Sledujte nás</p>
+          <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-stone/40">Sledujte nás</p>
           {/* TODO(SOCIAL): doplnit reálné odkazy na sociální sítě */}
           <ul className="space-y-2">
             {FOOTER.socials.map((s) => (
@@ -35,7 +35,7 @@ export const Footer = () => (
                 <a
                   data-testid={`footer-social-${s.toLowerCase()}`}
                   href="#kontakt"
-                  className="text-sm text-stone/70 hover:text-stone hover:italic transition-all"
+                  className="text-sm text-stone/70 transition-all hover:italic hover:text-stone"
                 >
                   {s} ↗
                 </a>
@@ -47,12 +47,12 @@ export const Footer = () => (
 
       <p
         aria-hidden
-        className="font-serif text-outline-stone text-[18vw] leading-[0.8] text-center select-none pointer-events-none -mb-4"
+        className="text-outline-stone pointer-events-none -mb-4 select-none text-center font-display lowercase leading-[0.8] text-[24vw]"
       >
-        KOŘENY
+        xxx
       </p>
 
-      <div className="border-t border-stone/15 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-[11px] tracking-[0.15em] uppercase text-stone/40">
+      <div className="flex flex-col justify-between gap-3 border-t border-stone/15 pt-6 text-[11px] uppercase tracking-[0.15em] text-stone/40 sm:flex-row">
         <span>{FOOTER.copyright}</span>
         <span>Obnovená půda · Čisté ovoce</span>
       </div>

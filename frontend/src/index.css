@@ -110,3 +110,7 @@ html.lenis, html.lenis body { height: auto; }
     -webkit-text-stroke: 1px rgba(238, 235, 225, 0.3);
     color: transparent;
 }
+
+/* Skrytý scrollbar přepínače produktů */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

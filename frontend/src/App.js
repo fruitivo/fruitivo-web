@@ -3,11 +3,10 @@ import Lenis from "lenis";
 import "@/App.css";
 import { ScrollContext } from "./scrollContext";
 import { Navigation } from "./components/Navigation";
-import { Hero } from "./components/Hero";
+import { ProductSlider } from "./components/ProductSlider";
 import { Marquee } from "./components/Marquee";
 import { Roots } from "./components/Roots";
 import { Orchards } from "./components/Orchards";
-import { ProductCatalog } from "./components/ProductCatalog";
 import { Journal } from "./components/Journal";
 import { Footer } from "./components/Footer";
 import { AmbientAudio } from "./components/AmbientAudio";
@@ -26,11 +25,10 @@ function App() {
       <div className="App bg-stone text-ink">
         <Navigation />
         <main>
-          <Hero />
+          <ProductSlider />
           <Marquee />
           <Roots />
           <Orchards />
-          <ProductCatalog />
           <Journal />
         </main>
         <Footer />

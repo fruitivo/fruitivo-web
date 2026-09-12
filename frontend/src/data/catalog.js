@@ -27,7 +27,7 @@ export const HERO = {
 };
 
 export const MARQUEE_TEXT =
-  "OBNOVA POŠKOZENÉ PŮDY • ČISTÉ BIO OVOCE • OD BOBU KE TABULCE • NÁVRAT KE KOŘENŮM • BEZ CHEMIE • POCTIVÉ ZEMĚDĚLSTVÍ • ";
+  "OBNOVA POŠKOZENÉ PŮDY • ČISTÉ BIO OVOCE • OD BOBU KE TABULCE • ŽIVÁ PŮDA • PLNÁ CHUŤ • BEZ CHEMIE • POCTIVÉ ZEMĚDĚLSTVÍ • ";
 
 // sceneBg = plochá barva scény produktu · sceneInk = 'dark' | 'light' (barva textu scény)
 export const CATEGORIES = [
@@ -225,7 +225,7 @@ export const sceneIndexOf = (productId) => SCENES.findIndex((s) => s.id === prod
 export const categoryStartIndex = (categoryId) => SCENES.findIndex((s) => s.categoryId === categoryId);
 
 export const ROOTS = {
-  title: "Naše kořeny",
+  title: "Náš příběh",
   subtitle: "Filozofie návratu ke skutečným hodnotám půdy",
   chapters: [
     { number: "01", title: "Obnova poškozené půdy", text: "Odbouráváme chemické zátěže desetiletí průmyslového zemědělství. Pomocí biouhlu, kompostu a krycích plodin vracíme do země mikrobiální život." },
@@ -258,9 +258,9 @@ export const JOURNAL = {
 
 export const FOOTER = {
   statement: "Pěstujeme na živé zemi.",
-  email: "info@koreny-ovoce.cz",
+  email: "info@xxx.cz",
   phone: "+420 800 567 369",
   address: "Sadařská 108, 412 01 Litoměřice",
   socials: ["Instagram", "LinkedIn", "Pinterest"],
-  copyright: "© 2026 KOŘENY. Všechna práva vyhrazena.",
+  copyright: "© 2026 xxx. Všechna práva vyhrazena.",
 };

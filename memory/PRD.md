@@ -13,20 +13,20 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 ## Uživatelé
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
-## Implementováno (10. 9. 2026)
-- Filmový full-viewport hero: fotka pole + animovaná světelná vrstva, obří odhalované KOŘENY, statement, CTA, scroll cue, parallax.
-- Fixní číslovaná navigace 01–05 + fullscreen overlay menu s velkou typografií a odkazy na kategorie.
-- 17 produktových scén v 5 kategoriích — každá s vlastní plochou barvou pozadí, obřím slovem, plovoucí stylizovanou kompozicí produktu, satelitními prvky, počítadlem scény, tečkovým průběhem, drag interakcí.
-- Detail produktu s mask-reveal (circle clip-path), chuťové poznámky, půda, TODO poznámka k assetu.
-- Propojený pár Kakaové boby ↔ Čokoláda s kousky ovoce („od bobu ke tabulce").
-- Sekce Příběh (kapitoly manifestu), Sady (placeholder interaktivní mapy s piny), Žurnál, patička s kontaktem.
-- Generativní ambientní zvuk (vítr + ptactvo) — toggle vpravo dole, defaultně vypnutý.
-- Responsivita (mobil/tablet/desktop), lazy-loading obrázků.
+## Implementováno
+### 12. 9. 2026 — přestavba dle zpětné vazby
+- Název značky zatím odstraněn → placeholder „xxx" (navigace, overlay menu, patička, titulek stránky, e-mail).
+- Produkty jsou nyní PRVNÍ obsah stránky: pevný full-viewport slider místo scroll-driven scén. Automatické přepínání po 3 s (posuv do boku), pauza při najetí myší / otevřeném detailu, ruční přepínání řadou názvů produktů dole + šipkami; normální scroll stránky pod sliderem zůstává volný.
+- Nové rozložení scény: vlevo kompozice více kusů produktu (celek + půlka/kousek, vlastní SVG ilustrace, parallaxa kurzorem, idle plování), vpravo obří název, latinský název, popis, chuťové poznámky, tlačítko detailu.
+- Barva textu navigace se přizpůsobuje aktivní scéně (CSS proměnná --nav-ink).
+- Odstraněn hero s polem a původní horizontální scroll-svět; zachováno: marquee, Příběh, Sady (TODO mapa), Žurnál, patička, ambientní zvuk, overlay menu, detail produktu s mask-reveal, pár kakao ↔ čokoláda.
+
+### 10. 9. 2026 — první verze
+- Filmový hero, číslovaná navigace, horizontální produktové scény řízené scrollem, manifest, sady, žurnál, patička, generativní ambientní zvuk.
 
 ## Ověřeno
-- Screenshoty: hero, scény (mango, dračí ovoce, kakao, čokoláda), detail overlay, overlay menu, mobilní hero/scéna/menu.
-- Skok z kakaa na čokoládu přes „od bobu ke tabulce" funguje.
-- Konzole bez chyb (po opravě fetchPriority).
+- Screenshoty: slider nahoře (auto-přepnutí mango → papája → liči), ruční přepnutí na vodní meloun a kakao, skok „od bobu ke tabulce" na čokoládu (17/17), volný scroll do sekcí pod sliderem, mobilní zobrazení, overlay menu.
+- Konzole bez chyb.
 
 ## Zbývá / backlog
 - P0: Reálné produktové assety (foto cut-outy, 360° spin nebo .glb) místо TODO ilustrací; skutečný intro film místo statické fotky.

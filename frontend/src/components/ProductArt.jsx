@@ -244,3 +244,179 @@ export const ProductArt = ({ id, className }) => (
     {ART[id] || null}
   </svg>
 );
+
+// ── doplňkový kus kompozice (půlka / celek / kousek) pro druhou vrstvu scény ──
+const EXTRA = {
+  mango: (
+    <>
+      <ellipse cx="200" cy="210" rx="105" ry="76" fill="#D96F1A" />
+      <ellipse cx="200" cy="202" rx="90" ry="63" fill="#F5A94E" />
+      {[168, 200, 232].map((x) => (
+        <path key={x} d={`M${x} 148 C ${x - 8} 202 ${x - 8} 202 ${x} 258`} stroke="#E8933C" strokeWidth="5" fill="none" />
+      ))}
+      {[176, 228].map((y) => (
+        <path key={y} d={`M118 ${y} C 200 ${y + 14} 200 ${y + 14} 282 ${y}`} stroke="#E8933C" strokeWidth="5" fill="none" />
+      ))}
+    </>
+  ),
+  papaya: (
+    <>
+      <ellipse cx="200" cy="215" rx="74" ry="108" fill="#6E8A3E" />
+      <path d="M200 107 C246 118 274 162 274 215 C274 268 246 312 200 323 C226 280 226 150 200 107 Z" fill="#8FA04C" />
+      <ellipse cx="178" cy="168" rx="16" ry="34" fill="#A9B85C" opacity="0.8" transform="rotate(-12 178 168)" />
+      <rect x="194" y="96" width="12" height="24" rx="6" fill="#5E7A38" />
+    </>
+  ),
+  dragonfruit: (
+    <>
+      <circle cx="200" cy="205" r="96" fill="#C22E63" />
+      <circle cx="200" cy="205" r="78" fill="#F7F4EE" />
+      {[[176, 180], [214, 172], [240, 200], [166, 222], [200, 232], [228, 238], [186, 204], [216, 210]].map(([cx, cy]) => (
+        <circle key={`${cx}${cy}`} cx={cx} cy={cy} r="4" fill="#2B2420" />
+      ))}
+      <path d="M254 138 L286 112 L270 156 Z" fill="#7BAE3F" />
+      <path d="M146 142 L116 118 L130 160 Z" fill="#7BAE3F" />
+    </>
+  ),
+  lychee: (
+    <>
+      <path d="M200 96 C196 130 190 150 176 168" stroke="#6E5236" strokeWidth="7" fill="none" strokeLinecap="round" />
+      <Leaf x={202} y={96} r={-20} fill="#4E7A3C" />
+      <circle cx="164" cy="212" r="62" fill="#D94F57" />
+      <circle cx="246" cy="236" r="54" fill="#B83848" />
+      {[[150, 196], [178, 222], [238, 222], [256, 248]].map(([cx, cy]) => (
+        <circle key={`${cx}${cy}`} cx={cx} cy={cy} r="3.5" fill="#8E2837" />
+      ))}
+    </>
+  ),
+  passionfruit: (
+    <>
+      <circle cx="200" cy="205" r="90" fill="#4A2450" />
+      <circle cx="200" cy="205" r="72" fill="#F2C230" />
+      {[[178, 186], [212, 178], [234, 204], [172, 224], [204, 226], [222, 212]].map(([cx, cy]) => (
+        <circle key={`${cx}${cy}`} cx={cx} cy={cy} r="6" fill="#3B2A1E" />
+      ))}
+      <ellipse cx="176" cy="180" rx="18" ry="12" fill="#F7DC7A" opacity="0.8" />
+    </>
+  ),
+  lime: (
+    <>
+      <circle cx="200" cy="205" r="92" fill="#5E8C33" />
+      <circle cx="200" cy="205" r="76" fill="#DCE8B8" />
+      <circle cx="200" cy="205" r="62" fill="#A8CC55" />
+      {Array.from({ length: 8 }).map((_, i) => {
+        const a = (i / 8) * Math.PI * 2;
+        return <line key={i} x1="200" y1="205" x2={200 + Math.cos(a) * 60} y2={205 + Math.sin(a) * 60} stroke="#DCE8B8" strokeWidth="6" />;
+      })}
+      <circle cx="200" cy="205" r="8" fill="#DCE8B8" />
+    </>
+  ),
+  lemon: (
+    <>
+      <circle cx="200" cy="205" r="92" fill="#D9B22E" />
+      <circle cx="200" cy="205" r="76" fill="#F7EFC0" />
+      <circle cx="200" cy="205" r="62" fill="#F2D23C" />
+      {Array.from({ length: 8 }).map((_, i) => {
+        const a = (i / 8) * Math.PI * 2;
+        return <line key={i} x1="200" y1="205" x2={200 + Math.cos(a) * 60} y2={205 + Math.sin(a) * 60} stroke="#F7EFC0" strokeWidth="6" />;
+      })}
+      <circle cx="200" cy="205" r="8" fill="#F7EFC0" />
+    </>
+  ),
+  physalis: (
+    <>
+      <circle cx="200" cy="215" r="72" fill="#D96F1A" />
+      <path d="M200 143 A72 72 0 0 1 272 215 C 250 260 190 285 152 262 C 136 220 160 160 200 143 Z" fill="#E8912D" />
+      <ellipse cx="172" cy="188" rx="18" ry="12" fill="#F5B25C" opacity="0.9" />
+      <path d="M200 143 C204 122 216 112 232 110" stroke="#7C9A4E" strokeWidth="6" fill="none" strokeLinecap="round" />
+    </>
+  ),
+  pawpaw: (
+    <>
+      <ellipse cx="200" cy="210" rx="96" ry="72" fill="#7E8F42" />
+      <ellipse cx="200" cy="204" rx="80" ry="58" fill="#E8E3B8" />
+      {[[172, 198], [200, 206], [228, 198], [186, 226], [214, 226]].map(([cx, cy]) => (
+        <ellipse key={`${cx}${cy}`} cx={cx} cy={cy} rx="9" ry="13" fill="#4A3B28" />
+      ))}
+    </>
+  ),
+  pomegranate: (
+    <>
+      <circle cx="200" cy="205" r="94" fill="#8E2424" />
+      <circle cx="200" cy="205" r="78" fill="#E8A0A0" />
+      {[[170, 176], [204, 168], [236, 182], [162, 214], [198, 208], [234, 216], [176, 246], [210, 244]].map(([cx, cy]) => (
+        <circle key={`${cx}${cy}`} cx={cx} cy={cy} r="8" fill="#A82828" />
+      ))}
+    </>
+  ),
+  kiwi: (
+    <>
+      <ellipse cx="200" cy="210" rx="76" ry="96" fill="#6E5236" />
+      <ellipse cx="200" cy="204" rx="70" ry="90" fill="#8A6B4A" />
+      <ellipse cx="180" cy="168" rx="16" ry="28" fill="#A3845E" opacity="0.8" transform="rotate(-16 180 168)" />
+    </>
+  ),
+  avocado: (
+    <>
+      <path d="M200 100 C234 100 246 134 246 160 C246 176 260 190 260 230 C260 282 234 314 200 314 C166 314 140 282 140 230 C140 190 154 176 154 160 C154 134 166 100 200 100 Z" fill="#33582B" />
+      <path d="M200 112 C226 112 236 140 236 164 C236 180 248 194 248 230 C248 274 226 302 200 302 C196 302 192 301 188 300 C214 260 218 160 200 112 Z" fill="#3F6B34" />
+      <rect x="194" y="88" width="12" height="20" rx="6" fill="#5E7A38" />
+    </>
+  ),
+  banana: (
+    <>
+      <path d="M120 160 C136 240 210 290 290 280 C300 278 303 265 293 260 C226 254 172 222 148 152 C144 142 118 146 120 160 Z" fill="#F2D23C" />
+      <path d="M148 160 C170 220 230 254 286 260" stroke="#E8C84C" strokeWidth="8" fill="none" strokeLinecap="round" />
+      <path d="M120 156 L113 138 L131 147 Z" fill="#6E5236" />
+    </>
+  ),
+  watermelon: (
+    <>
+      <path d="M120 140 L200 300 L280 140 Z" fill="#33582B" />
+      <path d="M132 148 L200 284 L268 148 Z" fill="#DCE1C9" />
+      <path d="M144 156 L200 268 L256 156 Z" fill="#E05252" />
+      {[[180, 190], [220, 190], [200, 224]].map(([cx, cy]) => (
+        <ellipse key={`${cx}${cy}`} cx={cx} cy={cy} rx="5" ry="8" fill="#2B1710" />
+      ))}
+    </>
+  ),
+  smoothie: (
+    <>
+      {[[170, 190], [232, 182], [200, 246]].map(([cx, cy]) => (
+        <g key={`${cx}${cy}`}>
+          <circle cx={cx} cy={cy} r="42" fill="#BE4A6C" />
+          {[[-14, -10], [10, -14], [0, 6], [-12, 14], [16, 10]].map(([dx, dy]) => (
+            <circle key={`${dx}${dy}`} cx={cx + dx} cy={cy + dy} r="6" fill="#E88AA5" opacity="0.85" />
+          ))}
+        </g>
+      ))}
+      <Leaf x={196} y={140} r={-30} fill="#4E7A3C" />
+    </>
+  ),
+  cocoa: (
+    <>
+      {[[160, 200, -14], [226, 182, 10], [200, 244, 4], [258, 232, 24], [142, 246, -30]].map(([cx, cy, r]) => (
+        <ellipse key={`${cx}${cy}`} cx={cx} cy={cy} rx="34" ry="22" fill="#5C3A21" transform={`rotate(${r} ${cx} ${cy})`} />
+      ))}
+      <ellipse cx="156" cy="194" rx="20" ry="12" fill="#7A5138" transform="rotate(-14 156 194)" />
+      <ellipse cx="224" cy="176" rx="18" ry="11" fill="#7A5138" transform="rotate(10 224 176)" />
+    </>
+  ),
+  chocolate: (
+    <>
+      <g transform="rotate(-10 200 200)">
+        <rect x="140" y="140" width="120" height="120" rx="12" fill="#3B2417" />
+        <rect x="152" y="152" width="96" height="96" rx="8" fill="#4A2E20" />
+        <circle cx="200" cy="200" r="9" fill="#D94F7A" />
+        <circle cx="176" cy="224" r="7" fill="#F28C28" />
+      </g>
+    </>
+  ),
+};
+
+export const ExtraArt = ({ id, className }) => (
+  <svg viewBox="0 0 400 400" className={className} role="img" aria-label={`${id} — doplněk`}>
+    <ellipse cx="200" cy="316" rx="92" ry="13" fill="rgba(0,0,0,0.12)" />
+    {EXTRA[id] || null}
+  </svg>
+);
