@@ -14,6 +14,11 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 12. 9. 2026 — panelový detail, dvojnásobné ovoce, rozptýlená flora
+- Detail produktu přepsán: klik na Objevit → kolem produktu se vytvoří obdélník v barvě scény, který se plynule posune do pravé poloviny obrazovky (na mobilu horní pás); vlevo text na barvě webu (stone, tmavý ink). Celá animace = jen přesun + změna velikosti, bez záseků; Zpět animaci přehrává pozpátku.
+- Ovoce ~2× zvětšené (pár kusů ~44–52 vmin, jednotlivý meloun ~64 vmin), název posunutý níž (pb-[13vh]).
+- Flora: 5 různých pozic (FLORA_SPOTS), každá scéna dostane 3 z nich posunuté dle indexu → různé rozmístění po obrazovce.
+
 ### 12. 9. 2026 — vycentrování, botanické prvky, nové mango
 - Kompozice vycentrovány: kusy stojí vedle sebe v překryté řadě (stejná/podobná velikost), skupina jako celek uprostřed scény; meloun zůstává jediný velký kus, limetka a mochyně mají kusy tři.
 - Každý druh má vlastní botanický prvek jako nenápadnou lineární kresbu v pozadí (ProductFlora v ProductArt.jsx): mango lata květů, papája hvězdicový květ, dračí ovoce noční květ, liči trs květů + list, marakuja květ s korunkou, limetka/citron pětiplátečné květy s větví, mochyně lampionek, asimina vínový zvonek, granátové jablko trubkovitý květ, kiwi srdčitý list, avokádo lesklý list, banán květní srdce, meloun květ + členěný list. Generické květy v pozadí odstraněny. Flora je i v detailu produktu.
