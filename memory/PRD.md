@@ -14,6 +14,9 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 12. 9. 2026 — zjemnění luxusního stínu (hlavní slider)
+- Na základě zpětné vazby uživatele zjemněna vinětace hlavního slideru: ztemnění okrajů radial gradientu z rgba(33,30,27,0.38) na 0.25. Detailní panel po kliknutí na „Více" zůstává beze změny (0.30). Plochá vrstva ink/25 zachována. Uživatel potvrdil, že stín jinak vyhovuje — TEST stává se trvalou součástí.
+
 ### 12. 9. 2026 — TEST: luxusní stín přes barvy
 - Přes barvy scén přidán tlumící „luxusní plášť": ink/25 vrstva + jemná vinětace (radial gradient k okrajům), stejný stín i v panelu detailu (ink/20). Označeno komentářem TEST v ProductSlider.jsx — pro návrat stačí odstranit příslušné div elementy.
 

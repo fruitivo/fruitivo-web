@@ -273,7 +273,7 @@ export const ProductSlider = () => {
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
-        style={{ background: "radial-gradient(120% 90% at 50% 38%, transparent 42%, rgba(33,30,27,0.38) 100%)" }}
+        style={{ background: "radial-gradient(120% 90% at 50% 38%, transparent 42%, rgba(33,30,27,0.25) 100%)" }}
       />
 
       <motion.div style={{ x }} className="relative flex h-full w-full">
