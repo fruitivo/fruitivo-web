@@ -13,7 +13,6 @@ const INK = "#211E1B";
 const inkOf = () => "#F5F3EC";
 
 // ── velikost a natočení kompozice na míru každému produktu ───────────────────
-// Vždy dva RŮZNÉ kusy (celek + rozřezaná půlka), meloun jediný velký kus.
 const LAYOUT = {
   avocado: { scale: 1.16, rot: -6, extraRot: 16 },
   kiwi: { scale: 1.1, rot: 7, extraRot: -12 },
@@ -22,10 +21,10 @@ const LAYOUT = {
   lemon: { scale: 1.06, rot: 8, extraRot: -16 },
   banana: { scale: 1.18, rot: -12, extraRot: 20 },
   passionfruit: { scale: 1.06, rot: -6, extraRot: 15 },
-  physalis: { scale: 1.0, rot: -8, extraRot: -16 }, // lampionek + volná kulatá plodina
+  physalis: { scale: 1.0, rot: -8, extraRot: -16 },
   mango: { scale: 1.14, rot: -9, extraRot: 13 },
   papaya: { scale: 1.12, rot: 6, extraRot: -15 },
-  watermelon: { scale: 1.12, rot: 4, extra: false }, // jeden velký kus
+  watermelon: { scale: 1.12, rot: 4, extra: false },
   pomegranate: { scale: 1.14, rot: -8, extraRot: 14 },
   dragonfruit: { scale: 1.14, rot: -8, extraRot: 15 },
   lychee: { scale: 1.04, rot: 9, extraRot: -18 },
@@ -33,11 +32,11 @@ const LAYOUT = {
 
 // různé pozice flóry — každá scéna dostane jiné rozmístění (posun dle indexu)
 const FLORA_SPOTS = [
-  { style: { left: "3%", top: "8%" }, size: "w-[24vmin]", opacity: 0.4, flip: false, dur: 16 },
-  { style: { right: "4%", bottom: "22%" }, size: "w-[17vmin]", opacity: 0.3, flip: true, dur: 19 },
-  { style: { left: "11%", bottom: "16%" }, size: "w-[12vmin]", opacity: 0.26, flip: true, dur: 14 },
-  { style: { right: "15%", top: "5%" }, size: "w-[13vmin]", opacity: 0.34, flip: false, dur: 21 },
-  { style: { left: "38%", top: "4%" }, size: "w-[10vmin]", opacity: 0.22, flip: true, dur: 17 },
+  { style: { left: "3%", top: "8%" }, size: "w-[26vmin]", opacity: 0.5, flip: false, dur: 16 },
+  { style: { right: "4%", bottom: "24%" }, size: "w-[19vmin]", opacity: 0.4, flip: true, dur: 19 },
+  { style: { left: "11%", bottom: "18%" }, size: "w-[14vmin]", opacity: 0.36, flip: true, dur: 14 },
+  { style: { right: "15%", top: "5%" }, size: "w-[15vmin]", opacity: 0.44, flip: false, dur: 21 },
+  { style: { left: "38%", top: "3%" }, size: "w-[11vmin]", opacity: 0.3, flip: true, dur: 17 },
 ];
 
 // ── jedna scéna: velký produkt, název nízko, pozadí řeší slider ───────────────
@@ -59,7 +58,8 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
       : "w-[62vmin] sm:w-[56vmin] lg:w-[47vmin] max-w-[640px]";
   const lift = ["0%", "9%"];
 
-  const spots = [0, 1, 2].map((k) => FLORA_SPOTS[(idx + k) % FLORA_SPOTS.length]);
+  // 4 prvky flóry, rozmístění se scéna od scény posouvá
+  const spots = [0, 1, 2, 3].map((k) => FLORA_SPOTS[(idx + k) % FLORA_SPOTS.length]);
 
   return (
     <section data-testid={`scene-${scene.id}`} className="relative h-full w-full overflow-hidden" style={{ color: ink }}>
@@ -146,60 +146,74 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
 export const ProductSlider = () => {
   const [center, setCenter] = useState(0);
   const [bgIndex, setBgIndex] = useState(0); // barva pozadí míří na cíl hned při startu posunu
+  const [range, setRange] = useState([-1, 1]); // okno vykreslených scén (rozšíří se při průletu)
   const [selected, setSelected] = useState(null);
   const centerRef = useRef(0);
-  const pos = useMotionValue(0); // 0 = prostřední scéna; animace na ±1
-  const pending = useRef([]);
-  const running = useRef(false);
+  const pos = useMotionValue(0); // pozice vůči středu (ve scénách)
+  const busyRef = useRef(false);
+  const jumpRef = useRef(null);
   const firstDone = useRef(false);
 
   useEffect(() => {
     firstDone.current = true;
   }, []);
 
-  // souvislý nekonečný pás: viditelné jsou vždy 3 sousední scény → žádné bílé pásy
-  const x = useTransform(pos, (v) => `${-(v + 1) * 100}%`);
-  const order = [wrap(center - 1), center, wrap(center + 1)];
+  // souvislý nekonečný pás — pozice 0 zobrazuje střed okna
+  const x = useTransform(pos, (v) => `${-(v - range[0]) * 100}%`);
+  const offsets = [];
+  for (let o = range[0]; o <= range[1]; o++) offsets.push(o);
 
-  const run = async () => {
-    if (running.current) return;
-    running.current = true;
-    while (pending.current.length) {
-      const d = pending.current.shift();
-      const fast = pending.current.length > 0;
-      await animate(pos, d, { duration: fast ? 0.55 : 1.15, ease: EASE }).finished;
-      const nc = wrap(centerRef.current + d);
-      centerRef.current = nc;
-      setCenter(nc);
-      pos.set(0);
+  const settle = (nc) => {
+    centerRef.current = nc;
+    setCenter(nc);
+    pos.set(0);
+    setRange([-1, 1]);
+  };
+
+  const afterMove = () => {
+    busyRef.current = false;
+    if (jumpRef.current != null && wrap(jumpRef.current - centerRef.current) !== 0) {
+      const t = jumpRef.current;
+      jumpRef.current = null;
+      jump(t);
     }
-    running.current = false;
   };
 
-  const enqueue = (steps) => {
-    pending.current.push(...steps);
-    // pozadí se začíná přebarvovat už v době posunu, ne až po doběhnutí
-    const total = steps.reduce((a, b) => a + b, 0);
-    if (total !== 0) setBgIndex(wrap(centerRef.current + total));
-    run();
+  // autoplay — jednotlivý krok
+  const step = async () => {
+    if (busyRef.current) return;
+    busyRef.current = true;
+    setBgIndex(wrap(centerRef.current + 1));
+    await animate(pos, 1, { duration: 1.15, ease: EASE }).finished;
+    settle(wrap(centerRef.current + 1));
+    afterMove();
   };
 
-  // ruční výběr: projede mezilehlé produkty a zastaví se na cíli
-  const go = (target) => {
+  // ruční výběr — JEDEN plynulý průlet přes mezilehlé scény, bez zastavování
+  const jump = async (target) => {
+    if (busyRef.current) {
+      jumpRef.current = target;
+      return;
+    }
     const delta = wrap(target - centerRef.current);
     const fwd = delta;
     const back = N - delta;
     if (fwd === 0) return;
-    pending.current = [];
-    enqueue(fwd <= back ? Array(fwd).fill(1) : Array(back).fill(-1));
+    const d = fwd <= back ? fwd : -back;
+    busyRef.current = true;
+    setBgIndex(wrap(centerRef.current + d)); // barva pozadí se plynule přelije sama
+    setRange([Math.min(-1, d - 1), Math.max(1, d + 1)]);
+    await animate(pos, d, { duration: 0.45 + Math.abs(d) * 0.3, ease: "easeInOut" }).finished;
+    settle(wrap(centerRef.current + d));
+    afterMove();
   };
+
+  const go = (target) => jump(target);
 
   // automatické přepínání po 3 s — jede pořád dokola, bez pauzy při najetí myší
   useEffect(() => {
     if (selected) return;
-    const t = setTimeout(() => {
-      if (!running.current && pending.current.length === 0) enqueue([1]);
-    }, 3000);
+    const t = setTimeout(() => step(), 3000);
     return () => clearTimeout(t);
   }, [center, selected]);
 
@@ -255,22 +269,34 @@ export const ProductSlider = () => {
       />
 
       <motion.div style={{ x }} className="relative flex h-full w-full">
-        {order.map((i) => (
-          <div key={SCENES[i].id} className="h-full w-full shrink-0">
-            <Slide scene={SCENES[i]} idx={i} smx={smx} smy={smy} hidden={!!selected && i === center} instant={firstDone.current} />
-          </div>
-        ))}
+        {offsets.map((o) => {
+          const i = wrap(center + o);
+          return (
+            <div key={SCENES[i].id} className="h-full w-full shrink-0">
+              <Slide scene={SCENES[i]} idx={i} smx={smx} smy={smy} hidden={!!selected && i === center} instant={firstDone.current} />
+            </div>
+          );
+        })}
       </motion.div>
 
-      {/* tlačítko Objevit — vpravo, nad roletkou, pod názvem */}
+      {/* tlačítko Objevit — větší, blíž středu, s oválným okrajem */}
       <button
         data-testid={`product-detail-open-${active.id}`}
         onClick={() => setSelected(active)}
-        className="group absolute bottom-[17vh] right-5 z-20 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] opacity-80 transition-opacity hover:opacity-100"
+        className="group absolute bottom-[19vh] right-[10%] z-20 flex items-center gap-2.5 px-10 py-5 text-sm font-semibold uppercase tracking-[0.35em] transition-transform duration-500 hover:scale-105 sm:right-[15%]"
         style={{ color: ink }}
       >
-        Objevit
-        <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+        <span
+          aria-hidden
+          className="absolute left-1/2 top-1/2 h-[230%] w-[155%] -translate-x-1/2 -translate-y-1/2 rounded-[100%] border transition-[transform,border-color] duration-700 ease-out group-hover:rotate-[28deg] group-hover:scale-110"
+          style={{ borderColor: `${ink}70` }}
+        />
+        <span
+          aria-hidden
+          className="absolute left-1/2 top-1/2 h-[230%] w-[155%] -translate-x-1/2 -translate-y-1/2 rounded-[100%] bg-current opacity-0 transition-opacity duration-500 group-hover:opacity-10"
+        />
+        <span className="relative">Objevit</span>
+        <ArrowRight size={17} className="relative transition-transform duration-500 group-hover:translate-x-1.5" />
       </button>
 
       {/* roletka produktů s časovačem */}
@@ -302,7 +328,7 @@ export const ProductSlider = () => {
         </div>
       </div>
 
-      {/* detail: plovoucí barevný obdélník s produktem vpravo, text vlevo na barvě webu */}
+      {/* detail: plovoucí barevný obdélník s vycentrovaným ovocem, text vlevo na barvě webu */}
       <AnimatePresence>
         {selected && (
           <motion.div
@@ -323,24 +349,15 @@ export const ProductSlider = () => {
               className="absolute overflow-hidden"
               style={{ backgroundColor: selected.sceneBg }}
             >
-              <ProductFlora
-                id={selected.id}
-                ink={inkOf()}
-                className="pointer-events-none absolute -right-10 -top-8 h-auto w-[30vmin] opacity-25"
-              />
-              <ProductFlora
-                id={selected.id}
-                ink={inkOf()}
-                className="pointer-events-none absolute -bottom-10 left-6 h-auto w-[20vmin] -scale-x-100 opacity-20"
-              />
-
               <div className="flex h-full items-center justify-center">
-                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.65, ease: EASE }} className="relative">
-                  <motion.div style={{ x: dax, y: day, rotate: selLayout.rot ?? 0 }} className="relative">
-                    <ProductArt id={selected.id} className="h-auto w-[46vmin] max-w-[440px] lg:w-[24vw] lg:max-w-[480px]" />
+                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.65, ease: EASE }}>
+                  <motion.div style={{ x: dax, y: day }} className="flex items-center justify-center">
+                    <motion.div style={{ rotate: selLayout.rot ?? 0 }}>
+                      <ProductArt id={selected.id} className="h-auto w-[40vmin] max-w-[380px] lg:w-[19vw] lg:max-w-[430px]" />
+                    </motion.div>
                     {selLayout.extra !== false && (
-                      <motion.div style={{ rotate: selLayout.extraRot ?? 10 }} className="absolute left-[62%] top-[14%] w-full">
-                        <ExtraArt id={selected.id} className="h-auto w-full" />
+                      <motion.div style={{ rotate: selLayout.extraRot ?? 10 }} className="-ml-[10%] mt-[8%]">
+                        <ExtraArt id={selected.id} className="h-auto w-[40vmin] max-w-[380px] lg:w-[19vw] lg:max-w-[430px]" />
                       </motion.div>
                     )}
                   </motion.div>

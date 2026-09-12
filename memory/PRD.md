@@ -14,6 +14,13 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 12. 9. 2026 — oválné Objevit, průlet bez zastavení, čistý detail
+- Tlačítko Objevit: větší, posunuté blíž ke středu (right ~15 %), s oválným obrysem, který se při najetí myší plynule pootočí, zvětší a jemně zvýrazní.
+- Ruční skok na vzdálenější produkt = JEDEN souvislý rychlý průlet přes mezilehlé scény bez zastavování (rozšířené renderovací okno + jediná tween animace 0,45 + 0,3 s/scénu); barva pozadí se přelévá sama na cílový odstín.
+- Detail produktu: žádná flora uvnitř panelu — jen vycentrovaný pár kusů ovoce; text vlevo na barvě webu.
+- Flora ve scénách: 4 prvky (z 5 pozic, rotace dle indexu scény), vyšší viditelnost.
+- Jemné doladění kreseb: banán (spodní stín), meloun (pruhy slupky), avokádo (faseta dužiny).
+
 ### 12. 9. 2026 — oprava Satellites, plovoucí panel, bez duplicit
 - Oprava pádu náhledu: odstraněn zbytkový import Satellites (hláška „Satellites was not found in ./ProductArt") + restart frontendu pro vyčištění build cache.
 - Panel detailu je plovoucí obdélník se zaoblením (28 px), nedotýká se okrajů (vpravo 4 %, shora 10 %, zdola 22 % — blíž hornímu okraji), na mobilu horní pás s okraji.
