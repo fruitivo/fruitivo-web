@@ -14,6 +14,9 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 12. 9. 2026 — TEST: luxusní stín přes barvy
+- Přes barvy scén přidán tlumící „luxusní plášť": ink/25 vrstva + jemná vinětace (radial gradient k okrajům), stejný stín i v panelu detailu (ink/20). Označeno komentářem TEST v ProductSlider.jsx — pro návrat stačí odstranit příslušné div elementy.
+
 ### 12. 9. 2026 — Více tlačítko, kód v patičce, menu jen na mobilu
 - Nápisy produktů posunuty výš (pb 19 vh) — více prostoru nad roletkou.
 - Banán odstraněn z katalogu (13 produktů); roletka zmenšena (menší písmo a mezery), všechny produkty se vejdou na jednu řádku.

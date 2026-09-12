@@ -268,6 +268,14 @@ export const ProductSlider = () => {
         transition={{ duration: 1.0, ease: "easeInOut" }}
       />
 
+      {/* TEST: luxusní stín přes barvy scén (tlumení + vinětace) — pro návrat odstranit tyto dva div */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-ink/25" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{ background: "radial-gradient(120% 90% at 50% 38%, transparent 42%, rgba(33,30,27,0.38) 100%)" }}
+      />
+
       <motion.div style={{ x }} className="relative flex h-full w-full">
         {offsets.map((o) => {
           const i = wrap(center + o);
@@ -350,6 +358,13 @@ export const ProductSlider = () => {
               className="absolute overflow-hidden"
               style={{ backgroundColor: selected.sceneBg }}
             >
+              {/* TEST: stejný luxusní stín i v panelu detailu */}
+              <div aria-hidden className="pointer-events-none absolute inset-0 bg-ink/20" />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{ background: "radial-gradient(120% 90% at 50% 40%, transparent 45%, rgba(33,30,27,0.3) 100%)" }}
+              />
               <div className="flex h-full items-center justify-center">
                 <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.65, ease: EASE }}>
                   <motion.div style={{ x: dax, y: day }} className="flex items-center justify-center">
