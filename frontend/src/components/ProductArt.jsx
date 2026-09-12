@@ -1,9 +1,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// TODO(ASSETS): Dočasné stylizované vektorové ilustrace produktů ve vizuálním
-// jazyku plochých polygonálních kompozic (vzor: delassus.com — vlastní kresba,
-// žádná cizí grafika). Až budou hotové reálné assety (foto cut-outy, 360° spin
-// nebo .glb modely), tato komponenta se nahradí rendererem assetu z catalog.js
-// (asset.type: 'image' | 'frames' | 'glb') — scény se měnit nebudou.
+// TODO(ASSETS): Dočasné stylizované vektorové ilustrace produktů a botanických
+// prvků (vlastní kresba). Až budou hotové reálné assety (foto cut-outy, 360°
+// spin nebo .glb modely), tato komponenta se nahradí rendererem assetu z
+// catalog.js (asset.type: 'image' | 'frames' | 'glb') — scény se měnit nebudou.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const Leaf = ({ x, y, r = 0, fill = "#3E6B34" }) => (
@@ -17,10 +16,11 @@ const Leaf = ({ x, y, r = 0, fill = "#3E6B34" }) => (
 const ART = {
   mango: (
     <>
-      <path d="M108 236 C88 162 152 104 224 116 C296 128 322 202 288 262 C254 322 138 318 108 236 Z" fill="#D96F1A" />
-      <path d="M108 236 C88 162 152 104 224 116 C262 122 290 148 302 184 C282 240 220 296 150 292 C126 278 114 258 108 236 Z" fill="#F28C28" />
-      <ellipse cx="182" cy="168" rx="52" ry="34" fill="#F5A94E" opacity="0.85" transform="rotate(-18 182 168)" />
-      <ellipse cx="248" cy="150" rx="26" ry="16" fill="#E05A3A" opacity="0.45" />
+      <path d="M108 236 C88 162 152 104 224 116 C296 128 322 202 288 262 C254 322 138 318 108 236 Z" fill="#7E8F42" />
+      <path d="M108 236 C88 162 152 104 224 116 C262 122 290 148 302 184 C282 240 220 296 150 292 C126 278 114 258 108 236 Z" fill="#A9B85C" />
+      <ellipse cx="248" cy="150" rx="36" ry="24" fill="#E2703A" opacity="0.55" transform="rotate(-14 248 150)" />
+      <ellipse cx="182" cy="168" rx="44" ry="28" fill="#C4CF7E" opacity="0.8" transform="rotate(-18 182 168)" />
+      <ellipse cx="240" cy="200" rx="18" ry="12" fill="#E8912D" opacity="0.4" />
       <Leaf x={228} y={110} r={-58} fill="#4E7A3C" />
     </>
   ),
@@ -171,95 +171,7 @@ const ART = {
       <path d="M150 176 C170 168 240 168 258 176" stroke="#B03A3A" strokeWidth="5" fill="none" opacity="0.6" />
     </>
   ),
-  smoothie: (
-    <>
-      <path d="M148 116 L152 296 C152 312 164 320 178 320 L222 320 C236 320 248 312 248 296 L252 116 Z" fill="#FFFFFF" opacity="0.28" />
-      <path d="M156 148 L159 296 C159 306 168 312 178 312 L222 312 C232 312 241 306 241 296 L244 148 Z" fill="#A83759" />
-      <path d="M156 148 L244 148 L243 168 L157 168 Z" fill="#D6698B" />
-      <path d="M232 116 L262 60" stroke="#F5F3EC" strokeWidth="10" strokeLinecap="round" />
-      <ellipse cx="200" cy="116" rx="52" ry="10" fill="#C24B6E" />
-      {[[168, 104], [196, 98], [224, 106]].map(([cx, cy]) => (
-        <circle key={`${cx}${cy}`} cx={cx} cy={cy} r="13" fill="#BE4A6C" />
-      ))}
-      {[[168, 104], [196, 98], [224, 106]].map(([cx, cy]) => (
-        <circle key={`d${cx}${cy}`} cx={cx - 4} cy={cy - 4} r="4" fill="#E88AA5" />
-      ))}
-      <ellipse cx="176" cy="200" rx="10" ry="40" fill="#C24B6E" opacity="0.7" />
-    </>
-  ),
-  cocoa: (
-    <>
-      <path d="M150 108 C196 92 246 108 258 168 C268 220 252 288 200 300 C148 288 132 220 142 168 C146 140 148 118 150 108 Z" fill="#A8641F" />
-      <path d="M158 114 C196 100 238 114 248 168 C256 216 242 276 200 288 C178 280 160 260 152 232 C146 200 150 150 158 114 Z" fill="#C97B2E" />
-      {[176, 200, 224].map((x) => (
-        <path key={x} d={`M${x} 118 C ${x - 14} 180 ${x - 14} 240 ${x} 286`} stroke="#A8641F" strokeWidth="5" fill="none" opacity="0.75" />
-      ))}
-      {[[116, 300], [152, 318], [120, 336]].map(([cx, cy], i) => (
-        <ellipse key={i} cx={cx} cy={cy} rx="20" ry="13" fill="#5C3A21" transform={`rotate(${i * 24} ${cx} ${cy})`} />
-      ))}
-      <ellipse cx="116" cy="298" rx="12" ry="7" fill="#7A5138" transform="rotate(-8 116 298)" />
-    </>
-  ),
-  chocolate: (
-    <>
-      <g transform="rotate(-8 200 210)">
-        <rect x="122" y="130" width="164" height="168" rx="14" fill="#3B2417" />
-        <rect x="134" y="142" width="140" height="144" rx="8" fill="#4A2E20" />
-        {[178, 222].map((x) => (
-          <line key={x} x1={x} y1="142" x2={x} y2="286" stroke="#3B2417" strokeWidth="6" />
-        ))}
-        {[190, 238].map((y) => (
-          <line key={y} x1="134" y1={y} x2="274" y2={y} stroke="#3B2417" strokeWidth="6" />
-        ))}
-        {[[156, 166], [200, 214], [156, 262], [244, 166]].map(([cx, cy]) => (
-          <rect key={`${cx}${cy}`} x={cx - 14} y={cy - 14} width="28" height="28" rx="6" fill="#5C3A28" />
-        ))}
-        <circle cx="200" cy="166" r="6" fill="#D94F7A" />
-        <circle cx="156" cy="214" r="6" fill="#F28C28" />
-        <circle cx="244" cy="262" r="6" fill="#D94F7A" />
-      </g>
-      <g transform="rotate(10 300 310)">
-        <rect x="282" y="292" width="40" height="40" rx="7" fill="#4A2E20" />
-        <circle cx="302" cy="312" r="5" fill="#F28C28" />
-      </g>
-    </>
-  ),
 };
-
-// satelitní plovoucí prvky scény — nenápadná flora: listí, květy, pupeny
-const Flower = ({ x, y, r = 0, s = 1, ink }) => (
-  <g transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`} opacity="0.22">
-    {[0, 72, 144, 216, 288].map((a) => (
-      <circle key={a} cx={Math.cos((a * Math.PI) / 180) * 11} cy={Math.sin((a * Math.PI) / 180) * 11} r="7.5" fill={ink} />
-    ))}
-    <circle r="5" fill={ink} opacity="0.8" />
-  </g>
-);
-
-const Sprig = ({ x, y, r = 0, s = 1, ink }) => (
-  <g transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`} opacity="0.2" stroke={ink} fill="none" strokeWidth="3.5" strokeLinecap="round">
-    <path d="M0 30 C 4 10 -2 -12 2 -30" />
-    <path d="M1 12 C -12 6 -18 -4 -16 -12 C -6 -10 0 -2 1 12 Z" fill={ink} stroke="none" />
-    <path d="M1 -2 C 12 -8 18 -18 16 -26 C 6 -24 0 -14 1 -2 Z" fill={ink} stroke="none" />
-  </g>
-);
-
-export const Satellites = ({ ink }) => (
-  <>
-    <circle cx="46" cy="80" r="10" fill={ink} opacity="0.22" />
-    <circle cx="352" cy="60" r="5" fill={ink} opacity="0.3" />
-    <circle cx="368" cy="330" r="8" fill={ink} opacity="0.18" />
-    <circle cx="30" cy="320" r="4" fill={ink} opacity="0.3" />
-    <path d="M340 150 C352 138 368 136 376 144 C366 154 348 156 340 150 Z" fill={ink} opacity="0.26" />
-    <path d="M40 180 C52 168 68 166 76 174 C66 184 48 186 40 180 Z" fill={ink} opacity="0.22" />
-    <Flower x={58} y={252} r={-12} s={1.15} ink={ink} />
-    <Flower x={352} y={236} r={18} s={0.85} ink={ink} />
-    <Sprig x={84} y={120} r={-24} s={1.1} ink={ink} />
-    <Sprig x={330} y={300} r={30} s={0.9} ink={ink} />
-    <circle cx="330" cy="110" r="3.5" fill={ink} opacity="0.28" />
-    <circle cx="70" cy="290" r="3" fill={ink} opacity="0.25" />
-  </>
-);
 
 export const ProductArt = ({ id, className }) => (
   <svg viewBox="0 0 400 400" className={className} role="img" aria-label={id}>
@@ -268,18 +180,19 @@ export const ProductArt = ({ id, className }) => (
   </svg>
 );
 
-// ── doplňkový kus kompozice (půlka / celek / kousek) pro druhou vrstvu scény ──
+// ── doplňkový kus kompozice (půlka / celek / kousek) ─────────────────────────
 const EXTRA = {
   mango: (
     <>
-      <ellipse cx="200" cy="210" rx="105" ry="76" fill="#D96F1A" />
-      <ellipse cx="200" cy="202" rx="90" ry="63" fill="#F5A94E" />
+      <ellipse cx="200" cy="210" rx="105" ry="76" fill="#7E8F42" />
+      <ellipse cx="200" cy="204" rx="92" ry="64" fill="#F2C230" />
       {[168, 200, 232].map((x) => (
-        <path key={x} d={`M${x} 148 C ${x - 8} 202 ${x - 8} 202 ${x} 258`} stroke="#E8933C" strokeWidth="5" fill="none" />
+        <path key={x} d={`M${x} 148 C ${x - 8} 204 ${x - 8} 204 ${x} 262`} stroke="#E0A92E" strokeWidth="5" fill="none" />
       ))}
-      {[176, 228].map((y) => (
-        <path key={y} d={`M118 ${y} C 200 ${y + 14} 200 ${y + 14} 282 ${y}`} stroke="#E8933C" strokeWidth="5" fill="none" />
+      {[178, 228].map((y) => (
+        <path key={y} d={`M118 ${y} C 200 ${y + 14} 200 ${y + 14} 282 ${y}`} stroke="#E0A92E" strokeWidth="5" fill="none" />
       ))}
+      <ellipse cx="176" cy="182" rx="22" ry="12" fill="#F7DC7A" opacity="0.8" />
     </>
   ),
   papaya: (
@@ -382,7 +295,7 @@ const EXTRA = {
   avocado: (
     <>
       <path d="M200 100 C234 100 246 134 246 160 C246 176 260 190 260 230 C260 282 234 314 200 314 C166 314 140 282 140 230 C140 190 154 176 154 160 C154 134 166 100 200 100 Z" fill="#33582B" />
-      <path d="M200 112 C226 112 236 140 236 164 C236 180 248 194 248 230 C248 274 226 302 200 302 C196 302 192 301 188 300 C214 260 218 160 200 112 Z" fill="#3F6B34" />
+      <path d="M200 112 C226 112 236 140 236 162 C236 180 248 194 248 230 C248 274 226 302 200 302 C196 302 192 301 188 300 C214 260 218 160 200 112 Z" fill="#3F6B34" />
       <rect x="194" y="88" width="12" height="20" rx="6" fill="#5E7A38" />
     </>
   ),
@@ -403,43 +316,227 @@ const EXTRA = {
       ))}
     </>
   ),
-  smoothie: (
-    <>
-      {[[170, 190], [232, 182], [200, 246]].map(([cx, cy]) => (
-        <g key={`${cx}${cy}`}>
-          <circle cx={cx} cy={cy} r="42" fill="#BE4A6C" />
-          {[[-14, -10], [10, -14], [0, 6], [-12, 14], [16, 10]].map(([dx, dy]) => (
-            <circle key={`${dx}${dy}`} cx={cx + dx} cy={cy + dy} r="6" fill="#E88AA5" opacity="0.85" />
-          ))}
-        </g>
-      ))}
-      <Leaf x={196} y={140} r={-30} fill="#4E7A3C" />
-    </>
-  ),
-  cocoa: (
-    <>
-      {[[160, 200, -14], [226, 182, 10], [200, 244, 4], [258, 232, 24], [142, 246, -30]].map(([cx, cy, r]) => (
-        <ellipse key={`${cx}${cy}`} cx={cx} cy={cy} rx="34" ry="22" fill="#5C3A21" transform={`rotate(${r} ${cx} ${cy})`} />
-      ))}
-      <ellipse cx="156" cy="194" rx="20" ry="12" fill="#7A5138" transform="rotate(-14 156 194)" />
-      <ellipse cx="224" cy="176" rx="18" ry="11" fill="#7A5138" transform="rotate(10 224 176)" />
-    </>
-  ),
-  chocolate: (
-    <>
-      <g transform="rotate(-10 200 200)">
-        <rect x="140" y="140" width="120" height="120" rx="12" fill="#3B2417" />
-        <rect x="152" y="152" width="96" height="96" rx="8" fill="#4A2E20" />
-        <circle cx="200" cy="200" r="9" fill="#D94F7A" />
-        <circle cx="176" cy="224" r="7" fill="#F28C28" />
-      </g>
-    </>
-  ),
 };
 
 export const ExtraArt = ({ id, className }) => (
   <svg viewBox="0 0 400 400" className={className} role="img" aria-label={`${id} — doplněk`}>
     <ellipse cx="200" cy="316" rx="92" ry="13" fill="rgba(0,0,0,0.12)" />
     {EXTRA[id] || null}
+  </svg>
+);
+
+// ── botanický prvek každého druhu — nenápadná lineární kresba do pozadí ───────
+const FLORA = {
+  // mangovník: hustá lata drobných květů
+  mango: (
+    <>
+      <path d="M100 176 C100 140 100 108 100 72" />
+      <path d="M100 124 C82 110 72 94 68 72" />
+      <path d="M100 124 C118 110 128 94 132 72" />
+      <path d="M100 150 C84 142 74 132 70 116" />
+      <path d="M100 150 C116 142 126 132 130 116" />
+      {[[68, 64], [132, 64], [66, 108], [134, 108], [100, 60], [84, 88], [116, 88], [78, 96], [122, 96]].map(([cx, cy]) => (
+        <circle key={`${cx}${cy}`} cx={cx} cy={cy} r="4" fill="currentColor" stroke="none" />
+      ))}
+    </>
+  ),
+  // papája: krémově bílý hvězdicovitý pětiplátečný květ
+  papaya: (
+    <>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <ellipse key={i} cx="100" cy="74" rx="13" ry="30" transform={`rotate(${i * 72} 100 104)`} />
+      ))}
+      <circle cx="100" cy="104" r="7" fill="currentColor" stroke="none" />
+      <path d="M100 134 C100 152 100 164 100 176" />
+    </>
+  ),
+  // dračí ovoce: obří noční květ kaktusu („královna noci")
+  dragonfruit: (
+    <>
+      {Array.from({ length: 8 }).map((_, i) => (
+        <path
+          key={i}
+          d="M100 104 C 90 74 92 50 100 30 C 108 50 110 74 100 104"
+          transform={`rotate(${i * 45} 100 104)`}
+        />
+      ))}
+      {Array.from({ length: 8 }).map((_, i) => {
+        const a = ((i * 45 + 22) * Math.PI) / 180;
+        return (
+          <line
+            key={`s${i}`}
+            x1={100 + Math.cos(a) * 14}
+            y1={104 + Math.sin(a) * 14}
+            x2={100 + Math.cos(a) * 34}
+            y2={104 + Math.sin(a) * 34}
+            strokeWidth="2"
+          />
+        );
+      })}
+      <circle cx="100" cy="104" r="8" fill="currentColor" stroke="none" />
+    </>
+  ),
+  // liči: drobné nazelenalé květy v trsu + lesklý tmavě zelený list
+  lychee: (
+    <>
+      <path d="M42 74 C 74 40 130 38 158 66 C 132 96 74 104 42 74 Z" />
+      <path d="M42 74 C 82 68 122 66 158 66" strokeWidth="2" />
+      <path d="M100 178 C100 158 100 146 100 136" />
+      {[[90, 126], [110, 124], [100, 114], [84, 138], [116, 136], [100, 136]].map(([cx, cy]) => (
+        <circle key={`${cx}${cy}`} cx={cx} cy={cy} r="4.5" fill="currentColor" stroke="none" />
+      ))}
+    </>
+  ),
+  // marakuja: ikonický květ mučenky s paprskovitou korunkou
+  passionfruit: (
+    <>
+      {Array.from({ length: 10 }).map((_, i) => (
+        <ellipse key={i} cx="100" cy="62" rx="10" ry="30" transform={`rotate(${i * 36} 100 100)`} />
+      ))}
+      {Array.from({ length: 26 }).map((_, i) => {
+        const a = (i / 26) * Math.PI * 2;
+        return (
+          <line
+            key={`c${i}`}
+            x1={100 + Math.cos(a) * 16}
+            y1={100 + Math.sin(a) * 16}
+            x2={100 + Math.cos(a) * 44}
+            y2={100 + Math.sin(a) * 44}
+            strokeWidth="1.8"
+          />
+        );
+      })}
+      <path d="M100 100 L100 76" />
+      <circle cx="100" cy="70" r="5.5" fill="currentColor" stroke="none" />
+      <circle cx="88" cy="82" r="3.5" fill="currentColor" stroke="none" />
+      <circle cx="112" cy="82" r="3.5" fill="currentColor" stroke="none" />
+    </>
+  ),
+  // limetka: malý bílý pětiplátečný květ + trnitá větev
+  lime: (
+    <>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <ellipse key={i} cx="66" cy="56" rx="10" ry="22" transform={`rotate(${i * 72} 66 80)`} />
+      ))}
+      <circle cx="66" cy="80" r="5.5" fill="currentColor" stroke="none" />
+      <path d="M112 176 C 130 146 142 118 146 84" />
+      <path d="M132 136 L148 130" />
+      <path d="M141 106 L156 100" />
+      <path d="M146 84 C 152 66 164 58 176 58 C 172 74 160 84 146 84 Z" />
+    </>
+  ),
+  // citron: bílý květ s nádechem do fialova na vnější straně plátků
+  lemon: (
+    <>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <ellipse key={i} cx="110" cy="60" rx="10" ry="22" transform={`rotate(${i * 72} 110 84)`} />
+      ))}
+      {Array.from({ length: 5 }).map((_, i) => (
+        <path
+          key={`o${i}`}
+          d="M110 44 C 104 30 106 22 110 16"
+          strokeWidth="2"
+          opacity="0.55"
+          transform={`rotate(${i * 72} 110 84)`}
+        />
+      ))}
+      <circle cx="110" cy="84" r="5.5" fill="currentColor" stroke="none" />
+      <path d="M64 176 C 76 152 84 132 88 112" />
+      <path d="M74 148 L60 142" />
+      <path d="M88 112 C 82 96 70 88 58 88 C 62 102 74 112 88 112 Z" />
+    </>
+  ),
+  // mochyně: papírový lampionek (kalich)
+  physalis: (
+    <>
+      <path d="M100 34 C 132 66 146 108 140 150 C 122 168 78 168 60 150 C 54 108 68 66 100 34 Z" />
+      <path d="M100 34 L100 160" />
+      <path d="M78 56 C 84 100 84 130 82 158" />
+      <path d="M122 56 C 116 100 116 130 118 158" />
+      <path d="M100 34 C 100 26 102 22 108 18" />
+      <circle cx="100" cy="142" r="14" opacity="0.6" />
+    </>
+  ),
+  // asimina: tmavě vínový zvonkovitý květ
+  pawpaw: (
+    <>
+      <path d="M100 24 C 100 40 100 48 100 56" />
+      <path d="M100 56 C 82 72 72 94 74 118 C 88 110 96 92 100 74 C 104 92 112 110 126 118 C 128 94 118 72 100 56 Z" />
+      <path d="M100 74 C 92 86 88 98 90 110 C 96 104 99 94 100 86 C 101 94 104 104 110 110 C 112 98 108 86 100 74 Z" fill="currentColor" stroke="none" opacity="0.7" />
+      <circle cx="100" cy="66" r="4" fill="currentColor" stroke="none" />
+    </>
+  ),
+  // granátové jablko: sytě oranžovo-červený trubkovitý květ se zvlněným okvětím
+  pomegranate: (
+    <>
+      <path d="M88 156 C 84 122 88 92 100 76 C 112 92 116 122 112 156 C 104 162 96 162 88 156 Z" />
+      <path d="M100 76 L86 58 L96 68 L100 46 L104 68 L114 58 L100 76" />
+      <path d="M92 120 C 96 126 104 126 108 120" strokeWidth="2" />
+      <path d="M90 138 C 96 144 104 144 110 138" strokeWidth="2" />
+      <path d="M100 162 C 100 170 100 174 100 180" />
+    </>
+  ),
+  // kiwi: velký srdčitý list liány + úponek
+  kiwi: (
+    <>
+      <path d="M100 158 C 62 128 52 88 72 66 C 88 52 100 62 100 78 C 100 62 112 52 128 66 C 148 88 138 128 100 158 Z" />
+      <path d="M100 150 L100 82" strokeWidth="2" />
+      <path d="M100 118 C 88 112 80 104 76 94" strokeWidth="2" />
+      <path d="M100 118 C 112 112 120 104 124 94" strokeWidth="2" />
+      <path d="M140 162 C 158 154 166 140 160 130 C 155 124 147 128 149 136" strokeWidth="2.5" />
+    </>
+  ),
+  // avokádo: velký lesklý oválný list
+  avocado: (
+    <>
+      <path d="M100 26 C 142 58 154 110 100 172 C 46 110 58 58 100 26 Z" />
+      <path d="M100 36 L100 162" strokeWidth="2" />
+      <path d="M100 70 C 84 74 74 84 70 96" strokeWidth="2" />
+      <path d="M100 70 C 116 74 126 84 130 96" strokeWidth="2" />
+      <path d="M100 106 C 88 110 80 118 76 128" strokeWidth="2" />
+      <path d="M100 106 C 112 110 120 118 124 128" strokeWidth="2" />
+      <path d="M78 66 C 72 82 70 96 72 110" strokeWidth="2" opacity="0.5" />
+    </>
+  ),
+  // banán: velké tmavé „srdce" — květ banánovníku visící z trsu
+  banana: (
+    <>
+      <path d="M100 178 C 100 170 100 164 100 158" />
+      <path d="M100 158 C 128 134 140 102 132 72 C 124 44 76 44 68 72 C 60 102 72 134 100 158 Z" />
+      <path d="M74 92 C 88 102 112 102 126 92" strokeWidth="2" />
+      <path d="M72 116 C 88 126 112 126 128 116" strokeWidth="2" />
+      <ellipse cx="84" cy="56" rx="4" ry="9" />
+      <ellipse cx="100" cy="50" rx="4" ry="9" />
+      <ellipse cx="116" cy="56" rx="4" ry="9" />
+    </>
+  ),
+  // vodní meloun: žlutý květ + členěný list + plazivá liána s úponkem
+  watermelon: (
+    <>
+      {Array.from({ length: 5 }).map((_, i) => {
+        const a = (i / 5) * Math.PI * 2 - Math.PI / 2;
+        return <circle key={i} cx={62 + Math.cos(a) * 16} cy={58 + Math.sin(a) * 16} r="13" />;
+      })}
+      <circle cx="62" cy="58" r="6" fill="currentColor" stroke="none" />
+      <path d="M124 158 C 106 156 98 142 104 130 C 92 124 92 106 106 102 C 106 88 122 80 134 90 C 146 80 162 88 162 102 C 176 108 176 126 164 132 C 170 146 158 158 144 154 C 140 164 128 166 124 158 Z" />
+      <path d="M124 154 L128 108" strokeWidth="2" />
+      <path d="M160 176 C 178 170 188 158 182 148 C 177 142 168 146 171 154" strokeWidth="2.5" />
+    </>
+  ),
+};
+
+export const ProductFlora = ({ id, ink, className }) => (
+  <svg
+    viewBox="0 0 200 200"
+    className={className}
+    fill="none"
+    stroke={ink}
+    strokeWidth="3"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    style={{ color: ink }}
+    aria-hidden
+  >
+    {FLORA[id] || null}
   </svg>
 );
