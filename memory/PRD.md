@@ -14,6 +14,13 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 12. 9. 2026 — souvislý nekonečný slider, jen rostliny
+- Katalog zúžen na 14 rostlinných produktů (odebrána kategorie Zpracované produkty — smoothie, kakao, čokoláda). Nové pořadí: Klasické sady → Citrusy → Tropické ovoce → Vzácné a divoké.
+- Slider přepsán na souvislý pás 3 sousedních scén (motion value + animate) — nekonečná smyčka dokola, přechody jsou čisté dva barevné scény bez bílých pásů.
+- Klik na vzdálenější produkt v roletce = rychlý průjezd všemi mezilehlými produkty (0,32 s/krok) a zastavení na cíli; autoplay 3 s jede trvale (zrušena pauza při najetí myší, pauza jen při otevřeném detailu).
+- Rozložení scény: produkt NAD názvem, název CAPS LOCK celý viditelný; „Objevit" vpravo nad roletkou.
+- Detail: produkt animací (layoutId) odletí doprava, vlevo název + informace; parallaxa myší zachována i v detailu; „Zpět" vrátí do slideru a roletka pokračuje.
+
 ### 12. 9. 2026 — minimalizace slideru + nová typografie
 - Písmo produktových názvů: Clash Display (Fontshare), názvy CAPS LOCK přes produkt — produkt je ve vrstvě PŘED textem, aby byl vždy vidět.
 - Produktová kompozice zvětšena (celek ~64vmin + půlka/kousek ~26vmin).

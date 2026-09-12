@@ -1,55 +1,74 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { AnimatePresence, animate, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowLeft, ArrowRight, Sprout } from "lucide-react";
 import { SCENES, sceneIndexOf } from "../data/catalog";
 import { ExtraArt, ProductArt, Satellites } from "./ProductArt";
 
 const EASE = [0.65, 0, 0.35, 1];
 const N = SCENES.length;
+const wrap = (i) => ((i % N) + N) % N;
 const inkOf = (s) => (s.sceneInk === "dark" ? "#211E1B" : "#F5F3EC");
 
-const slideVariants = {
-  enter: (d) => ({ x: d >= 0 ? "100%" : "-100%" }),
-  center: { x: 0 },
-  exit: (d) => ({ x: d >= 0 ? "-100%" : "100%" }),
-};
-
-// ── jedna scéna: velký produkt + název CAPS přes něj, nic víc ────────────────
-const Slide = ({ scene, dir, smx, smy, hidden }) => {
+// ── jedna scéna: produkt NAD názvem, název celý vidět ─────────────────────────
+const Slide = ({ scene, smx, smy, hidden, instant }) => {
   const ink = inkOf(scene);
   const ax = useTransform(smx, (v) => v * 28);
   const ay = useTransform(smy, (v) => v * 18);
   const bx = useTransform(smx, (v) => v * 54);
   const by = useTransform(smy, (v) => v * 36);
+  const t = instant ? { duration: 0 } : undefined;
 
   return (
-    <motion.section
+    <section
       data-testid={`scene-${scene.id}`}
-      custom={dir}
-      variants={slideVariants}
-      initial="enter"
-      animate="center"
-      exit="exit"
-      transition={{ duration: 0.85, ease: EASE }}
-      className="absolute inset-0"
+      className="relative h-full w-full overflow-hidden"
       style={{ backgroundColor: scene.sceneBg, color: ink }}
     >
-      {/* satelitní plovoucí prvky */}
-      <motion.div style={{ x: bx, y: by }} className="pointer-events-none absolute inset-0 hidden sm:block">
+      {/* satelitní plovoucí prvky (horní část) */}
+      <motion.div style={{ x: bx, y: by }} className="pointer-events-none absolute inset-x-0 top-0 hidden h-[62%] sm:block">
         <svg viewBox="0 0 400 400" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
           <Satellites ink={ink} />
         </svg>
       </motion.div>
 
-      {/* název produktu ZA kompozicí — produkt zůstává vždy vidět */}
-      <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
-        <h2 className="select-none text-center font-display font-semibold uppercase leading-[0.92] tracking-tight text-[14vw] lg:text-[12vw]">
+      <div className="flex h-full flex-col items-center justify-center px-5">
+        {/* produktová kompozice */}
+        <motion.div
+          initial={instant ? false : { opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={t || { duration: 0.7, ease: EASE, delay: 0.1 }}
+          className={`relative ${hidden ? "invisible" : ""}`}
+        >
+          <motion.div layoutId={`art-${scene.id}`} transition={{ duration: 0.6, ease: EASE }}>
+            <motion.div style={{ x: ax, y: ay }}>
+              <motion.div animate={{ y: [0, -16, 0] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}>
+                <ProductArt id={scene.id} className="h-auto w-[52vmin] max-w-[520px] sm:w-[44vmin] lg:w-[40vmin] drop-shadow-[0_36px_44px_rgba(0,0,0,0.2)]" />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            initial={instant ? false : { opacity: 0, x: 40, rotate: 12 }}
+            animate={{ opacity: 1, x: 0, rotate: 0 }}
+            transition={t || { duration: 0.7, ease: EASE, delay: 0.22 }}
+            className="absolute -bottom-5 -right-12 sm:-right-16"
+          >
+            <motion.div style={{ x: bx, y: by }}>
+              <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}>
+                <ExtraArt id={scene.id} className="h-auto w-[20vmin] max-w-[220px] sm:w-[17vmin]" />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+
+        {/* název produktu pod kompozicí — celý vidět */}
+        <h2 className="mt-4 select-none text-center font-display font-semibold uppercase leading-[0.95] tracking-tight text-[12.5vw] sm:text-[9.5vw] lg:text-[7.5vw]">
           {scene.name.split(" ").map((word, wi) => (
             <span key={wi} className="block overflow-hidden">
               <motion.span
-                initial={{ y: "112%" }}
+                initial={instant ? false : { y: "112%" }}
                 animate={{ y: 0 }}
-                transition={{ duration: 0.75, ease: EASE, delay: 0.25 + wi * 0.08 }}
+                transition={t || { duration: 0.7, ease: EASE, delay: 0.2 + wi * 0.07 }}
                 className="block"
               >
                 {word}
@@ -58,99 +77,120 @@ const Slide = ({ scene, dir, smx, smy, hidden }) => {
           ))}
         </h2>
       </div>
-
-      {/* velká produktová kompozice VPŘEDU */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0, x: -70, scale: 0.92 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.15 }}
-          className={`relative ${hidden ? "invisible" : ""}`}
-        >
-          <motion.div style={{ x: ax, y: ay }} layoutId={`art-${scene.id}`}>
-            <motion.div animate={{ y: [0, -18, 0] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}>
-              <ProductArt id={scene.id} className="h-auto w-[64vmin] max-w-[700px] drop-shadow-[0_40px_50px_rgba(0,0,0,0.2)]" />
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50, rotate: 12 }}
-            animate={{ opacity: 1, x: 0, rotate: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.3 }}
-            className="absolute -bottom-8 -right-16 sm:-right-24"
-          >
-            <motion.div style={{ x: bx, y: by }}>
-              <motion.div
-                animate={{ y: [0, -11, 0] }}
-                transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
-              >
-                <ExtraArt id={scene.id} className="h-auto w-[26vmin] max-w-[280px]" />
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        </motion.div>
-      </div>
-    </motion.section>
+    </section>
   );
 };
 
 export const ProductSlider = () => {
-  const [[index, dir], setState] = useState([0, 1]);
+  const [center, setCenter] = useState(0);
   const [selected, setSelected] = useState(null);
-  const [paused, setPaused] = useState(false);
-  const indexRef = useRef(0);
-  indexRef.current = index;
+  const centerRef = useRef(0);
+  const pos = useMotionValue(0); // 0 = prostřední scéna; animace na ±1
+  const pending = useRef([]);
+  const running = useRef(false);
+  const firstDone = useRef(false);
 
-  const go = (i, d) => {
-    const next = ((i % N) + N) % N;
-    setState(([prev]) => [next, d ?? (next > prev || (next === 0 && prev === N - 1) ? 1 : -1)]);
+  useEffect(() => {
+    firstDone.current = true;
+  }, []);
+
+  // souvislý nekonečný pás: viditelné jsou vždy 3 sousední scény → žádné bílé pásy
+  const x = useTransform(pos, (v) => `${-(v + 1) * 100}%`);
+  const order = [wrap(center - 1), center, wrap(center + 1)];
+
+  const run = async () => {
+    if (running.current) return;
+    running.current = true;
+    while (pending.current.length) {
+      const d = pending.current.shift();
+      const fast = pending.current.length > 0;
+      await animate(pos, d, { duration: fast ? 0.32 : 0.6, ease: EASE }).finished;
+      const nc = wrap(centerRef.current + d);
+      centerRef.current = nc;
+      setCenter(nc);
+      pos.set(0);
+    }
+    running.current = false;
   };
 
-  // automatické přepínání po 3 s (pauza při najetí / otevřeném detailu)
+  const enqueue = (steps) => {
+    pending.current.push(...steps);
+    run();
+  };
+
+  // ruční výběr: rychle projede mezilehlé produkty a zastaví se na cíli
+  const go = (target) => {
+    const delta = wrap(target - centerRef.current);
+    const fwd = delta;
+    const back = N - delta;
+    if (fwd === 0) return;
+    pending.current = [];
+    enqueue(fwd <= back ? Array(fwd).fill(1) : Array(back).fill(-1));
+  };
+
+  // automatické přepínání po 3 s — jede pořád dokola, bez pauzy při najetí myší
   useEffect(() => {
-    if (paused || selected) return;
-    const t = setTimeout(() => go(indexRef.current + 1, 1), 3000);
+    if (selected) return;
+    const t = setTimeout(() => {
+      if (!running.current && pending.current.length === 0) enqueue([1]);
+    }, 3000);
     return () => clearTimeout(t);
-  }, [index, paused, selected]);
+  }, [center, selected]);
 
   // externí skoky (overlay menu → kategorie)
   useEffect(() => {
-    const h = (e) => go(e.detail, 1);
+    const h = (e) => go(e.detail);
     window.addEventListener("goto-scene", h);
     return () => window.removeEventListener("goto-scene", h);
   }, []);
 
+  const active = SCENES[center];
+  const ink = inkOf(active);
+
   // barva navigace nad sliderem = ink aktivní scény
   useEffect(() => {
-    document.documentElement.style.setProperty("--nav-ink", inkOf(active));
-  }, [index]);
+    document.documentElement.style.setProperty("--nav-ink", inkOf(SCENES[center]));
+  }, [center]);
 
+  // parallaxa kurzorem (slider i detail)
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const smx = useSpring(mx, { stiffness: 55, damping: 18 });
   const smy = useSpring(my, { stiffness: 55, damping: 18 });
-
-  const active = SCENES[index];
-  const ink = inkOf(active);
+  const dax = useTransform(smx, (v) => v * 24);
+  const day = useTransform(smy, (v) => v * 16);
 
   return (
     <section
       id="produkty"
       data-testid="product-slider"
       className="relative h-[100svh] min-h-[620px] overflow-hidden"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
       onPointerMove={(e) => {
         mx.set(e.clientX / window.innerWidth - 0.5);
         my.set(e.clientY / window.innerHeight - 0.5);
       }}
     >
-      <AnimatePresence initial={false} custom={dir}>
-        <Slide key={index} scene={active} dir={dir} smx={smx} smy={smy} hidden={!!selected} />
-      </AnimatePresence>
+      <motion.div style={{ x }} className="flex h-full w-full">
+        {order.map((i) => (
+          <div key={SCENES[i].id} className="h-full w-full shrink-0">
+            <Slide scene={SCENES[i]} smx={smx} smy={smy} hidden={!!selected && i === center} instant={firstDone.current} />
+          </div>
+        ))}
+      </motion.div>
 
-      {/* spodní blok: roletka produktů zvednutá pod název + objevit */}
-      <div className="absolute inset-x-0 bottom-[7vh] z-20 flex flex-col items-center sm:bottom-[8vh]" style={{ color: ink }}>
+      {/* tlačítko Objevit — vpravo, nad roletkou, pod názvem */}
+      <button
+        data-testid={`product-detail-open-${active.id}`}
+        onClick={() => setSelected(active)}
+        className="group absolute bottom-[17vh] right-5 z-20 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] opacity-80 transition-opacity hover:opacity-100 sm:right-10"
+        style={{ color: ink }}
+      >
+        Objevit
+        <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+      </button>
+
+      {/* roletka produktů s časovačem */}
+      <div className="absolute inset-x-0 bottom-[6vh] z-20 flex justify-center" style={{ color: ink }}>
         <div
           data-testid="slider-tabs"
           className="no-scrollbar flex max-w-full items-end gap-6 overflow-x-auto px-5 pb-1 pt-3 sm:gap-8 sm:px-10"
@@ -161,12 +201,12 @@ export const ProductSlider = () => {
               data-testid={`slider-tab-${s.id}`}
               onClick={() => go(i)}
               className="relative shrink-0 pb-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] transition-opacity duration-300 sm:text-xs"
-              style={{ opacity: i === index ? 1 : 0.45 }}
+              style={{ opacity: i === center ? 1 : 0.45 }}
             >
               {s.displayName}
-              {i === index && !paused && !selected && (
+              {i === center && !selected && (
                 <motion.span
-                  key={`progress-${index}`}
+                  key={`progress-${center}`}
                   initial={{ width: 0 }}
                   animate={{ width: "100%" }}
                   transition={{ duration: 3, ease: "linear" }}
@@ -176,18 +216,9 @@ export const ProductSlider = () => {
             </button>
           ))}
         </div>
-
-        <button
-          data-testid={`product-detail-open-${active.id}`}
-          onClick={() => setSelected(active)}
-          className="group mb-5 mt-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] opacity-70 transition-opacity hover:opacity-100"
-        >
-          Objevit
-          <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-        </button>
       </div>
 
-      {/* informační stránka produktu — produkt se animací zvětší a text ho obklopí */}
+      {/* informační stránka produktu — produkt odletí doprava, vlevo text */}
       <AnimatePresence>
         {selected && (
           <motion.div
@@ -195,25 +226,17 @@ export const ProductSlider = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.35 }}
             className="fixed inset-0 z-50 overflow-y-auto"
             style={{ backgroundColor: selected.sceneBg, color: inkOf(selected) }}
           >
             <div className="mx-auto grid min-h-full max-w-6xl grid-cols-1 items-center gap-10 px-5 py-24 sm:px-10 lg:grid-cols-2 lg:gap-16">
-              <div className="relative mx-auto w-full max-w-lg">
-                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.6, ease: EASE }}>
-                  <ProductArt id={selected.id} className="h-auto w-full" />
-                </motion.div>
-                <div className="absolute -bottom-4 -right-4 w-2/5">
-                  <ExtraArt id={selected.id} className="h-auto w-full" />
-                </div>
-              </div>
-
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.55, ease: EASE, delay: 0.35 }}
+                className="order-2 lg:order-1"
               >
                 <p className="text-[11px] font-semibold uppercase tracking-[0.3em] opacity-60">
                   {selected.categoryName} · {selected.latin}
@@ -245,40 +268,22 @@ export const ProductSlider = () => {
                   {selected.soil}
                 </p>
 
-                {selected.linkedId && (
-                  <button
-                    data-testid="linked-bean-to-bar-badge"
-                    onClick={() => {
-                      const target = selected.linkedId;
-                      setSelected(null);
-                      setTimeout(() => go(sceneIndexOf(target), 1), 350);
-                    }}
-                    className="group mt-8 flex items-center gap-3 rounded-2xl border p-4 pr-6 text-left transition-transform duration-300 hover:scale-[1.02]"
-                    style={{ borderColor: `${inkOf(selected)}45` }}
-                  >
-                    <span
-                      className="h-12 w-12 shrink-0 overflow-hidden rounded-full border"
-                      style={{ borderColor: `${inkOf(selected)}33` }}
-                    >
-                      <ProductArt id={selected.linkedId} className="h-full w-full" />
-                    </span>
-                    <span>
-                      <span className="block text-[10px] font-semibold uppercase tracking-[0.25em] opacity-70">
-                        Od bobu ke tabulce · {selected.pairRole}
-                      </span>
-                      <span className="mt-0.5 flex items-center gap-2 font-serif text-base">
-                        {selected.id === "cocoa" ? "se stává" : "vzniká z"}{" "}
-                        <em>{SCENES.find((s) => s.id === selected.linkedId).displayName}</em>
-                        <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
-                      </span>
-                    </span>
-                  </button>
-                )}
-
                 <p className="mt-8 text-[10px] uppercase tracking-[0.2em] opacity-40">
                   TODO · Finální fotografický / 3D asset ve výrobě
                 </p>
               </motion.div>
+
+              {/* produkt vpravo — zachovaná parallaxa myší */}
+              <div className="relative order-1 mx-auto w-full max-w-lg lg:order-2">
+                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.6, ease: EASE }}>
+                  <motion.div style={{ x: dax, y: day }}>
+                    <ProductArt id={selected.id} className="h-auto w-full" />
+                  </motion.div>
+                </motion.div>
+                <motion.div style={{ x: dax, y: day }} className="absolute -bottom-4 -right-4 w-2/5">
+                  <ExtraArt id={selected.id} className="h-auto w-full" />
+                </motion.div>
+              </div>
             </div>
 
             <button
