@@ -14,6 +14,9 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 13. 9. 2026 — doplněny poslední fotky sadů
+- Sad Karoo a Sad Kalahari mají reálné fotky (mochyně / melounové pole v poušti); placeholdery a flag photoPending odstraněny. Všech 7 sadů má nyní fotografii.
+
 ### 13. 9. 2026 — reálná mapa světa místo ilustrativních tvarů
 - Abstraktní obrysy nahrazeny skutečnou geografickou mapou: vygenerováno /public/assets/world-map.svg z dat Natural Earth 110m (119 pevnin/ostrovů, bez Antarktidy, ekvirectangulární projekce 1000×500), barvy webu (ink 13 % výplň, 30 % obrys).
 - Piny přepočítány na skutečné souřadnice (x=(lon+180)/3.6, y=(90−lat)/1.8): San Joaquin 16.7/29.7, León 25.9/43.1, Petorca 30.3/67.9, Peloponés 56.2/29.2, Kalahari 56.7/62.2, Karoo 56.1/67.9, Kuranda 90.4/59.3.
@@ -127,7 +130,7 @@ Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Ž�
 
 ## Zbývá / backlog
 - P0: Reálné produktové assety (foto cut-outy, 360° spin nebo .glb) místо TODO ilustrací; skutečný intro film místo statické fotky.
-- P1: Doplnit fotky Sad Karoo a Sad Kalahari (nahradit /assets/sad-karoo.jpg a sad-kalahari.jpg), skutečný ambientní zvukový záznam, reálné odkazy sociálních sítí.
+- P1: Skutečný ambientní zvukový záznam, reálné odkazy sociálních sítí.
 - P2: Stránky produktů s plným obsahem, vícejazyčnost (EN), napojení žurnálu na CMS.
 
 ## Poznámky

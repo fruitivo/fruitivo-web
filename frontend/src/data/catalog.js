@@ -226,7 +226,6 @@ export const ORCHARDS = {
       crops: "mochyně",
       text: "Země po vodní krizi, kde nenáročná mochyně otevřela cestu dalším plodinám.",
       image: "/assets/sad-karoo.jpg",
-      photoPending: true,
       pin: { x: 56.1, y: 67.9 },
     },
     {
@@ -254,7 +253,6 @@ export const ORCHARDS = {
       crops: "vodní meloun",
       text: "Domovina divokého melounu, odkud pochází i ten na vašem stole.",
       image: "/assets/sad-kalahari.jpg",
-      photoPending: true,
       pin: { x: 56.7, y: 62.2 },
     },
   ],
