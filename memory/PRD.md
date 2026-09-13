@@ -14,6 +14,10 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 13. 9. 2026 — mobilní ovládání slideru
+- Roletka se jmény produktů je pod lg skrytá; nahrazují ji šipky ‹ › (nová funkce stepBack) a tlačítko „Všechny produkty" otevírající překryvný seznam všech 13 plodin (číslovaný, aktivní kurzívou, klepnutí skočí na produkt a zavře; autoplay se při otevřeném seznamu pozastaví).
+- Mobilní „Více": menší statické pilulkové tlačítko vpravo dole (bottom-24 — vyšší, aby nekrylo plovoucí tlačítko zvuku), bez hover animace. Desktopová verze „Více" i roletka zůstávají od lg beze změny.
+
 ### 13. 9. 2026 — animace osy časové linie v sekci Proces
 - Svislá osa se dokresluje při scrollu: dvě vrstvy linky (tlumený podklad ink/10 + kreslená ink/40), délka řízena useScroll nad seznamem kroků (offset start 80 % → end 65 % viewportu) s useSpring (stiffness 60, damping 20) pro plynulý „růst". data-testid process-timeline-line.
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, animate, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowLeft, ArrowRight, MapPin, Sprout } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, MapPin, Sprout } from "lucide-react";
 import { SCENES, sceneIndexOf } from "../data/catalog";
 import { ExtraArt, ProductArt, ProductFlora } from "./ProductArt";
 
@@ -148,6 +148,7 @@ export const ProductSlider = () => {
   const [bgIndex, setBgIndex] = useState(0); // barva pozadí míří na cíl hned při startu posunu
   const [range, setRange] = useState([-1, 1]); // okno vykreslených scén (rozšíří se při průletu)
   const [selected, setSelected] = useState(null);
+  const [listOpen, setListOpen] = useState(false);
   const centerRef = useRef(0);
   const pos = useMotionValue(0); // pozice vůči středu (ve scénách)
   const busyRef = useRef(false);
@@ -208,14 +209,24 @@ export const ProductSlider = () => {
     afterMove();
   };
 
+  // mobilní šipky — krok zpět (vpřed řeší autoplay step)
+  const stepBack = async () => {
+    if (busyRef.current) return;
+    busyRef.current = true;
+    setBgIndex(wrap(centerRef.current - 1));
+    await animate(pos, -1, { duration: 1.15, ease: EASE }).finished;
+    settle(wrap(centerRef.current - 1));
+    afterMove();
+  };
+
   const go = (target) => jump(target);
 
   // automatické přepínání po 3 s — jede pořád dokola, bez pauzy při najetí myší
   useEffect(() => {
-    if (selected) return;
+    if (selected || listOpen) return;
     const t = setTimeout(() => step(), 3000);
     return () => clearTimeout(t);
-  }, [center, selected]);
+  }, [center, selected, listOpen]);
 
   // externí skoky (overlay menu → kategorie)
   useEffect(() => {
@@ -287,11 +298,11 @@ export const ProductSlider = () => {
         })}
       </motion.div>
 
-      {/* tlačítko Více — obdélník se zaoblenými rohy, zarovnaný s jednoslovným nápisem */}
+      {/* tlačítko Více — desktop: obdélník se zaoblenými rohy, zarovnaný s jednoslovným nápisem */}
       <button
         data-testid={`product-detail-open-${active.id}`}
         onClick={() => setSelected(active)}
-        className="group absolute bottom-[24vh] right-[6%] z-20 transition-transform duration-500 hover:scale-105 sm:right-[8%]"
+        className="group absolute bottom-[24vh] right-[8%] z-20 hidden transition-transform duration-500 hover:scale-105 lg:block"
         style={{ color: ink }}
       >
         <span className="relative block px-8 py-4 text-base font-semibold uppercase tracking-[0.3em]">
@@ -308,8 +319,89 @@ export const ProductSlider = () => {
         </span>
       </button>
 
-      {/* roletka produktů s časovačem */}
-      <div className="absolute inset-x-0 bottom-[6vh] z-20 flex justify-center" style={{ color: ink }}>
+      {/* mobil: menší statické Více v pravém dolním rohu (bez hover animace — na dotyku nemá smysl) */}
+      <button
+        data-testid="product-detail-open-mobile"
+        onClick={() => setSelected(active)}
+        className="absolute bottom-24 right-5 z-20 rounded-full border px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.25em] lg:hidden"
+        style={{ color: ink, borderColor: `${ink}75` }}
+      >
+        Více
+      </button>
+
+      {/* mobil: šipky vpřed/vzad + přehled všech produktů (roleťka je na mobilu skrytá) */}
+      <div className="absolute bottom-5 left-5 z-20 flex items-center gap-2 lg:hidden" style={{ color: ink }}>
+        <button
+          data-testid="mobile-prev-button"
+          aria-label="Předchozí produkt"
+          onClick={stepBack}
+          className="flex h-10 w-10 items-center justify-center rounded-full border"
+          style={{ borderColor: `${ink}60` }}
+        >
+          <ChevronLeft size={17} />
+        </button>
+        <button
+          data-testid="mobile-next-button"
+          aria-label="Další produkt"
+          onClick={() => step()}
+          className="flex h-10 w-10 items-center justify-center rounded-full border"
+          style={{ borderColor: `${ink}60` }}
+        >
+          <ChevronRight size={17} />
+        </button>
+        <button
+          data-testid="mobile-products-open"
+          onClick={() => setListOpen(true)}
+          className="ml-1 rounded-full border px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.2em]"
+          style={{ borderColor: `${ink}60` }}
+        >
+          Všechny produkty
+        </button>
+      </div>
+
+      {/* mobil: překryvný seznam všech produktů */}
+      <AnimatePresence>
+        {listOpen && (
+          <motion.div
+            data-testid="mobile-product-list"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.3 } }}
+            transition={{ duration: 0.35 }}
+            className="grain fixed inset-0 z-40 flex flex-col bg-ink text-stone lg:hidden"
+          >
+            <div className="flex items-center justify-between px-5 py-4">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-stone/50">Všechny produkty</span>
+              <button
+                data-testid="mobile-product-list-close"
+                onClick={() => setListOpen(false)}
+                className="text-[11px] font-semibold uppercase tracking-[0.25em] text-stone/70"
+              >
+                Zavřít
+              </button>
+            </div>
+            <nav className="flex flex-1 flex-col justify-center overflow-y-auto px-5 pb-10">
+              {SCENES.map((s, i) => (
+                <button
+                  key={s.id}
+                  data-testid={`mobile-product-item-${s.id}`}
+                  onClick={() => {
+                    setListOpen(false);
+                    go(i);
+                  }}
+                  className="group flex items-baseline gap-4 border-b border-stone/10 py-3 text-left"
+                >
+                  <span className="text-[10px] tracking-[0.3em] text-stone/40">{String(i + 1).padStart(2, "0")}</span>
+                  <span className={`font-serif text-2xl leading-none ${i === center ? "italic" : ""}`}>{s.displayName}</span>
+                </button>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* roletka produktů s časovačem — jen desktop (na mobilu šipky + seznam) */}
+      <div className="absolute inset-x-0 bottom-[6vh] z-20 hidden justify-center lg:flex" style={{ color: ink }}>
         <div
           data-testid="slider-tabs"
           className="no-scrollbar flex max-w-full items-end justify-center gap-4 overflow-x-auto px-4 pb-1 pt-3 sm:gap-5 sm:px-8"
