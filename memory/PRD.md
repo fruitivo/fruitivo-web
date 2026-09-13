@@ -14,6 +14,10 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 13. 9. 2026 — sekce „Jak to funguje" místo Žurnálu
+- Journal.jsx smazán, nahrazen Process.jsx: časová osa 6 kroků (Najdeme pozemek → Sklidíme a dovezeme), velká tlumená čísla (font-display, ink/10), svislá linka osy, kroky 03 a 04 (jádro — péče o půdu) zvýrazněny kartou bg-sand s větším odsazením a číslem ink/25. Sekce má id="denik" (zachování odkazů), data-testid process-section / process-step-01..06.
+- Data JOURNAL nahrazena exportem PROCESS v catalog.js. Navigace (desktop i overlay menu): 01 Příběh, 02 Sady, 03 Produkty, 04 Proces (#denik), 05 Kontakt. Patička přečíslována na „05 · Kontakt". Žádný odkaz na Deník/Žurnál na webu nezbyl.
+
 ### 13. 9. 2026 — rozšířený obsah detailu produktu
 - 8 produktů (mango, marakuja, dračí ovoce, limetka, mochyně, granátové jablko, avokádo, vodní meloun) má nový úvodní odstavec o pozemku/obnově půdy (pole description), kratší větu o chuti a využití (nové pole usage, kurzíva serif) a tlumený řádek se sadem (nové pole orchard, malé uppercase písmo s ikonou MapPin). Ostatní produkty (kiwi, citron, papája, asimina, liči) zůstávají na původních textech, detail bez nových polí se vykreslí korektně.
 - Layout detailu zachován: kategorie · latinsky, velký název, podtitul, odstavec, věta o chuti, řádek se sadem, chuťové chipsy, půda, TODO asset poznámka.

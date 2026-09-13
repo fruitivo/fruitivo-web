@@ -8,7 +8,7 @@ import { ProductSlider } from "./components/ProductSlider";
 import { Marquee } from "./components/Marquee";
 import { Roots } from "./components/Roots";
 import { Orchards } from "./components/Orchards";
-import { Journal } from "./components/Journal";
+import { Process } from "./components/Process";
 import { Footer } from "./components/Footer";
 import { AmbientAudio } from "./components/AmbientAudio";
 import { SecretOverlay } from "./components/SecretOverlay";
@@ -32,7 +32,7 @@ function App() {
           <Marquee />
           <Roots />
           <Orchards />
-          <Journal />
+          <Process />
         </main>
         <Footer onUnlockSecret={() => setSecretMode(true)} />
         <AmbientAudio />

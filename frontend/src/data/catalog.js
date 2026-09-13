@@ -11,7 +11,8 @@ export const NAV_ITEMS = [
   { id: "01", label: "Příběh", target: "#pribeh" },
   { id: "02", label: "Sady", target: "#sady" },
   { id: "03", label: "Produkty", target: "#produkty" },
-  { id: "04", label: "Kontakt", target: "#kontakt" },
+  { id: "04", label: "Proces", target: "#denik" },
+  { id: "05", label: "Kontakt", target: "#kontakt" },
 ];
 
 export const MARQUEE_TEXT =
@@ -274,11 +275,42 @@ export const ORCHARDS = {
   ],
 };
 
-export const JOURNAL = {
-  title: "Žurnál půdy a sklizně",
-  articles: [
-    { title: "Jak biouhel vrací vodu do vyprahlé země", date: "12. července 2026", readTime: "5 min čtení", excerpt: "Praktické zkušenosti z tříletého experimentu na terasách Pálavy s regenerací půdního humusu." },
-    { title: "Agrolesnictví: sady, které krmí samy sebe", date: "28. června 2026", readTime: "8 min čtení", excerpt: "Proč kombinujeme ovocné stromy s krycími plodinami a jak tím roste odolnost celého porostu." },
+export const PROCESS = {
+  title: "Jak to funguje",
+  subtitle: "Od zničené země po ovoce na vašem stole",
+  steps: [
+    {
+      number: "01",
+      title: "Najdeme pozemek",
+      text: "Hledáme půdu zasaženou požárem, suchem nebo lety vyčerpávajícího hospodaření — v regionech, kde přirozeně roste ovoce, které chceme pěstovat.",
+    },
+    {
+      number: "02",
+      title: "Koupíme ji",
+      text: "Právě proto, že je poškozená, bývá levná. Kupujeme zemi, o kterou velké farmy přestaly stát.",
+    },
+    {
+      number: "03",
+      title: "Vrátíme jí vodu a mikrobiom",
+      text: "Nejdřív se staráme o půdu samotnou, ne o rostliny na ní — kompost, krycí plodiny a obnova mikroorganismů, které oheň nebo roky sucha z hlíny vzaly.",
+      core: true,
+    },
+    {
+      number: "04",
+      title: "Necháme jí čas",
+      text: "Obnova půdy trvá roky, ne měsíce. Teprve když je země znovu schopná držet vodu a živiny, má smysl na ni něco sázet.",
+      core: true,
+    },
+    {
+      number: "05",
+      title: "Vysadíme odolné odrůdy",
+      text: "Sázíme plodiny, které svými hlubokými kořeny půdu dál stabilizují a chrání před opětovnou erozí.",
+    },
+    {
+      number: "06",
+      title: "Sklidíme a dovezeme",
+      text: "Zralé ovoce sklidíme a dopravíme čerstvé nebo šetrně sušené až k vám do Česka.",
+    },
   ],
 };
 
