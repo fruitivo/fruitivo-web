@@ -30,6 +30,24 @@ const LAYOUT = {
   lychee: { scale: 1.04, rot: 9, extraRot: -18 },
 };
 
+// velikost ovoce v detailu — každý druh zvlášť, aby pěkně vyplnil barevný panel
+// [hlavní kus, druhý kus]; panel = na mobilu horní pás přes celou šířku, na desktopu pravá polovina
+const DETAIL_SIZE = {
+  avocado: ["w-[54vmin] lg:w-[23vw]", "w-[46vmin] lg:w-[19vw]"],
+  kiwi: ["w-[56vmin] lg:w-[24vw]", "w-[48vmin] lg:w-[20vw]"],
+  lime: ["w-[50vmin] lg:w-[22vw]", "w-[42vmin] lg:w-[18vw]"],
+  pawpaw: ["w-[62vmin] lg:w-[27vw]", "w-[50vmin] lg:w-[21vw]"],
+  lemon: ["w-[54vmin] lg:w-[23vw]", "w-[46vmin] lg:w-[19vw]"],
+  passionfruit: ["w-[52vmin] lg:w-[22vw]", "w-[44vmin] lg:w-[18vw]"],
+  physalis: ["w-[64vmin] lg:w-[28vw]", "w-[52vmin] lg:w-[22vw]"],
+  mango: ["w-[58vmin] lg:w-[25vw]", "w-[48vmin] lg:w-[20vw]"],
+  papaya: ["w-[62vmin] lg:w-[27vw]", "w-[50vmin] lg:w-[21vw]"],
+  watermelon: ["w-[78vmin] lg:w-[36vw]"],
+  pomegranate: ["w-[56vmin] lg:w-[24vw]", "w-[46vmin] lg:w-[19vw]"],
+  dragonfruit: ["w-[56vmin] lg:w-[24vw]", "w-[46vmin] lg:w-[19vw]"],
+  lychee: ["w-[60vmin] lg:w-[26vw]", "w-[48vmin] lg:w-[20vw]"],
+};
+
 // různé pozice flóry — každá scéna dostane jiné rozmístění (posun dle indexu)
 const FLORA_SPOTS = [
   { style: { left: "3%", top: "8%" }, size: "w-[26vmin]", opacity: 0.5, flip: false, dur: 16 },
@@ -242,15 +260,16 @@ export const ProductSlider = () => {
     document.documentElement.style.setProperty("--nav-ink", inkOf());
   }, [center]);
 
-  // parallaxa kurzorem (slider i detail)
+  // parallaxa kurzorem (jen slider — v detailu vypnutá na přání)
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const smx = useSpring(mx, { stiffness: 55, damping: 18 });
   const smy = useSpring(my, { stiffness: 55, damping: 18 });
-  const dax = useTransform(smx, (v) => v * 24);
-  const day = useTransform(smy, (v) => v * 16);
 
   const selLayout = selected ? LAYOUT[selected.id] || {} : {};
+  const [detailMain, detailExtra] = selected
+    ? DETAIL_SIZE[selected.id] ?? ["w-[56vmin] lg:w-[24vw]", "w-[46vmin] lg:w-[19vw]"]
+    : [];
   const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
 
   // plovoucí panel detailu — nedotýká se okrajů, blíž hornímu okraji
@@ -459,16 +478,17 @@ export const ProductSlider = () => {
               />
               <div className="flex h-full items-center justify-center">
                 <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.65, ease: EASE }}>
-                  <motion.div style={{ x: dax, y: day }} className="flex items-center justify-center">
+                  {/* bez parallax za myší — statická kompozice, zvětšená dle druhu */}
+                  <div className="flex items-center justify-center">
                     <motion.div style={{ rotate: selLayout.rot ?? 0 }}>
-                      <ProductArt id={selected.id} className="h-auto w-[40vmin] max-w-[380px] lg:w-[19vw] lg:max-w-[430px]" />
+                      <ProductArt id={selected.id} className={`h-auto ${detailMain}`} />
                     </motion.div>
                     {selLayout.extra !== false && (
                       <motion.div style={{ rotate: selLayout.extraRot ?? 10 }} className="-ml-[10%] mt-[8%]">
-                        <ExtraArt id={selected.id} className="h-auto w-[40vmin] max-w-[380px] lg:w-[19vw] lg:max-w-[430px]" />
+                        <ExtraArt id={selected.id} className={`h-auto ${detailExtra}`} />
                       </motion.div>
                     )}
-                  </motion.div>
+                  </div>
                 </motion.div>
               </div>
             </motion.div>

@@ -14,6 +14,10 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 13. 9. 2026 — detail produktu: vypnutá parallaxa myši + větší ovoce
+- V detailu (po kliknutí na „Více") odstraněna parallaxní animace za kurzorem (dax/day), ovoce je statické. Parallax v hlavním slideru zůstává.
+- Nová mapa DETAIL_SIZE v ProductSlider.jsx — každý druh má vlastní velikost hlavního i druhého kusu (mobil vmin / desktop vw, např. meloun 36vw, physalis 28vw, limetka 22vw), aby ovoce vyplnilo větší část barevného panelu.
+
 ### 13. 9. 2026 — desktopové „Více" níž
 - Desktopové tlačítko „Více" posunuto z bottom-[24vh] na bottom-[12vh] (těsně nad roleťku), ať nezasahuje do ovoce a prvků scény.
 
