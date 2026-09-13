@@ -14,6 +14,9 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 13. 9. 2026 — fotka listu ve skryté kapitole
+- Kapitola „01 · Vedlejší projekt" skryté stránky má nově dvousloupcový layout: vlevo text, vpravo fotka fialově nasvíceného listu (/assets/secret-leaf.jpg, zaoblený roh, jemná vinětace, fade-up). Na mobilu se fotka řadí pod text.
+
 ### 13. 9. 2026 — detail produktu: vypnutá parallaxa myši + větší ovoce
 - V detailu (po kliknutí na „Více") odstraněna parallaxní animace za kurzorem (dax/day), ovoce je statické. Parallax v hlavním slideru zůstává.
 - Nová mapa DETAIL_SIZE v ProductSlider.jsx — každý druh má vlastní velikost hlavního i druhého kusu (mobil vmin / desktop vw, např. meloun 36vw, physalis 28vw, limetka 22vw), aby ovoce vyplnilo větší část barevného panelu.

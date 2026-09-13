@@ -67,37 +67,59 @@ export const SecretOverlay = ({ onDismiss }) => {
 
         {/* OBSAH — stejný rytmus a design jako hlavní web, na tmavém fialovém */}
         <div className="grain relative bg-[#160a24] text-sand">
-          <section className="relative z-10 mx-auto max-w-3xl px-6 pt-28 sm:pt-36">
-            <motion.p
-              {...fadeUp()}
-              className="mb-6 text-[11px] font-semibold uppercase tracking-[0.35em] text-sand/40"
-            >
-              01 · Vedlejší projekt
-            </motion.p>
-            <motion.h2
-              data-testid="secret-subline"
-              {...fadeUp(0.1)}
-              className="font-serif text-3xl leading-[1.1] tracking-tight sm:text-5xl"
-            >
-              Diverzifikace portfolia má i svoje <em className="font-light">tišší kapitoly.</em>
-            </motion.h2>
-            <motion.p
-              data-testid="secret-paragraph"
-              {...fadeUp(0.2)}
-              className="mt-12 max-w-[60ch] text-sm leading-relaxed text-sand/60 sm:text-base"
-            >
-              Ve dne jsme sad jako každý jiný — turisté, degustace, laborantky
-              v gumových holínkách. Ale jakmile slunce zajde, začíná směna, o které
-              se nepíše do výroční zprávy. Hluboko pod kořeny, tam, kde končí naše
-              oficiální mapa pozemku, mají naši nejzkušenější lidé druhé zaměstnání.
-              Žádná fotodokumentace, žádné degustace pro veřejnost, žádné „ochutnejte
-              a napište recenzi". Jen tichá, precizní práce a produkt, který mluví
-              sám za sebe — pro toho, kdo ví, koho se zeptat.
-              <br />
-              <br />
-              Nazýváme to diverzifikací portfolia. Účetní tomu říkají jinak, ale
-              účetní se stejně nikdy nedostanou dál než do vzorkovny.
-            </motion.p>
+          <section className="relative z-10 mx-auto max-w-6xl px-6 pt-28 sm:pt-36">
+            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+              <div>
+                <motion.p
+                  {...fadeUp()}
+                  className="mb-6 text-[11px] font-semibold uppercase tracking-[0.35em] text-sand/40"
+                >
+                  01 · Vedlejší projekt
+                </motion.p>
+                <motion.h2
+                  data-testid="secret-subline"
+                  {...fadeUp(0.1)}
+                  className="font-serif text-3xl leading-[1.1] tracking-tight sm:text-5xl"
+                >
+                  Diverzifikace portfolia má i svoje <em className="font-light">tišší kapitoly.</em>
+                </motion.h2>
+                <motion.p
+                  data-testid="secret-paragraph"
+                  {...fadeUp(0.2)}
+                  className="mt-12 max-w-[60ch] text-sm leading-relaxed text-sand/60 sm:text-base"
+                >
+                  Ve dne jsme sad jako každý jiný — turisté, degustace, laborantky
+                  v gumových holínkách. Ale jakmile slunce zajde, začíná směna, o které
+                  se nepíše do výroční zprávy. Hluboko pod kořeny, tam, kde končí naše
+                  oficiální mapa pozemku, mají naši nejzkušenější lidé druhé zaměstnání.
+                  Žádná fotodokumentace, žádné degustace pro veřejnost, žádné „ochutnejte
+                  a napište recenzi". Jen tichá, precizní práce a produkt, který mluví
+                  sám za sebe — pro toho, kdo ví, koho se zeptat.
+                  <br />
+                  <br />
+                  Nazýváme to diverzifikací portfolia. Účetní tomu říkají jinak, ale
+                  účetní se stejně nikdy nedostanou dál než do vzorkovny.
+                </motion.p>
+              </div>
+
+              <motion.div
+                data-testid="secret-photo"
+                {...fadeUp(0.25)}
+                className="relative overflow-hidden rounded-2xl border border-sand/15"
+              >
+                <img
+                  src="/assets/secret-leaf.jpg"
+                  alt="List nasvícený fialovým světlem"
+                  className="block h-auto w-full object-cover"
+                  loading="lazy"
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0"
+                  style={{ background: "radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(22,10,36,0.5) 100%)" }}
+                />
+              </motion.div>
+            </div>
           </section>
 
           {/* slogan + návrat */}
