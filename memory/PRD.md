@@ -14,6 +14,9 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 13. 9. 2026 — obsah skryté obrazovky „gentlemen" (finální texty)
+- SecretOverlay: kurzíva nadpisu změněna na „Vedlejší projekt, o kterém se nemluví na valné hromadě.", podnadpis „Diverzifikace portfolia má i svoje tišší kapitoly."; přidán tělový odstavec ve stylu seriálu Gentlemen (max 60 znaků/řádek, centrovaný) a závěrečný slogan kurzívou „XXX. Nejlepší úroda roste tam, kam se nikdo neptá.". Tlačítko „Já nic nevím" zachováno; staggered fade-in jednotlivých bloků.
+
 ### 13. 9. 2026 — skrytý easter egg po zadání přístupového kódu
 - Pole „Vstup pro pozvané" v patičce (Footer.jsx) nově napojeno: kód "gentlemen" (case-insensitive) spustí skrytý fullscreen stav; jiný kód zobrazí dosavadní placeholder hlášku. Pole je type=password, kód není nikde v UI naznačen.
 - Nová komponenta SecretOverlay.jsx: překrytí přes celou obrazovku (fixed, z-100), cross-dissolve fade 1 s (stejný typ přechodu jako scény slideru), pozadí = dodaný fialový vizuál /assets/secret-bg.jpg + tmavá fialová vinětace, filmové zrno.
