@@ -196,7 +196,7 @@ export const categoryStartIndex = (categoryId) => SCENES.findIndex((s) => s.cate
 
 export const ROOTS = {
   title: "Náš příběh",
-  lead: "XXX vzniklo z jednoho přání — přivézt sem ovoce, které tu nikdy neroste, a udělat to poctivě.",
+  lead: "XXX vzniklo z jednoho přání — přivézt sem ovoce, které u nás neroste, a udělat to poctivě.",
   chapters: [
     { number: "01", title: "Tam, kam patří", text: "Jezdíme za ním tam, kam patří. Do míst, kde slunce svítí skoro celý rok, ale kde má půda za sebou těžké roky — sucho, požáry, vyčerpanou zemi. Tyhle pozemky kupujeme a dáváme jim čas se zase nadechnout." },
     { number: "02", title: "Neděláme to sami", text: "Učíme se od lidí, kteří tam žijí a starají se o zem odjakživa. Oni vědí, jak s půdou a rostlinami zacházet — my jim pomáháme s obnovou a časem, který to potřebuje." },
