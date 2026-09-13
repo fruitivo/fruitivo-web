@@ -14,8 +14,8 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
-### 13. 9. 2026 — TEST: dokreslující se linky mezi sady
-- EXPERIMENT (může se vrátit): v mapě sadů SVG vrstva s 8 tenkými čárkovanými oblouky (ink 30 %, dash 3 3) spojujícími sady v pořadí západ→východ (San Joaquin → León → Ohio Valley → Petorca → Karoo → Peloponés → Kalahari → Guria → Kuranda). Každá linka se při vjezdu do viewportu dokreslí postupně (pathLength 0→1, zpoždění 0.28 s). Vrstva má pointer-events-none, piny dál klikají. Označeno TEST v kódu (Orchards.jsx, konstanta ROUTE + arcPath).
+### 13. 9. 2026 — TEST linky mezi sady: ZAMÍTNUTO a odstraněno
+- Experiment s dokreslujícími se linkami mezi sady uživatel po prohlédnutí vrátil — SVG vrstva i pomocné funkce (ROUTE, arcPath) z Orchards.jsx odstraněny, mapa je opět čistá jen se značkami.
 
 ### 13. 9. 2026 — mapa sadů rozšířena na 9 pozemků
 - Přidány Sad Guria (Gruzie, kiwi, pin 61.7/26.7, foto sad-guria.jpg) a Sad Ohio Valley (Ohio, USA, asimina, pin 27.1/28.3, foto sad-ohiovalley.jpg) — oba s reálnými fotkami od uživatele. Plodiny sjednoceny dle kontrolního seznamu: Kuranda „mango, marakuja, papája, liči", San Joaquin „limetka, citron". Podtitul sekce: „Devět území napříč kontinenty…".
