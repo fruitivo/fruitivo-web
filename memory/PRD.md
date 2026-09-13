@@ -14,6 +14,10 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 13. 9. 2026 — obsah detailu pro zbývajících 5 produktů
+- Kiwi (Sad Guria, Gruzie), citron (Sad San Joaquin), papája (Sad Kuranda), asimina (Sad Ohio Valley, Ohio) a liči (Sad Kuranda) mají nové úvodní odstavce + větu o chuti/využití + řádek se sadem. Všech 13 produktů má nyní kompletní strukturu detailu.
+- POZN.: Sad Guria a Sad Ohio Valley zatím NEJSOU na mapě v sekci Sady (mapa má 7 pozemků dle dřívějšího zadání) — případné doplnění na uživateli.
+
 ### 13. 9. 2026 — fotka listu ve skryté kapitole
 - Kapitola „01 · Vedlejší projekt" skryté stránky má nově dvousloupcový layout: vlevo text, vpravo fotka fialově nasvíceného listu (/assets/secret-leaf.jpg, zaoblený roh, jemná vinětace, fade-up). Na mobilu se fotka řadí pod text.
 
