@@ -4,22 +4,6 @@ import { ORCHARDS } from "../data/catalog";
 
 const EASE = [0.65, 0, 0.35, 1];
 
-/* Ilustrativní (geograficky nepřesná) mapa světa — měkké obrysy kontinentů v barvách webu */
-const CONTINENTS = [
-  // Severní Amerika
-  "M80,110 C120,60 220,55 260,90 C290,115 285,150 250,165 C270,180 265,215 230,220 C200,225 190,255 160,250 C120,243 95,200 85,165 C78,140 70,125 80,110 Z",
-  // Jižní Amerika
-  "M250,290 C285,270 320,285 325,320 C330,355 310,400 290,440 C275,465 250,460 245,425 C240,390 225,345 232,315 C236,300 240,295 250,290 Z",
-  // Evropa
-  "M480,95 C520,70 575,75 590,105 C600,130 585,155 555,160 C560,180 540,195 515,190 C485,183 465,150 470,120 C472,108 473,102 480,95 Z",
-  // Afrika
-  "M470,210 C510,190 575,195 600,225 C625,255 615,305 590,345 C570,380 545,395 520,380 C490,362 465,310 460,265 C457,240 455,222 470,210 Z",
-  // Asie
-  "M600,90 C680,55 830,60 900,100 C940,125 930,170 890,185 C910,205 895,240 860,245 C820,250 800,275 760,265 C720,255 700,230 660,225 C620,220 595,190 590,150 C587,120 585,100 600,90 Z",
-  // Austrálie
-  "M810,350 C850,330 905,340 915,375 C923,405 895,430 855,428 C815,426 790,400 795,375 C798,362 800,357 810,350 Z",
-];
-
 const OrchardPhoto = ({ loc, className }) => (
   <div className={`relative overflow-hidden ${className}`}>
     <img src={loc.image} alt={`Fotografie — ${loc.name}`} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
@@ -65,11 +49,12 @@ export const Orchards = () => {
             transition={{ duration: 0.9, ease: EASE }}
             className="relative overflow-hidden rounded-2xl border border-ink/15 bg-stone lg:col-span-3"
           >
-            <svg viewBox="0 0 1000 520" className="block h-auto w-full" role="img" aria-label="Ilustrativní mapa světa se sady XXX">
-              {CONTINENTS.map((d, i) => (
-                <path key={i} d={d} className="fill-ink/10 stroke-ink/25" strokeWidth="2" strokeLinejoin="round" />
-              ))}
-            </svg>
+            <img
+              src="/assets/world-map.svg"
+              alt="Mapa světa se sady XXX"
+              className="block h-auto w-full"
+              draggable="false"
+            />
             {ORCHARDS.locations.map((loc) => {
               const isActive = loc.id === activeId;
               return (

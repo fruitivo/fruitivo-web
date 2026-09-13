@@ -199,7 +199,7 @@ export const ORCHARDS = {
       crops: "mango, marakuja",
       text: "Bývalá buš zasažená požáry, dnes největší sad v naší síti.",
       image: "/assets/sad-kuranda.jpg",
-      pin: { x: 86, y: 72 },
+      pin: { x: 90.4, y: 59.3 },
     },
     {
       id: "leon",
@@ -208,7 +208,7 @@ export const ORCHARDS = {
       crops: "dračí ovoce",
       text: "Půda obnovená po letech odlesňování, dnes domov dračího ovoce.",
       image: "/assets/sad-leon.jpg",
-      pin: { x: 23, y: 51 },
+      pin: { x: 25.9, y: 43.1 },
     },
     {
       id: "sanjoaquin",
@@ -217,7 +217,7 @@ export const ORCHARDS = {
       crops: "limetka",
       text: "Údolí vysušené lety sucha, citrusy sem vrátily život i vodu.",
       image: "/assets/sad-sanjoaquin.jpg",
-      pin: { x: 15, y: 36 },
+      pin: { x: 16.7, y: 29.7 },
     },
     {
       id: "karoo",
@@ -227,7 +227,7 @@ export const ORCHARDS = {
       text: "Země po vodní krizi, kde nenáročná mochyně otevřela cestu dalším plodinám.",
       image: "/assets/sad-karoo.jpg",
       photoPending: true,
-      pin: { x: 55, y: 71 },
+      pin: { x: 56.1, y: 67.9 },
     },
     {
       id: "pelopones",
@@ -236,7 +236,7 @@ export const ORCHARDS = {
       crops: "granátové jablko",
       text: "Staré olivové háje zasažené požáry roku 2021, obnovené pod granátovými sady.",
       image: "/assets/sad-pelopones.jpg",
-      pin: { x: 54, y: 32 },
+      pin: { x: 56.2, y: 29.2 },
     },
     {
       id: "petorca",
@@ -245,7 +245,7 @@ export const ORCHARDS = {
       crops: "avokádo",
       text: "Region známý vodní krizí, kde obnova půdy začíná dávat smysl i ekonomicky.",
       image: "/assets/sad-petorca.jpg",
-      pin: { x: 27, y: 73 },
+      pin: { x: 30.3, y: 67.9 },
     },
     {
       id: "kalahari",
@@ -255,7 +255,7 @@ export const ORCHARDS = {
       text: "Domovina divokého melounu, odkud pochází i ten na vašem stole.",
       image: "/assets/sad-kalahari.jpg",
       photoPending: true,
-      pin: { x: 51, y: 64 },
+      pin: { x: 56.7, y: 62.2 },
     },
   ],
 };
