@@ -47,7 +47,7 @@ export const Orchards = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.9, ease: EASE }}
-            className="relative overflow-hidden rounded-2xl border border-ink/15 bg-stone lg:col-span-3"
+            className="relative aspect-[2/1] self-start overflow-hidden rounded-2xl border border-ink/15 bg-stone lg:col-span-3"
           >
             <img
               src="/assets/world-map.svg"

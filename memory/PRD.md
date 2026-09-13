@@ -18,6 +18,7 @@ Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Ž�
 - Abstraktní obrysy nahrazeny skutečnou geografickou mapou: vygenerováno /public/assets/world-map.svg z dat Natural Earth 110m (119 pevnin/ostrovů, bez Antarktidy, ekvirectangulární projekce 1000×500), barvy webu (ink 13 % výplň, 30 % obrys).
 - Piny přepočítány na skutečné souřadnice (x=(lon+180)/3.6, y=(90−lat)/1.8): San Joaquin 16.7/29.7, León 25.9/43.1, Petorca 30.3/67.9, Peloponés 56.2/29.2, Kalahari 56.7/62.2, Karoo 56.1/67.9, Kuranda 90.4/59.3.
 - Z Orchards.jsx odstraněno pole CONTINENTS; mapa se vkládá jako <img> world-map.svg.
+- OPRAVA zarovnání pinů: kontejner mapy se v gridu natahoval na výšku vedlejšího panelu (420 px vs. mapa 338 px), takže piny počítané v % kontejneru seděly níž než pevnina na obrázku (vypadaly „v oceánu"). Kontejner má nyní pevné aspect-[2/1] + self-start → % pinů odpovídá přesně obrázku mapy.
 
 ### 13. 9. 2026 — interaktivní mapa vlastněných pozemků (sekce Sady)
 - Placeholder nahrazen plnou mapou: ilustrativní SVG svět (měkké obrysy kontinentů, fill-ink/10 + stroke-ink/25 na stone panelu) se 7 pulzujícími piny; klik přepne boční panel (AnimatePresence crossfade) s fotkou, lokalitou, plodinami a textem. Data v ORCHARDS (catalog.js): Kuranda, León, San Joaquin, Karoo, Peloponés, Petorca, Kalahari — přesně dle zadání.
