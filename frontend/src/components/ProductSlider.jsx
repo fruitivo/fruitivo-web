@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, animate, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowLeft, ArrowRight, Sprout } from "lucide-react";
+import { ArrowLeft, ArrowRight, MapPin, Sprout } from "lucide-react";
 import { SCENES, sceneIndexOf } from "../data/catalog";
 import { ExtraArt, ProductArt, ProductFlora } from "./ProductArt";
 
@@ -402,6 +402,19 @@ export const ProductSlider = () => {
                 </h3>
                 <p className="mt-4 font-serif text-xl italic font-light text-ink/75">{selected.subtitle}</p>
                 <p className="mt-6 text-sm leading-relaxed text-ink/75 sm:text-base">{selected.description}</p>
+
+                {selected.usage && (
+                  <p className="mt-4 font-serif text-sm font-light italic leading-relaxed text-ink/70 sm:text-base">
+                    {selected.usage}
+                  </p>
+                )}
+
+                {selected.orchard && (
+                  <p className="mt-5 flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-ink/45">
+                    <MapPin size={13} className="shrink-0" />
+                    {selected.orchard}
+                  </p>
+                )}
 
                 <div className="mt-6 flex flex-wrap gap-2">
                   {selected.notes.map((n) => (

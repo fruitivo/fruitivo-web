@@ -14,6 +14,10 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 13. 9. 2026 — rozšířený obsah detailu produktu
+- 8 produktů (mango, marakuja, dračí ovoce, limetka, mochyně, granátové jablko, avokádo, vodní meloun) má nový úvodní odstavec o pozemku/obnově půdy (pole description), kratší větu o chuti a využití (nové pole usage, kurzíva serif) a tlumený řádek se sadem (nové pole orchard, malé uppercase písmo s ikonou MapPin). Ostatní produkty (kiwi, citron, papája, asimina, liči) zůstávají na původních textech, detail bez nových polí se vykreslí korektně.
+- Layout detailu zachován: kategorie · latinsky, velký název, podtitul, odstavec, věta o chuti, řádek se sadem, chuťové chipsy, půda, TODO asset poznámka.
+
 ### 13. 9. 2026 — doplněny poslední fotky sadů
 - Sad Karoo a Sad Kalahari mají reálné fotky (mochyně / melounové pole v poušti); placeholdery a flag photoPending odstraněny. Všech 7 sadů má nyní fotografii.
 
