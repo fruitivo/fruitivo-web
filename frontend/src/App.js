@@ -37,7 +37,16 @@ function App() {
         <Footer onUnlockSecret={() => setSecretMode(true)} />
         <AmbientAudio />
         <AnimatePresence>
-          {secretMode && <SecretOverlay onDismiss={() => setSecretMode(false)} />}
+          {secretMode && (
+            <SecretOverlay
+              onDismiss={() => {
+                setSecretMode(false);
+                // návrat na začátek hlavní stránky (force = i když je Lenis ještě pozastaven overlayem)
+                if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
+                else window.scrollTo(0, 0);
+              }}
+            />
+          )}
         </AnimatePresence>
       </div>
     </ScrollContext.Provider>
