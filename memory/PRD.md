@@ -14,6 +14,12 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 13. 9. 2026 — skrytý easter egg po zadání přístupového kódu
+- Pole „Vstup pro pozvané" v patičce (Footer.jsx) nově napojeno: kód "gentlemen" (case-insensitive) spustí skrytý fullscreen stav; jiný kód zobrazí dosavadní placeholder hlášku. Pole je type=password, kód není nikde v UI naznačen.
+- Nová komponenta SecretOverlay.jsx: překrytí přes celou obrazovku (fixed, z-100), cross-dissolve fade 1 s (stejný typ přechodu jako scény slideru), pozadí = dodaný fialový vizuál /assets/secret-bg.jpg + tmavá fialová vinětace, filmové zrno.
+- Obsah: nadpis „Vítejte v XXX." (Fraunces vzpřímený) + kurzíva „Pod kořeny našich sadů roste ještě jeden nápad.", podnadpis „Co roste pod povrchem, zůstává mezi námi.", tlačítko „Já nic nevím" → fade zpět do normálního režimu.
+- Stav drží App.js (secretMode + AnimatePresence); při otevřeném overlay se pozastaví Lenis scroll. Žádná vlastní URL → noindex není potřeba, nic se neindexuje; funkce není nikde odkazovaná ani zmíněná v UI.
+
 ### 12. 9. 2026 — zjemnění luxusního stínu (hlavní slider)
 - Na základě zpětné vazby uživatele zjemněna vinětace hlavního slideru: ztemnění okrajů radial gradientu z rgba(33,30,27,0.38) na 0.25. Detailní panel po kliknutí na „Více" zůstává beze změny (0.30). Plochá vrstva ink/25 zachována. Uživatel potvrdil, že stín jinak vyhovuje — TEST stává se trvalou součástí.
 

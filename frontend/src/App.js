@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Lenis from "lenis";
+import { AnimatePresence } from "framer-motion";
 import "@/App.css";
 import { ScrollContext } from "./scrollContext";
 import { Navigation } from "./components/Navigation";
@@ -10,9 +11,11 @@ import { Orchards } from "./components/Orchards";
 import { Journal } from "./components/Journal";
 import { Footer } from "./components/Footer";
 import { AmbientAudio } from "./components/AmbientAudio";
+import { SecretOverlay } from "./components/SecretOverlay";
 
 function App() {
   const [lenis, setLenis] = useState(null);
+  const [secretMode, setSecretMode] = useState(false);
 
   useEffect(() => {
     const instance = new Lenis({ lerp: 0.09, smoothWheel: true, autoRaf: true });
@@ -31,8 +34,11 @@ function App() {
           <Orchards />
           <Journal />
         </main>
-        <Footer />
+        <Footer onUnlockSecret={() => setSecretMode(true)} />
         <AmbientAudio />
+        <AnimatePresence>
+          {secretMode && <SecretOverlay onDismiss={() => setSecretMode(false)} />}
+        </AnimatePresence>
       </div>
     </ScrollContext.Provider>
   );

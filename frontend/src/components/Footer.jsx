@@ -1,9 +1,20 @@
 import { useState } from "react";
 import { FOOTER } from "../data/catalog";
 
-export const Footer = () => {
+export const Footer = ({ onUnlockSecret }) => {
   const [code, setCode] = useState("");
   const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (code.trim().toLowerCase() === "gentlemen") {
+      setCode("");
+      setSent(false);
+      onUnlockSecret?.();
+      return;
+    }
+    setSent(true);
+  };
 
   return (
     <footer id="kontakt" data-testid="footer-section" className="grain relative overflow-hidden bg-ink px-5 pb-10 pt-24 text-stone sm:px-10 sm:pt-32">
@@ -54,10 +65,7 @@ export const Footer = () => {
         <div className="mb-20 max-w-md">
           <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-stone/40">Vstup pro pozvané</p>
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
-            }}
+            onSubmit={handleSubmit}
             className="flex items-center gap-3"
           >
             <input
