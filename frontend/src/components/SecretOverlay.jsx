@@ -2,6 +2,13 @@ import { useContext, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ScrollContext } from "../scrollContext";
 
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 26 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-80px" },
+  transition: { delay, duration: 0.9, ease: "easeOut" },
+});
+
 export const SecretOverlay = ({ onDismiss }) => {
   const lenis = useContext(ScrollContext);
 
@@ -13,12 +20,12 @@ export const SecretOverlay = ({ onDismiss }) => {
   return (
     <motion.div
       data-testid="secret-overlay"
-      className="grain fixed inset-0 z-[100] overflow-hidden"
+      className="fixed inset-0 z-[100]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { duration: 1.0, ease: "easeInOut" } }}
       exit={{ opacity: 0, transition: { duration: 1.0, ease: "easeInOut" } }}
     >
-      {/* pozadí — placeholder vizuál nasvícený fialovým světlem (TODO: finální asset) */}
+      {/* pozadí první obrazovky — placeholder vizuál nasvícený fialovým světlem (TODO: finální asset) */}
       <div aria-hidden className="absolute inset-0 bg-[#160a24]" />
       <img
         src="/assets/secret-bg.jpg"
@@ -34,70 +41,85 @@ export const SecretOverlay = ({ onDismiss }) => {
         }}
       />
 
-      <div className="relative z-10 flex h-full flex-col items-center justify-center overflow-y-auto px-6 py-16 text-center text-sand">
-        <motion.h1
-          data-testid="secret-headline"
-          initial={{ opacity: 0, y: 26 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.9, ease: "easeOut" }}
-          className="max-w-4xl font-serif text-4xl leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl"
-        >
-          Vítejte v XXX.
-          <br />
-          <em className="font-light">Vedlejší projekt, o kterém se nemluví na valné hromadě.</em>
-        </motion.h1>
+      {/* vlastní scroll uvnitř overlaye (hlavní Lenis je pozastaven) */}
+      <div data-lenis-prevent className="relative z-10 h-full overflow-y-auto">
+        {/* ÚVODNÍ OBRAZOVKA — jen nadpis a kurzíva, vzdušně */}
+        <section className="flex min-h-screen flex-col items-center justify-center px-6 text-center text-sand">
+          <motion.h1
+            data-testid="secret-headline"
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.9, ease: "easeOut" }}
+            className="max-w-4xl font-serif text-4xl leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl"
+          >
+            Vítejte v XXX.
+          </motion.h1>
+          <motion.p
+            data-testid="secret-headline-em"
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.85, duration: 0.9, ease: "easeOut" }}
+            className="mt-12 max-w-3xl font-serif text-2xl font-light italic leading-snug tracking-tight text-sand/90 sm:mt-16 sm:text-4xl"
+          >
+            Vedlejší projekt, o kterém se nemluví na valné hromadě.
+          </motion.p>
+        </section>
 
-        <motion.p
-          data-testid="secret-subline"
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.95, duration: 0.8, ease: "easeOut" }}
-          className="mt-8 text-sm text-sand/70 sm:text-base"
-        >
-          Diverzifikace portfolia má i svoje tišší kapitoly.
-        </motion.p>
+        {/* OBSAH — stejný rytmus a design jako hlavní web, na tmavém fialovém */}
+        <div className="grain relative bg-[#160a24] text-sand">
+          <section className="relative z-10 mx-auto max-w-3xl px-6 pt-28 sm:pt-36">
+            <motion.p
+              {...fadeUp()}
+              className="mb-6 text-[11px] font-semibold uppercase tracking-[0.35em] text-sand/40"
+            >
+              01 · Vedlejší projekt
+            </motion.p>
+            <motion.h2
+              data-testid="secret-subline"
+              {...fadeUp(0.1)}
+              className="font-serif text-3xl leading-[1.1] tracking-tight sm:text-5xl"
+            >
+              Diverzifikace portfolia má i svoje <em className="font-light">tišší kapitoly.</em>
+            </motion.h2>
+            <motion.p
+              data-testid="secret-paragraph"
+              {...fadeUp(0.2)}
+              className="mt-12 max-w-[60ch] text-sm leading-relaxed text-sand/60 sm:text-base"
+            >
+              Ve dne jsme sad jako každý jiný — turisté, degustace, laborantky
+              v gumových holínkách. Ale jakmile slunce zajde, začíná směna, o které
+              se nepíše do výroční zprávy. Hluboko pod kořeny, tam, kde končí naše
+              oficiální mapa pozemku, mají naši nejzkušenější lidé druhé zaměstnání.
+              Žádná fotodokumentace, žádné degustace pro veřejnost, žádné „ochutnejte
+              a napište recenzi". Jen tichá, precizní práce a produkt, který mluví
+              sám za sebe — pro toho, kdo ví, koho se zeptat.
+              <br />
+              <br />
+              Nazýváme to diverzifikací portfolia. Účetní tomu říkají jinak, ale
+              účetní se stejně nikdy nedostanou dál než do vzorkovny.
+            </motion.p>
+          </section>
 
-        <motion.p
-          data-testid="secret-paragraph"
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
-          className="mt-10 max-w-[60ch] text-sm leading-relaxed text-sand/60"
-        >
-          Ve dne jsme sad jako každý jiný — turisté, degustace, laborantky
-          v gumových holínkách. Ale jakmile slunce zajde, začíná směna, o které
-          se nepíše do výroční zprávy. Hluboko pod kořeny, tam, kde končí naše
-          oficiální mapa pozemku, mají naši nejzkušenější lidé druhé zaměstnání.
-          Žádná fotodokumentace, žádné degustace pro veřejnost, žádné „ochutnejte
-          a napište recenzi". Jen tichá, precizní práce a produkt, který mluví
-          sám za sebe — pro toho, kdo ví, koho se zeptat.
-          <br />
-          <br />
-          Nazýváme to diverzifikací portfolia. Účetní tomu říkají jinak, ale
-          účetní se stejně nikdy nedostanou dál než do vzorkovny.
-        </motion.p>
-
-        <motion.p
-          data-testid="secret-tagline"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.45, duration: 0.8 }}
-          className="mt-10 font-serif text-sm italic text-sand/70"
-        >
-          XXX. Nejlepší úroda roste tam, kam se nikdo neptá.
-        </motion.p>
-
-        <motion.button
-          data-testid="secret-dismiss-button"
-          type="button"
-          onClick={onDismiss}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.7, duration: 0.8 }}
-          className="mt-14 rounded-full border border-sand/40 px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.25em] text-sand transition-colors duration-300 hover:bg-sand hover:text-[#160a24]"
-        >
-          Já nic nevím
-        </motion.button>
+          {/* slogan + návrat */}
+          <section className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-6 pb-28 pt-32 text-center sm:pt-40">
+            <motion.p
+              data-testid="secret-tagline"
+              {...fadeUp()}
+              className="max-w-2xl font-serif text-2xl font-light italic leading-snug tracking-tight text-sand/85 sm:text-3xl"
+            >
+              XXX. Nejlepší úroda roste tam, kam se nikdo neptá.
+            </motion.p>
+            <motion.button
+              data-testid="secret-dismiss-button"
+              {...fadeUp(0.15)}
+              type="button"
+              onClick={onDismiss}
+              className="mt-16 rounded-full border border-sand/40 px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.25em] text-sand transition-colors duration-300 hover:bg-sand hover:text-[#160a24]"
+            >
+              Já nic nevím
+            </motion.button>
+          </section>
+        </div>
       </div>
     </motion.div>
   );
