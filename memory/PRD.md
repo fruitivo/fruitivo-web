@@ -14,6 +14,9 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 13. 9. 2026 — desktopové „Více" níž
+- Desktopové tlačítko „Více" posunuto z bottom-[24vh] na bottom-[12vh] (těsně nad roleťku), ať nezasahuje do ovoce a prvků scény.
+
 ### 13. 9. 2026 — mobilní ovládání slideru
 - Roletka se jmény produktů je pod lg skrytá; nahrazují ji šipky ‹ › (nová funkce stepBack) a tlačítko „Všechny produkty" otevírající překryvný seznam všech 13 plodin (číslovaný, aktivní kurzívou, klepnutí skočí na produkt a zavře; autoplay se při otevřeném seznamu pozastaví).
 - Mobilní „Více": menší statické pilulkové tlačítko vpravo dole (bottom-24 — vyšší, aby nekrylo plovoucí tlačítko zvuku), bez hover animace. Desktopová verze „Více" i roletka zůstávají od lg beze změny.

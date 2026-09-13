@@ -302,7 +302,7 @@ export const ProductSlider = () => {
       <button
         data-testid={`product-detail-open-${active.id}`}
         onClick={() => setSelected(active)}
-        className="group absolute bottom-[24vh] right-[8%] z-20 hidden transition-transform duration-500 hover:scale-105 lg:block"
+        className="group absolute bottom-[12vh] right-[8%] z-20 hidden transition-transform duration-500 hover:scale-105 lg:block"
         style={{ color: ink }}
       >
         <span className="relative block px-8 py-4 text-base font-semibold uppercase tracking-[0.3em]">
