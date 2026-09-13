@@ -4,8 +4,18 @@ import { ORCHARDS } from "../data/catalog";
 
 const EASE = [0.65, 0, 0.35, 1];
 
-const OrchardPhoto = ({ loc, className }) => (
-  <div className={`relative overflow-hidden ${className}`}>
+// TEST: trasa sítě sadů západ → východ; linky se dokreslují při vjezdu do viewportu
+const ROUTE = ["sanjoaquin", "leon", "ohiovalley", "petorca", "karoo", "pelopones", "kalahari", "guria", "kuranda"];
+
+// jemný oblouk mezi dvěma body (v % souřadnicích mapy)
+const arcPath = (a, b) => {
+  const mx = (a.x + b.x) / 2;
+  const my = (a.y + b.y) / 2;
+  const dist = Math.hypot(b.x - a.x, b.y - a.y);
+  return `M ${a.x} ${a.y} Q ${mx} ${my - Math.min(dist * 0.22, 8)} ${b.x} ${b.y}`;
+};
+
+const OrchardPhoto = ({ loc, className }) => (  <div className={`relative overflow-hidden ${className}`}>
     <img src={loc.image} alt={`Fotografie — ${loc.name}`} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
     {loc.photoPending && (
       <span className="absolute inset-0 flex items-center justify-center px-4 text-center text-[10px] uppercase tracking-[0.25em] text-ink/50">
@@ -55,6 +65,36 @@ export const Orchards = () => {
               className="block h-auto w-full"
               draggable="false"
             />
+            {/* TEST: tenké linky mezi sady, dokreslují se při scrollu */}
+            <svg
+              data-testid="orchard-connections"
+              aria-hidden
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              className="pointer-events-none absolute inset-0 h-full w-full"
+            >
+              {ROUTE.slice(1).map((id, i) => {
+                const from = ORCHARDS.locations.find((l) => l.id === ROUTE[i]);
+                const to = ORCHARDS.locations.find((l) => l.id === id);
+                if (!from || !to) return null;
+                return (
+                  <motion.path
+                    key={`${ROUTE[i]}-${id}`}
+                    d={arcPath(from.pin, to.pin)}
+                    fill="none"
+                    stroke="#211E1B"
+                    strokeOpacity="0.3"
+                    strokeWidth="1"
+                    strokeDasharray="3 3"
+                    vectorEffect="non-scaling-stroke"
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.9, ease: "easeInOut", delay: 0.3 + i * 0.28 }}
+                  />
+                );
+              })}
+            </svg>
             {ORCHARDS.locations.map((loc) => {
               const isActive = loc.id === activeId;
               return (
