@@ -59,9 +59,9 @@ export const SecretOverlay = ({ onDismiss }) => {
             initial={{ opacity: 0, y: 26 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.85, duration: 0.9, ease: "easeOut" }}
-            className="mt-12 max-w-3xl font-serif text-2xl font-light italic leading-snug tracking-tight text-sand/90 sm:mt-16 sm:text-4xl"
+            className="mt-24 max-w-3xl font-serif text-2xl font-light italic leading-snug tracking-tight text-sand/90 sm:mt-32 sm:text-4xl"
           >
-            Vedlejší projekt, o kterém se nemluví na valné hromadě.
+            Sady nahoře. Byznys dole.
           </motion.p>
         </section>
 
@@ -107,7 +107,7 @@ export const SecretOverlay = ({ onDismiss }) => {
               {...fadeUp()}
               className="max-w-2xl font-serif text-2xl font-light italic leading-snug tracking-tight text-sand/85 sm:text-3xl"
             >
-              XXX. Nejlepší úroda roste tam, kam se nikdo neptá.
+              XXX. Nejlepší úroda roste tam, kam se nikdo nedívá.
             </motion.p>
             <motion.button
               data-testid="secret-dismiss-button"
@@ -116,7 +116,7 @@ export const SecretOverlay = ({ onDismiss }) => {
               onClick={onDismiss}
               className="mt-16 rounded-full border border-sand/40 px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.25em] text-sand transition-colors duration-300 hover:bg-sand hover:text-[#160a24]"
             >
-              Já nic nevím
+              Zapomeňte, co jste viděli
             </motion.button>
           </section>
         </div>

@@ -14,6 +14,11 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 13. 9. 2026 — úprava textů skryté stránky
+- Kurzíva na úvodní obrazovce: „Vedlejší projekt, o kterém se nemluví na valné hromadě." → „Sady nahoře. Byznys dole.", posunutá níž (mt-24/32).
+- Slogan: „…kam se nikdo neptá." → „…kam se nikdo nedívá."
+- Tlačítko návratu: „Já nic nevím" → „Zapomeňte, co jste viděli".
+
 ### 13. 9. 2026 — skrytá obrazovka jako srolovatelná mini-stránka
 - SecretOverlay přestavěn na plnou stránku s vlastním scrollem (data-lenis-prevent, hlavní Lenis pozastaven): 1. obrazovka = jen „Vítejte v XXX." + kurzíva „Vedlejší projekt…" s velkým rozestupem (mt-12/16) nad fialovým vizuálem; po srolování obsah na tmavě fialovém #160a24 se zrnem v rytmu hlavního webu (číslovaný label „01 · Vedlejší projekt", serif nadpis s kurzívou, odstavec max 60ch, slogan kurzívou, tlačítko „Já nic nevím" na konci). Bloky se odhalují whileInView fade-up.
 
