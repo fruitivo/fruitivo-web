@@ -14,6 +14,9 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 13. 9. 2026 — animace osy časové linie v sekci Proces
+- Svislá osa se dokresluje při scrollu: dvě vrstvy linky (tlumený podklad ink/10 + kreslená ink/40), délka řízena useScroll nad seznamem kroků (offset start 80 % → end 65 % viewportu) s useSpring (stiffness 60, damping 20) pro plynulý „růst". data-testid process-timeline-line.
+
 ### 13. 9. 2026 — návrat ze skryté stránky na začátek webu
 - Odklepnutí skryté obrazovky („Zapomeňte, co jste viděli") nově posune hlavní stránku na začátek (lenis.scrollTo(0, { immediate: true, force: true }) — force nutný, protože Lenis je během fade-outu ještě pozastaven). Dřív stránka zůstávala dole u kontaktů.
 
