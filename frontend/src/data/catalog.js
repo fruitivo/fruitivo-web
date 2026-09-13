@@ -217,13 +217,13 @@ export const ROOTS = {
 
 export const ORCHARDS = {
   title: "Naše obnovené sady",
-  subtitle: "Sedm území napříč kontinenty, kterým vracíme život",
+  subtitle: "Devět území napříč kontinenty, kterým vracíme život",
   locations: [
     {
       id: "kuranda",
       name: "Sad Kuranda",
       place: "Queensland, Austrálie",
-      crops: "mango, marakuja",
+      crops: "mango, marakuja, papája, liči",
       text: "Bývalá buš zasažená požáry, dnes největší sad v naší síti.",
       image: "/assets/sad-kuranda.jpg",
       pin: { x: 90.4, y: 59.3 },
@@ -241,7 +241,7 @@ export const ORCHARDS = {
       id: "sanjoaquin",
       name: "Sad San Joaquin",
       place: "Kalifornie, USA",
-      crops: "limetka",
+      crops: "limetka, citron",
       text: "Údolí vysušené lety sucha, citrusy sem vrátily život i vodu.",
       image: "/assets/sad-sanjoaquin.jpg",
       pin: { x: 16.7, y: 29.7 },
@@ -281,6 +281,24 @@ export const ORCHARDS = {
       text: "Domovina divokého melounu, odkud pochází i ten na vašem stole.",
       image: "/assets/sad-kalahari.jpg",
       pin: { x: 56.7, y: 62.2 },
+    },
+    {
+      id: "guria",
+      name: "Sad Guria",
+      place: "Gruzie",
+      crops: "kiwi",
+      text: "Terasovité svahy opuštěné po rozpadu sovětských zemědělských družstev, dnes znovu zpevněné kořeny popínavého kiwi.",
+      image: "/assets/sad-guria.jpg",
+      pin: { x: 61.7, y: 26.7 },
+    },
+    {
+      id: "ohiovalley",
+      name: "Sad Ohio Valley",
+      place: "Ohio, USA",
+      crops: "asimina",
+      text: "Půda vyčerpaná generacemi monokultury kukuřice a sóji, dnes návrat k asimině — původnímu americkému ovoci.",
+      image: "/assets/sad-ohiovalley.jpg",
+      pin: { x: 27.1, y: 28.3 },
     },
   ],
 };

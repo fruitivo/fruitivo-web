@@ -14,6 +14,9 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 13. 9. 2026 — mapa sadů rozšířena na 9 pozemků
+- Přidány Sad Guria (Gruzie, kiwi, pin 61.7/26.7, foto sad-guria.jpg) a Sad Ohio Valley (Ohio, USA, asimina, pin 27.1/28.3, foto sad-ohiovalley.jpg) — oba s reálnými fotkami od uživatele. Plodiny sjednoceny dle kontrolního seznamu: Kuranda „mango, marakuja, papája, liči", San Joaquin „limetka, citron". Podtitul sekce: „Devět území napříč kontinenty…".
+
 ### 13. 9. 2026 — obsah detailu pro zbývajících 5 produktů
 - Kiwi (Sad Guria, Gruzie), citron (Sad San Joaquin), papája (Sad Kuranda), asimina (Sad Ohio Valley, Ohio) a liči (Sad Kuranda) mají nové úvodní odstavce + větu o chuti/využití + řádek se sadem. Všech 13 produktů má nyní kompletní strukturu detailu.
 - POZN.: Sad Guria a Sad Ohio Valley zatím NEJSOU na mapě v sekci Sady (mapa má 7 pozemků dle dřívějšího zadání) — případné doplnění na uživateli.
