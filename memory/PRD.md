@@ -14,6 +14,12 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 13. 9. 2026 — interaktivní mapa vlastněných pozemků (sekce Sady)
+- Placeholder nahrazen plnou mapou: ilustrativní SVG svět (měkké obrysy kontinentů, fill-ink/10 + stroke-ink/25 na stone panelu) se 7 pulzujícími piny; klik přepne boční panel (AnimatePresence crossfade) s fotkou, lokalitou, plodinami a textem. Data v ORCHARDS (catalog.js): Kuranda, León, San Joaquin, Karoo, Peloponés, Petorca, Kalahari — přesně dle zadání.
+- Fotky v /public/assets/sad-*.jpg: kuranda (mango), leon (dračí ovoce), sanjoaquin (limetka), pelopones (granátové jablko), petorca (avokádo). Pro karoo a kalahari šedé placeholdery se správnými názvy souborů + nápis „Fotografie bude doplněna" (flag photoPending).
+- Mobil (<lg): mapa skrytá, místo ní svislý seznam 7 karet se stejným obsahem.
+- Podtitul sekce: „Sedm území napříč kontinenty, kterým vracíme život".
+
 ### 13. 9. 2026 — úprava textů skryté stránky
 - Kurzíva na úvodní obrazovce: „Vedlejší projekt, o kterém se nemluví na valné hromadě." → „Sady nahoře. Byznys dole.", posunutá níž (mt-24/32).
 - Slogan: „…kam se nikdo neptá." → „…kam se nikdo nedívá."
@@ -115,7 +121,7 @@ Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Ž�
 
 ## Zbývá / backlog
 - P0: Reálné produktové assety (foto cut-outy, 360° spin nebo .glb) místо TODO ilustrací; skutečný intro film místo statické fotky.
-- P1: Interaktivní mapa sadů (sekce Sady), skutečný ambientní zvukový záznam, reálné odkazy sociálních sítí.
+- P1: Doplnit fotky Sad Karoo a Sad Kalahari (nahradit /assets/sad-karoo.jpg a sad-kalahari.jpg), skutečný ambientní zvukový záznam, reálné odkazy sociálních sítí.
 - P2: Stránky produktů s plným obsahem, vícejazyčnost (EN), napojení žurnálu na CMS.
 
 ## Poznámky
