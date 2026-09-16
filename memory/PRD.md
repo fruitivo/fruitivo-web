@@ -14,6 +14,9 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 16. 9. 2026 — ztmavení pozadí slideru sníženo
+- Vinětace hlavního slideru zeslabena: plochá vrstva bg-ink/25 → ink/10, radial okraje rgba(33,30,27,0.25) → 0.13. Barvy scén jsou výrazně sytější, jen náznak stínu.
+
 ### 16. 9. 2026 — foto experiment vrácen, značka Fruitivo zůstává
 - Foto layouty (mango, mochyně, papája) ZAMÍTNUTY — vrácena vektorová „cartoon" verze všude (slider i detail), původní barvy scén (#EE9A3A / #D99A2B / #DF7049), LAYOUT bez photo polí, odstraněny foto větve z ProductSlider.jsx. Značka Fruitivo s.r.o. (hlavička, patička, sídlo Sokola Tůmy 402/12, 737 01 Český Těšín, info@fruitivo.cz, skrytá stránka) zůstává v platnosti.
 
