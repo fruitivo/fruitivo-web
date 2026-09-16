@@ -21,9 +21,9 @@ const LAYOUT = {
   lemon: { scale: 1.06, rot: 8, extraRot: -16 },
   banana: { scale: 1.18, rot: -12, extraRot: 20 },
   passionfruit: { scale: 1.06, rot: -6, extraRot: 15 },
-  physalis: { scale: 1.0, rot: -8, extraRot: -16, photo: "/assets/physalis-photo.jpg", extra: false },
-  mango: { scale: 1.14, rot: -9, extraRot: 13, photo: "/assets/mango-photo.jpg", extra: false },
-  papaya: { scale: 1.12, rot: 6, extraRot: -15, photo: "/assets/papaya-photo.jpg", extra: false },
+  physalis: { scale: 1.0, rot: -8, extraRot: -16 },
+  mango: { scale: 1.14, rot: -9, extraRot: 13 },
+  papaya: { scale: 1.12, rot: 6, extraRot: -15 },
   watermelon: { scale: 1.12, rot: 4, extra: false },
   pomegranate: { scale: 1.14, rot: -8, extraRot: 14 },
   dragonfruit: { scale: 1.14, rot: -8, extraRot: 15 },
@@ -59,8 +59,8 @@ const FLORA_SPOTS = [
 
 // ── jedna scéna: velký produkt, název nízko, pozadí řeší slider ───────────────
 const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
+  const ink = inkOf();
   const L = LAYOUT[scene.id] || {};
-  const ink = L.photo ? INK : inkOf();
   const rot = L.rot ?? 0;
   const ax = useTransform(smx, (v) => v * 28);
   const ay = useTransform(smy, (v) => v * 18);
@@ -96,45 +96,6 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
         ))}
       </motion.div>
 
-      {L.photo ? (
-        /* TEST: foto layout — čtvercová fotka vpravo, velký nápis vlevo, béžové pozadí webu */
-        <div className="flex h-full items-center justify-center px-6">
-          <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-24">
-            <motion.div layoutId={`art-${scene.id}`} transition={{ duration: 0.6, ease: EASE }} className="order-1 lg:order-2">
-              <motion.div style={{ x: ax, y: ay }}>
-                <motion.div
-                  initial={instant ? false : { opacity: 0, scale: 0.94 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={t || { duration: 0.7, ease: EASE, delay: 0.1 }}
-                  className={`relative ${hidden ? "invisible" : ""}`}
-                >
-                  <motion.div
-                    animate={{ y: [0, -14, 0] }}
-                    transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-                    className="w-[80vmin] overflow-hidden rounded-3xl shadow-[0_36px_44px_rgba(0,0,0,0.22)] sm:w-[56vmin] lg:w-[33vw]"
-                  >
-                    <img src={L.photo} alt={scene.displayName} className="aspect-square h-full w-full object-cover" draggable="false" />
-                  </motion.div>
-                </motion.div>
-              </motion.div>
-            </motion.div>
-            <h2 className="order-2 select-none text-center font-display font-semibold uppercase leading-[0.95] tracking-tight text-[17vw] sm:text-[13vw] lg:order-1 lg:text-left lg:text-[7.5vw]">
-              {scene.name.split(" ").map((word, wi) => (
-                <span key={wi} className="block overflow-hidden">
-                  <motion.span
-                    initial={instant ? false : { y: "112%" }}
-                    animate={{ y: 0 }}
-                    transition={t || { duration: 0.7, ease: EASE, delay: 0.2 + wi * 0.07 }}
-                    className="block"
-                  >
-                    {word}
-                  </motion.span>
-                </span>
-              ))}
-            </h2>
-          </div>
-        </div>
-      ) : (
       <div className="flex h-full flex-col items-center">
         {/* vycentrovaná kompozice */}
         <div className="flex flex-1 items-center justify-center">
@@ -196,7 +157,6 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
           ))}
         </h2>
       </div>
-      )}
     </section>
   );
 };
@@ -294,10 +254,10 @@ export const ProductSlider = () => {
   }, []);
 
   const active = SCENES[center];
-  const ink = LAYOUT[active.id]?.photo ? INK : inkOf();
+  const ink = inkOf();
 
   useEffect(() => {
-    document.documentElement.style.setProperty("--nav-ink", LAYOUT[SCENES[center].id]?.photo ? INK : inkOf());
+    document.documentElement.style.setProperty("--nav-ink", inkOf());
   }, [center]);
 
   // parallaxa kurzorem (jen slider — v detailu vypnutá na přání)
@@ -516,12 +476,6 @@ export const ProductSlider = () => {
                 className="pointer-events-none absolute inset-0"
                 style={{ background: "radial-gradient(120% 90% at 50% 40%, transparent 45%, rgba(33,30,27,0.3) 100%)" }}
               />
-              {selLayout.photo ? (
-                /* TEST: reálná fotografie — v detailu vyplní celý panel okraj od okraje */
-                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.65, ease: EASE }} className="absolute inset-0">
-                  <img src={selLayout.photo} alt={selected.displayName} className="h-full w-full object-cover" draggable="false" />
-                </motion.div>
-              ) : (
               <div className="flex h-full items-center justify-center">
                 <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.65, ease: EASE }}>
                   {/* bez parallax za myší — statická kompozice, zvětšená dle druhu */}
@@ -537,7 +491,6 @@ export const ProductSlider = () => {
                   </div>
                 </motion.div>
               </div>
-              )}
             </motion.div>
 
             {/* text vlevo na barvě webu */}

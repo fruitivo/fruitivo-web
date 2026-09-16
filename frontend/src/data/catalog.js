@@ -114,7 +114,7 @@ export const CATEGORIES = [
         orchard: "Sad Kuranda, Queensland, Austrálie",
         notes: ["Med", "Citrusová kůra", "Tropický nektar"],
         soil: "Hluboká červená jílovitá půda s vysokým podílem humusu",
-        sceneBg: "#EEEBE1", sceneInk: "dark",
+        sceneBg: "#EE9A3A", sceneInk: "dark",
       },
       {
         id: "papaya", name: "papája", displayName: "Papája", latin: "Carica papaya",
@@ -124,7 +124,7 @@ export const CATEGORIES = [
         orchard: "Sad Kuranda, Queensland, Austrálie",
         notes: ["Karamel", "Meloun", "Vanilka"],
         soil: "Vulkanický popel a regenerovaná lesní prsť",
-        sceneBg: "#EEEBE1", sceneInk: "dark",
+        sceneBg: "#DF7049", sceneInk: "light",
       },
       {
         id: "dragonfruit", name: "dračí ovoce", displayName: "Dračí ovoce", latin: "Hylocereus undatus",
@@ -173,7 +173,7 @@ export const CATEGORIES = [
         orchard: "Sad Karoo, Jižní Afrika",
         notes: ["Ananas", "Angrešt", "Karamel"],
         soil: "Suché obnovené stráně s lokální mykorhízou",
-        sceneBg: "#EEEBE1", sceneInk: "dark",
+        sceneBg: "#D99A2B", sceneInk: "dark",
       },
       {
         id: "pawpaw", name: "asimina", displayName: "Asimina", latin: "Asimina triloba",

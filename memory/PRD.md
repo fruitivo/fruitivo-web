@@ -14,6 +14,9 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 16. 9. 2026 — foto experiment vrácen, značka Fruitivo zůstává
+- Foto layouty (mango, mochyně, papája) ZAMÍTNUTY — vrácena vektorová „cartoon" verze všude (slider i detail), původní barvy scén (#EE9A3A / #D99A2B / #DF7049), LAYOUT bez photo polí, odstraněny foto větve z ProductSlider.jsx. Značka Fruitivo s.r.o. (hlavička, patička, sídlo Sokola Tůmy 402/12, 737 01 Český Těšín, info@fruitivo.cz, skrytá stránka) zůstává v platnosti.
+
 ### 16. 9. 2026 — značka Fruitivo s.r.o. + foto rozšíření
 - Značka: všude „Fruitivo" (hlavička, menu, patička, Příběh, skrytá stránka „Vítejte ve Fruitivu." + slogan, titulek stránky); s.r.o. pouze v kontaktech — sídlo „Fruitivo s.r.o. — Sokola Tůmy 402/12, 737 01 Český Těšín", email info@fruitivo.cz, copyright. Velký outline nápis v patičce zmenšen na 12vw (delší název).
 - Foto scény (TEST): přidány mochyně a papája (stejný split styl jako mango — béžové pozadí, čtverec vpravo, velký nápis vlevo); fotky zvětšeny na lg:w-[33vw]. V detailu foto produktů fotka vyplní celý panel okraj od okraje (absolute inset-0, bez rámečku a prázdné barvy kolem).
