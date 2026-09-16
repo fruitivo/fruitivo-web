@@ -52,7 +52,7 @@ export const SecretOverlay = ({ onDismiss }) => {
             transition={{ delay: 0.5, duration: 0.9, ease: "easeOut" }}
             className="max-w-4xl font-serif text-4xl leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl"
           >
-            Vítejte v XXX.
+            Vítejte ve Fruitivu.
           </motion.h1>
           <motion.p
             data-testid="secret-headline-em"
@@ -129,7 +129,7 @@ export const SecretOverlay = ({ onDismiss }) => {
               {...fadeUp()}
               className="max-w-2xl font-serif text-2xl font-light italic leading-snug tracking-tight text-sand/85 sm:text-3xl"
             >
-              XXX. Nejlepší úroda roste tam, kam se nikdo nedívá.
+              Fruitivo. Nejlepší úroda roste tam, kam se nikdo nedívá.
             </motion.p>
             <motion.button
               data-testid="secret-dismiss-button"

@@ -14,6 +14,10 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 16. 9. 2026 — značka Fruitivo s.r.o. + foto rozšíření
+- Značka: všude „Fruitivo" (hlavička, menu, patička, Příběh, skrytá stránka „Vítejte ve Fruitivu." + slogan, titulek stránky); s.r.o. pouze v kontaktech — sídlo „Fruitivo s.r.o. — Sokola Tůmy 402/12, 737 01 Český Těšín", email info@fruitivo.cz, copyright. Velký outline nápis v patičce zmenšen na 12vw (delší název).
+- Foto scény (TEST): přidány mochyně a papája (stejný split styl jako mango — béžové pozadí, čtverec vpravo, velký nápis vlevo); fotky zvětšeny na lg:w-[33vw]. V detailu foto produktů fotka vyplní celý panel okraj od okraje (absolute inset-0, bez rámečku a prázdné barvy kolem).
+
 ### 16. 9. 2026 — TEST: foto layout scény (mango) — split varianta
 - Scéna manga má nově vlastní rozvržení: béžové pozadí webu (sceneBg mango = #EEEBE1), čtvercová fotka (rounded-3xl) vpravo, velký tmavý nápis MANGO vlevo vedle ní, ornamenty mangovníku v tmavém inkoustu. Navigace, roleťka i „Více" se na foto-scénách přepínají do tmavé (inkOf override přes LAYOUT.photo). Detail: fotka se morphne do zvětšeného čtverce v panelu, popis kolem. Mobil: fotka nahoře, nápis pod ní. Ostatních 12 scén beze změny. TEST — snadno vratné.
 

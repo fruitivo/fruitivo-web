@@ -50,7 +50,7 @@ export const Orchards = () => {
           >
             <img
               src="/assets/world-map.svg"
-              alt="Mapa světa se sady XXX"
+              alt="Mapa světa se sady Fruitiva"
               className="block h-auto w-full"
               draggable="false"
             />

@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// xxx — katalog dat
+// Fruitivo — katalog dat
 // TODO(ASSETS): Produktové vizuály jsou DOČASNÉ vektorové ilustrace
 // (components/ProductArt.jsx). Pro finální web nahradit vlastními assety.
 // Pole `asset` u produktu je připraveno na budoucí režimy:
@@ -124,7 +124,7 @@ export const CATEGORIES = [
         orchard: "Sad Kuranda, Queensland, Austrálie",
         notes: ["Karamel", "Meloun", "Vanilka"],
         soil: "Vulkanický popel a regenerovaná lesní prsť",
-        sceneBg: "#DF7049", sceneInk: "light",
+        sceneBg: "#EEEBE1", sceneInk: "dark",
       },
       {
         id: "dragonfruit", name: "dračí ovoce", displayName: "Dračí ovoce", latin: "Hylocereus undatus",
@@ -173,7 +173,7 @@ export const CATEGORIES = [
         orchard: "Sad Karoo, Jižní Afrika",
         notes: ["Ananas", "Angrešt", "Karamel"],
         soil: "Suché obnovené stráně s lokální mykorhízou",
-        sceneBg: "#D99A2B", sceneInk: "dark",
+        sceneBg: "#EEEBE1", sceneInk: "dark",
       },
       {
         id: "pawpaw", name: "asimina", displayName: "Asimina", latin: "Asimina triloba",
@@ -206,7 +206,7 @@ export const categoryStartIndex = (categoryId) => SCENES.findIndex((s) => s.cate
 
 export const ROOTS = {
   title: "Náš příběh",
-  lead: "XXX vzniklo z jednoho přání — přivézt sem ovoce, které u nás neroste, a udělat to poctivě.",
+  lead: "Fruitivo vzniklo z jednoho přání — přivézt sem ovoce, které u nás neroste, a udělat to poctivě.",
   chapters: [
     { number: "01", title: "Tam, kam patří", text: "Jezdíme za ním tam, kam patří. Do míst, kde slunce svítí skoro celý rok, ale kde má půda za sebou těžké roky — sucho, požáry, vyčerpanou zemi. Tyhle pozemky kupujeme a dáváme jim čas se zase nadechnout." },
     { number: "02", title: "Neděláme to sami", text: "Učíme se od lidí, kteří tam žijí a starají se o zem odjakživa. Oni vědí, jak s půdou a rostlinami zacházet — my jim pomáháme s obnovou a časem, který to potřebuje." },
@@ -344,9 +344,9 @@ export const PROCESS = {
 
 export const FOOTER = {
   statement: "Pěstujeme na živé zemi.",
-  email: "info@xxx.cz",
+  email: "info@fruitivo.cz",
   phone: "+420 800 567 369",
-  address: "Sadařská 108, 412 01 Litoměřice",
+  address: "Fruitivo s.r.o. — Sokola Tůmy 402/12, 737 01 Český Těšín",
   socials: ["Instagram", "LinkedIn", "Pinterest"],
-  copyright: "© 2026 xxx. Všechna práva vyhrazena.",
+  copyright: "© 2026 Fruitivo s.r.o. Všechna práva vyhrazena.",
 };

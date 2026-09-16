@@ -21,9 +21,9 @@ const LAYOUT = {
   lemon: { scale: 1.06, rot: 8, extraRot: -16 },
   banana: { scale: 1.18, rot: -12, extraRot: 20 },
   passionfruit: { scale: 1.06, rot: -6, extraRot: 15 },
-  physalis: { scale: 1.0, rot: -8, extraRot: -16 },
+  physalis: { scale: 1.0, rot: -8, extraRot: -16, photo: "/assets/physalis-photo.jpg", extra: false },
   mango: { scale: 1.14, rot: -9, extraRot: 13, photo: "/assets/mango-photo.jpg", extra: false },
-  papaya: { scale: 1.12, rot: 6, extraRot: -15 },
+  papaya: { scale: 1.12, rot: 6, extraRot: -15, photo: "/assets/papaya-photo.jpg", extra: false },
   watermelon: { scale: 1.12, rot: 4, extra: false },
   pomegranate: { scale: 1.14, rot: -8, extraRot: 14 },
   dragonfruit: { scale: 1.14, rot: -8, extraRot: 15 },
@@ -111,7 +111,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
                   <motion.div
                     animate={{ y: [0, -14, 0] }}
                     transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-                    className="w-[70vmin] overflow-hidden rounded-3xl shadow-[0_36px_44px_rgba(0,0,0,0.22)] sm:w-[48vmin] lg:w-[28vw]"
+                    className="w-[80vmin] overflow-hidden rounded-3xl shadow-[0_36px_44px_rgba(0,0,0,0.22)] sm:w-[56vmin] lg:w-[33vw]"
                   >
                     <img src={L.photo} alt={scene.displayName} className="aspect-square h-full w-full object-cover" draggable="false" />
                   </motion.div>
@@ -516,33 +516,28 @@ export const ProductSlider = () => {
                 className="pointer-events-none absolute inset-0"
                 style={{ background: "radial-gradient(120% 90% at 50% 40%, transparent 45%, rgba(33,30,27,0.3) 100%)" }}
               />
+              {selLayout.photo ? (
+                /* TEST: reálná fotografie — v detailu vyplní celý panel okraj od okraje */
+                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.65, ease: EASE }} className="absolute inset-0">
+                  <img src={selLayout.photo} alt={selected.displayName} className="h-full w-full object-cover" draggable="false" />
+                </motion.div>
+              ) : (
               <div className="flex h-full items-center justify-center">
                 <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.65, ease: EASE }}>
                   {/* bez parallax za myší — statická kompozice, zvětšená dle druhu */}
                   <div className="flex items-center justify-center">
-                    {selLayout.photo ? (
-                      /* TEST: reálná fotografie — v detailu jen zvětšená (morph ze slideru) */
-                      <motion.div
-                        style={{ rotate: selLayout.rot ?? 0 }}
-                        className="w-[70vmin] overflow-hidden rounded-3xl shadow-[0_40px_60px_rgba(0,0,0,0.3)] lg:w-[28vw]"
-                      >
-                        <img src={selLayout.photo} alt={selected.displayName} className="aspect-square h-full w-full object-cover" draggable="false" />
+                    <motion.div style={{ rotate: selLayout.rot ?? 0 }}>
+                      <ProductArt id={selected.id} className={`h-auto ${detailMain}`} />
+                    </motion.div>
+                    {selLayout.extra !== false && (
+                      <motion.div style={{ rotate: selLayout.extraRot ?? 10 }} className="-ml-[10%] mt-[8%]">
+                        <ExtraArt id={selected.id} className={`h-auto ${detailExtra}`} />
                       </motion.div>
-                    ) : (
-                      <>
-                        <motion.div style={{ rotate: selLayout.rot ?? 0 }}>
-                          <ProductArt id={selected.id} className={`h-auto ${detailMain}`} />
-                        </motion.div>
-                        {selLayout.extra !== false && (
-                          <motion.div style={{ rotate: selLayout.extraRot ?? 10 }} className="-ml-[10%] mt-[8%]">
-                            <ExtraArt id={selected.id} className={`h-auto ${detailExtra}`} />
-                          </motion.div>
-                        )}
-                      </>
                     )}
                   </div>
                 </motion.div>
               </div>
+              )}
             </motion.div>
 
             {/* text vlevo na barvě webu */}
