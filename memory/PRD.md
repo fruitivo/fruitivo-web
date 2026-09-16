@@ -14,6 +14,9 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 16. 9. 2026 — TEST: reálná fotografie místo vektoru (jen mango)
+- LAYOUT.mango má nově photo: /assets/mango-photo.jpg + extra: false. Ve slideru se místo vektorového páru vykreslí fotografie v kruhovém výřezu (rounded-full, měkký stín, jemná rotace a plovoucí animace jako u ilustrací); botanické ornamenty mangovníku zůstávají. V detailu se fotka přes layoutId morph plynule zvětší do barevného panelu (70vmin / 30vw) a popis zůstává kolem. Ostatních 12 produktů zůstává vektorových. Označeno TEST — snadno se vrátí.
+
 ### 13. 9. 2026 — TEST linky mezi sady: ZAMÍTNUTO a odstraněno
 - Experiment s dokreslujícími se linkami mezi sady uživatel po prohlédnutí vrátil — SVG vrstva i pomocné funkce (ROUTE, arcPath) z Orchards.jsx odstraněny, mapa je opět čistá jen se značkami.
 

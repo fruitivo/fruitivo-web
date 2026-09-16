@@ -22,7 +22,7 @@ const LAYOUT = {
   banana: { scale: 1.18, rot: -12, extraRot: 20 },
   passionfruit: { scale: 1.06, rot: -6, extraRot: 15 },
   physalis: { scale: 1.0, rot: -8, extraRot: -16 },
-  mango: { scale: 1.14, rot: -9, extraRot: 13 },
+  mango: { scale: 1.14, rot: -9, extraRot: 13, photo: "/assets/mango-photo.jpg", extra: false },
   papaya: { scale: 1.12, rot: 6, extraRot: -15 },
   watermelon: { scale: 1.12, rot: 4, extra: false },
   pomegranate: { scale: 1.14, rot: -8, extraRot: 14 },
@@ -113,27 +113,39 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
                   transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
                 >
                   <div className="flex items-center justify-center">
-                    {pieces.map((p, i) => (
+                    {L.photo ? (
+                      /* TEST: reálná fotografie místo vektorové ilustrace — kruhový výřez, stejné plování */
                       <motion.div
-                        key={i}
-                        initial={instant ? false : { opacity: 0, y: 26 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={t || { duration: 0.7, ease: EASE, delay: 0.12 + i * 0.1 }}
-                        className={i > 0 ? "-ml-[9%]" : ""}
-                        style={{ rotate: p.rot, marginTop: lift[i % lift.length] }}
+                        animate={{ y: [0, -14, 0] }}
+                        transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+                        style={{ rotate: rot }}
+                        className={`overflow-hidden rounded-full shadow-[0_36px_44px_rgba(0,0,0,0.25)] ${sizeCls}`}
                       >
-                        <motion.div
-                          animate={{ y: [0, -14 - i * 2, 0] }}
-                          transition={{ duration: 5.5 + i * 0.8, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
-                        >
-                          {p.art === "main" ? (
-                            <ProductArt id={scene.id} className={`h-auto ${sizeCls} drop-shadow-[0_36px_44px_rgba(0,0,0,0.2)]`} />
-                          ) : (
-                            <ExtraArt id={scene.id} className={`h-auto ${sizeCls} drop-shadow-[0_24px_30px_rgba(0,0,0,0.16)]`} />
-                          )}
-                        </motion.div>
+                        <img src={L.photo} alt={scene.displayName} className="aspect-square h-full w-full object-cover" draggable="false" />
                       </motion.div>
-                    ))}
+                    ) : (
+                      pieces.map((p, i) => (
+                        <motion.div
+                          key={i}
+                          initial={instant ? false : { opacity: 0, y: 26 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={t || { duration: 0.7, ease: EASE, delay: 0.12 + i * 0.1 }}
+                          className={i > 0 ? "-ml-[9%]" : ""}
+                          style={{ rotate: p.rot, marginTop: lift[i % lift.length] }}
+                        >
+                          <motion.div
+                            animate={{ y: [0, -14 - i * 2, 0] }}
+                            transition={{ duration: 5.5 + i * 0.8, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+                          >
+                            {p.art === "main" ? (
+                              <ProductArt id={scene.id} className={`h-auto ${sizeCls} drop-shadow-[0_36px_44px_rgba(0,0,0,0.2)]`} />
+                            ) : (
+                              <ExtraArt id={scene.id} className={`h-auto ${sizeCls} drop-shadow-[0_24px_30px_rgba(0,0,0,0.16)]`} />
+                            )}
+                          </motion.div>
+                        </motion.div>
+                      ))
+                    )}
                   </div>
                 </motion.div>
               </motion.div>
@@ -480,13 +492,25 @@ export const ProductSlider = () => {
                 <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.65, ease: EASE }}>
                   {/* bez parallax za myší — statická kompozice, zvětšená dle druhu */}
                   <div className="flex items-center justify-center">
-                    <motion.div style={{ rotate: selLayout.rot ?? 0 }}>
-                      <ProductArt id={selected.id} className={`h-auto ${detailMain}`} />
-                    </motion.div>
-                    {selLayout.extra !== false && (
-                      <motion.div style={{ rotate: selLayout.extraRot ?? 10 }} className="-ml-[10%] mt-[8%]">
-                        <ExtraArt id={selected.id} className={`h-auto ${detailExtra}`} />
+                    {selLayout.photo ? (
+                      /* TEST: reálná fotografie — v detailu jen zvětšená (morph ze slideru) */
+                      <motion.div
+                        style={{ rotate: selLayout.rot ?? 0 }}
+                        className="w-[70vmin] overflow-hidden rounded-full shadow-[0_40px_60px_rgba(0,0,0,0.3)] lg:w-[30vw]"
+                      >
+                        <img src={selLayout.photo} alt={selected.displayName} className="aspect-square h-full w-full object-cover" draggable="false" />
                       </motion.div>
+                    ) : (
+                      <>
+                        <motion.div style={{ rotate: selLayout.rot ?? 0 }}>
+                          <ProductArt id={selected.id} className={`h-auto ${detailMain}`} />
+                        </motion.div>
+                        {selLayout.extra !== false && (
+                          <motion.div style={{ rotate: selLayout.extraRot ?? 10 }} className="-ml-[10%] mt-[8%]">
+                            <ExtraArt id={selected.id} className={`h-auto ${detailExtra}`} />
+                          </motion.div>
+                        )}
+                      </>
                     )}
                   </div>
                 </motion.div>
