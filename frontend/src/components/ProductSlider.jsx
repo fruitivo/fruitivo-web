@@ -59,8 +59,8 @@ const FLORA_SPOTS = [
 
 // ── jedna scéna: velký produkt, název nízko, pozadí řeší slider ───────────────
 const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
-  const ink = inkOf();
   const L = LAYOUT[scene.id] || {};
+  const ink = L.photo ? INK : inkOf();
   const rot = L.rot ?? 0;
   const ax = useTransform(smx, (v) => v * 28);
   const ay = useTransform(smy, (v) => v * 18);
@@ -96,6 +96,45 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
         ))}
       </motion.div>
 
+      {L.photo ? (
+        /* TEST: foto layout — čtvercová fotka vpravo, velký nápis vlevo, béžové pozadí webu */
+        <div className="flex h-full items-center justify-center px-6">
+          <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-24">
+            <motion.div layoutId={`art-${scene.id}`} transition={{ duration: 0.6, ease: EASE }} className="order-1 lg:order-2">
+              <motion.div style={{ x: ax, y: ay }}>
+                <motion.div
+                  initial={instant ? false : { opacity: 0, scale: 0.94 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={t || { duration: 0.7, ease: EASE, delay: 0.1 }}
+                  className={`relative ${hidden ? "invisible" : ""}`}
+                >
+                  <motion.div
+                    animate={{ y: [0, -14, 0] }}
+                    transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+                    className="w-[70vmin] overflow-hidden rounded-3xl shadow-[0_36px_44px_rgba(0,0,0,0.22)] sm:w-[48vmin] lg:w-[28vw]"
+                  >
+                    <img src={L.photo} alt={scene.displayName} className="aspect-square h-full w-full object-cover" draggable="false" />
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            </motion.div>
+            <h2 className="order-2 select-none text-center font-display font-semibold uppercase leading-[0.95] tracking-tight text-[17vw] sm:text-[13vw] lg:order-1 lg:text-left lg:text-[7.5vw]">
+              {scene.name.split(" ").map((word, wi) => (
+                <span key={wi} className="block overflow-hidden">
+                  <motion.span
+                    initial={instant ? false : { y: "112%" }}
+                    animate={{ y: 0 }}
+                    transition={t || { duration: 0.7, ease: EASE, delay: 0.2 + wi * 0.07 }}
+                    className="block"
+                  >
+                    {word}
+                  </motion.span>
+                </span>
+              ))}
+            </h2>
+          </div>
+        </div>
+      ) : (
       <div className="flex h-full flex-col items-center">
         {/* vycentrovaná kompozice */}
         <div className="flex flex-1 items-center justify-center">
@@ -113,39 +152,27 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
                   transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
                 >
                   <div className="flex items-center justify-center">
-                    {L.photo ? (
-                      /* TEST: reálná fotografie místo vektorové ilustrace — kruhový výřez, stejné plování */
+                    {pieces.map((p, i) => (
                       <motion.div
-                        animate={{ y: [0, -14, 0] }}
-                        transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-                        style={{ rotate: rot }}
-                        className={`overflow-hidden rounded-full shadow-[0_36px_44px_rgba(0,0,0,0.25)] ${sizeCls}`}
+                        key={i}
+                        initial={instant ? false : { opacity: 0, y: 26 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={t || { duration: 0.7, ease: EASE, delay: 0.12 + i * 0.1 }}
+                        className={i > 0 ? "-ml-[9%]" : ""}
+                        style={{ rotate: p.rot, marginTop: lift[i % lift.length] }}
                       >
-                        <img src={L.photo} alt={scene.displayName} className="aspect-square h-full w-full object-cover" draggable="false" />
-                      </motion.div>
-                    ) : (
-                      pieces.map((p, i) => (
                         <motion.div
-                          key={i}
-                          initial={instant ? false : { opacity: 0, y: 26 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={t || { duration: 0.7, ease: EASE, delay: 0.12 + i * 0.1 }}
-                          className={i > 0 ? "-ml-[9%]" : ""}
-                          style={{ rotate: p.rot, marginTop: lift[i % lift.length] }}
+                          animate={{ y: [0, -14 - i * 2, 0] }}
+                          transition={{ duration: 5.5 + i * 0.8, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
                         >
-                          <motion.div
-                            animate={{ y: [0, -14 - i * 2, 0] }}
-                            transition={{ duration: 5.5 + i * 0.8, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
-                          >
-                            {p.art === "main" ? (
-                              <ProductArt id={scene.id} className={`h-auto ${sizeCls} drop-shadow-[0_36px_44px_rgba(0,0,0,0.2)]`} />
-                            ) : (
-                              <ExtraArt id={scene.id} className={`h-auto ${sizeCls} drop-shadow-[0_24px_30px_rgba(0,0,0,0.16)]`} />
-                            )}
-                          </motion.div>
+                          {p.art === "main" ? (
+                            <ProductArt id={scene.id} className={`h-auto ${sizeCls} drop-shadow-[0_36px_44px_rgba(0,0,0,0.2)]`} />
+                          ) : (
+                            <ExtraArt id={scene.id} className={`h-auto ${sizeCls} drop-shadow-[0_24px_30px_rgba(0,0,0,0.16)]`} />
+                          )}
                         </motion.div>
-                      ))
-                    )}
+                      </motion.div>
+                    ))}
                   </div>
                 </motion.div>
               </motion.div>
@@ -169,6 +196,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
           ))}
         </h2>
       </div>
+      )}
     </section>
   );
 };
@@ -266,10 +294,10 @@ export const ProductSlider = () => {
   }, []);
 
   const active = SCENES[center];
-  const ink = inkOf();
+  const ink = LAYOUT[active.id]?.photo ? INK : inkOf();
 
   useEffect(() => {
-    document.documentElement.style.setProperty("--nav-ink", inkOf());
+    document.documentElement.style.setProperty("--nav-ink", LAYOUT[SCENES[center].id]?.photo ? INK : inkOf());
   }, [center]);
 
   // parallaxa kurzorem (jen slider — v detailu vypnutá na přání)
@@ -496,7 +524,7 @@ export const ProductSlider = () => {
                       /* TEST: reálná fotografie — v detailu jen zvětšená (morph ze slideru) */
                       <motion.div
                         style={{ rotate: selLayout.rot ?? 0 }}
-                        className="w-[70vmin] overflow-hidden rounded-full shadow-[0_40px_60px_rgba(0,0,0,0.3)] lg:w-[30vw]"
+                        className="w-[70vmin] overflow-hidden rounded-3xl shadow-[0_40px_60px_rgba(0,0,0,0.3)] lg:w-[28vw]"
                       >
                         <img src={selLayout.photo} alt={selected.displayName} className="aspect-square h-full w-full object-cover" draggable="false" />
                       </motion.div>

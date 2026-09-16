@@ -14,6 +14,9 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 16. 9. 2026 — TEST: foto layout scény (mango) — split varianta
+- Scéna manga má nově vlastní rozvržení: béžové pozadí webu (sceneBg mango = #EEEBE1), čtvercová fotka (rounded-3xl) vpravo, velký tmavý nápis MANGO vlevo vedle ní, ornamenty mangovníku v tmavém inkoustu. Navigace, roleťka i „Více" se na foto-scénách přepínají do tmavé (inkOf override přes LAYOUT.photo). Detail: fotka se morphne do zvětšeného čtverce v panelu, popis kolem. Mobil: fotka nahoře, nápis pod ní. Ostatních 12 scén beze změny. TEST — snadno vratné.
+
 ### 16. 9. 2026 — TEST: reálná fotografie místo vektoru (jen mango)
 - LAYOUT.mango má nově photo: /assets/mango-photo.jpg + extra: false. Ve slideru se místo vektorového páru vykreslí fotografie v kruhovém výřezu (rounded-full, měkký stín, jemná rotace a plovoucí animace jako u ilustrací); botanické ornamenty mangovníku zůstávají. V detailu se fotka přes layoutId morph plynule zvětší do barevného panelu (70vmin / 30vw) a popis zůstává kolem. Ostatních 12 produktů zůstává vektorových. Označeno TEST — snadno se vrátí.
 

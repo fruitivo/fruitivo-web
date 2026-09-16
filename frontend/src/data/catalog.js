@@ -114,7 +114,7 @@ export const CATEGORIES = [
         orchard: "Sad Kuranda, Queensland, Austrálie",
         notes: ["Med", "Citrusová kůra", "Tropický nektar"],
         soil: "Hluboká červená jílovitá půda s vysokým podílem humusu",
-        sceneBg: "#EE9A3A", sceneInk: "dark",
+        sceneBg: "#EEEBE1", sceneInk: "dark",
       },
       {
         id: "papaya", name: "papája", displayName: "Papája", latin: "Carica papaya",
