@@ -1,7 +1,10 @@
 import { MARQUEE_TEXT } from "../data/catalog";
+import { EN } from "../data/en";
+import { useLang, pick } from "../langContext";
 
 export const Marquee = () => {
-  const row = MARQUEE_TEXT.repeat(3);
+  const { lang } = useLang();
+  const row = pick(lang, MARQUEE_TEXT, EN.marquee).repeat(3);
   return (
     <div data-testid="editorial-marquee" className="overflow-hidden border-y border-ink/10 bg-stone py-5 select-none">
       <div className="marquee-track flex whitespace-nowrap">

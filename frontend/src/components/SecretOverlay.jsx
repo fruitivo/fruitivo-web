@@ -1,6 +1,8 @@
 import { useContext, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ScrollContext } from "../scrollContext";
+import { EN } from "../data/en";
+import { useLang, pick } from "../langContext";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 26 },
@@ -11,6 +13,7 @@ const fadeUp = (delay = 0) => ({
 
 export const SecretOverlay = ({ onDismiss }) => {
   const lenis = useContext(ScrollContext);
+  const { lang } = useLang();
 
   useEffect(() => {
     lenis?.stop();
@@ -52,7 +55,7 @@ export const SecretOverlay = ({ onDismiss }) => {
             transition={{ delay: 0.5, duration: 0.9, ease: "easeOut" }}
             className="max-w-4xl font-serif text-4xl leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl"
           >
-            Vítejte ve Fruitivu.
+            {pick(lang, "Vítejte ve Fruitivu.", EN.secret.headline)}
           </motion.h1>
           <motion.p
             data-testid="secret-headline-em"
@@ -61,7 +64,7 @@ export const SecretOverlay = ({ onDismiss }) => {
             transition={{ delay: 0.85, duration: 0.9, ease: "easeOut" }}
             className="mt-24 max-w-3xl font-serif text-2xl font-light italic leading-snug tracking-tight text-sand/90 sm:mt-32 sm:text-4xl"
           >
-            Sady nahoře. Byznys dole.
+            {pick(lang, "Sady nahoře. Byznys dole.", EN.secret.headlineEm)}
           </motion.p>
         </section>
 
@@ -74,31 +77,32 @@ export const SecretOverlay = ({ onDismiss }) => {
                   {...fadeUp()}
                   className="mb-6 text-[11px] font-semibold uppercase tracking-[0.35em] text-sand/40"
                 >
-                  01 · Vedlejší projekt
+                  {pick(lang, "01 · Vedlejší projekt", EN.secret.label)}
                 </motion.p>
                 <motion.h2
                   data-testid="secret-subline"
                   {...fadeUp(0.1)}
                   className="font-serif text-3xl leading-[1.1] tracking-tight sm:text-5xl"
                 >
-                  Diverzifikace portfolia má i svoje <em className="font-light">tišší kapitoly.</em>
+                  {lang === "en" ? EN.secret.sublineA : "Diverzifikace portfolia má i svoje "}
+                  <em className="font-light">{lang === "en" ? EN.secret.sublineB : "tišší kapitoly."}</em>
                 </motion.h2>
                 <motion.p
                   data-testid="secret-paragraph"
                   {...fadeUp(0.2)}
                   className="mt-12 max-w-[60ch] text-sm leading-relaxed text-sand/60 sm:text-base"
                 >
-                  Ve dne jsme sad jako každý jiný — turisté, degustace, laborantky
+                  {lang === "en" ? EN.secret.paragraph1 : <>Ve dne jsme sad jako každý jiný — turisté, degustace, laborantky
                   v gumových holínkách. Ale jakmile slunce zajde, začíná směna, o které
                   se nepíše do výroční zprávy. Hluboko pod kořeny, tam, kde končí naše
                   oficiální mapa pozemku, mají naši nejzkušenější lidé druhé zaměstnání.
                   Žádná fotodokumentace, žádné degustace pro veřejnost, žádné „ochutnejte
                   a napište recenzi". Jen tichá, precizní práce a produkt, který mluví
-                  sám za sebe — pro toho, kdo ví, koho se zeptat.
+                  sám za sebe — pro toho, kdo ví, koho se zeptat.</>}
                   <br />
                   <br />
-                  Nazýváme to diverzifikací portfolia. Účetní tomu říkají jinak, ale
-                  účetní se stejně nikdy nedostanou dál než do vzorkovny.
+                  {lang === "en" ? EN.secret.paragraph2 : <>Nazýváme to diverzifikací portfolia. Účetní tomu říkají jinak, ale
+                  účetní se stejně nikdy nedostanou dál než do vzorkovny.</>}
                 </motion.p>
               </div>
 
@@ -129,7 +133,7 @@ export const SecretOverlay = ({ onDismiss }) => {
               {...fadeUp()}
               className="max-w-2xl font-serif text-2xl font-light italic leading-snug tracking-tight text-sand/85 sm:text-3xl"
             >
-              Fruitivo. Nejlepší úroda roste tam, kam se nikdo nedívá.
+              {pick(lang, "Fruitivo. Nejlepší úroda roste tam, kam se nikdo nedívá.", EN.secret.tagline)}
             </motion.p>
             <motion.button
               data-testid="secret-dismiss-button"
@@ -138,7 +142,7 @@ export const SecretOverlay = ({ onDismiss }) => {
               onClick={onDismiss}
               className="mt-16 rounded-full border border-sand/40 px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.25em] text-sand transition-colors duration-300 hover:bg-sand hover:text-[#160a24]"
             >
-              Zapomeňte, co jste viděli
+              {pick(lang, "Zapomeňte, co jste viděli", EN.secret.dismiss)}
             </motion.button>
           </section>
         </div>

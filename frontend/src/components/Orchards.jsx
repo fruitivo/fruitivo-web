@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { ORCHARDS, SCENES } from "../data/catalog";
+import { EN } from "../data/en";
+import { useLang, pick } from "../langContext";
 
 const EASE = [0.65, 0, 0.35, 1];
 
-const OrchardPhoto = ({ loc, className }) => (  <div className={`relative overflow-hidden ${className}`}>
+const OrchardPhoto = ({ loc, className, lang }) => (  <div className={`relative overflow-hidden ${className}`}>
     <img src={loc.image} alt={`Fotografie — ${loc.name}`} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
     {loc.photoPending && (
       <span className="absolute inset-0 flex items-center justify-center px-4 text-center text-[10px] uppercase tracking-[0.25em] text-ink/50">
-        Fotografie bude doplněna
+        {pick(lang, "Fotografie bude doplněna", EN.ui.photoPending)}
       </span>
     )}
   </div>
@@ -18,12 +20,13 @@ const OrchardPhoto = ({ loc, className }) => (  <div className={`relative overfl
 export const Orchards = ({ focus, onShowProduct }) => {
   const [activeId, setActiveId] = useState(ORCHARDS.locations[0].id);
   const active = ORCHARDS.locations.find((l) => l.id === activeId);
+  const { lang } = useLang();
+  const otx = (id, field, cs) => pick(lang, cs, EN.orchards.items[id]?.[field]);
 
-  // klik na sad z detailu produktu → přepnout panel na odpovídající značku
+  // klik na sad z detailu produktu nebo kalendáře → přepnout panel na odpovídající značku
   useEffect(() => {
-    if (!focus?.name) return;
-    const loc = ORCHARDS.locations.find((l) => l.name === focus.name);
-    if (loc) setActiveId(loc.id);
+    if (!focus?.id) return;
+    if (ORCHARDS.locations.some((l) => l.id === focus.id)) setActiveId(focus.id);
   }, [focus]);
 
   return (
@@ -36,14 +39,14 @@ export const Orchards = ({ focus, onShowProduct }) => {
           transition={{ duration: 0.8, ease: EASE }}
           className="mb-6 text-[11px] font-semibold uppercase tracking-[0.35em] text-ink/50"
         >
-          04 · Sady
+          {pick(lang, "04 · Sady", EN.sectionLabels.orchards)}
         </motion.p>
 
         <div className="mb-16 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <h2 className="font-serif text-4xl leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-            {ORCHARDS.title}
+            {pick(lang, ORCHARDS.title, EN.orchards.title)}
           </h2>
-          <p className="max-w-sm font-serif text-lg font-light italic text-ink/60 sm:text-xl">{ORCHARDS.subtitle}</p>
+          <p className="max-w-sm font-serif text-lg font-light italic text-ink/60 sm:text-xl">{pick(lang, ORCHARDS.subtitle, EN.orchards.subtitle)}</p>
         </div>
 
         {/* Desktop: mapa světa + boční panel */}
@@ -58,7 +61,7 @@ export const Orchards = ({ focus, onShowProduct }) => {
           >
             <img
               src="/assets/world-map.svg"
-              alt="Mapa světa se sady Fruitiva"
+              alt={pick(lang, "Mapa světa se sady Fruitiva", EN.orchards.mapAlt)}
               className="block h-auto w-full"
               draggable="false"
             />
@@ -84,7 +87,7 @@ export const Orchards = ({ focus, onShowProduct }) => {
                       isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                     }`}
                   >
-                    {loc.name}
+                    {otx(loc.id, "name", loc.name)}
                   </span>
                 </button>
               );
@@ -95,25 +98,25 @@ export const Orchards = ({ focus, onShowProduct }) => {
           <div data-testid="orchard-detail" className="relative min-h-[420px] lg:col-span-2">
             <AnimatePresence mode="wait">
               <motion.article
-                key={active.id}
+                key={active.id + lang}
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.45, ease: EASE }}
                 className="flex h-full flex-col"
               >
-                <OrchardPhoto loc={active} className="h-56 w-full rounded-2xl border border-ink/15" />
+                <OrchardPhoto loc={active} lang={lang} className="h-56 w-full rounded-2xl border border-ink/15" />
                 <p data-testid="orchard-detail-place" className="mt-6 text-[11px] uppercase tracking-[0.3em] text-ink/45">
-                  {active.place}
+                  {otx(active.id, "place", active.place)}
                 </p>
                 <h3 data-testid="orchard-detail-name" className="mt-2 font-serif text-3xl leading-tight tracking-tight">
-                  {active.name}
+                  {otx(active.id, "name", active.name)}
                 </h3>
                 <p className="mt-4 text-[11px] uppercase tracking-[0.25em] text-ink/45">
-                  Plodiny: <span data-testid="orchard-detail-crops" className="text-ink/80">{active.crops}</span>
+                  {pick(lang, "Plodiny", EN.ui.crops)}: <span data-testid="orchard-detail-crops" className="text-ink/80">{otx(active.id, "crops", active.crops)}</span>
                 </p>
                 <p data-testid="orchard-detail-text" className="mt-4 max-w-md text-sm leading-relaxed text-ink/65">
-                  {active.text}
+                  {otx(active.id, "text", active.text)}
                 </p>
                 {(() => {
                   const product = SCENES.find((p) => p.orchard?.startsWith(active.name));
@@ -124,7 +127,7 @@ export const Orchards = ({ focus, onShowProduct }) => {
                       onClick={() => onShowProduct?.(product.id)}
                       className="group mt-6 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-ink/60 transition-colors duration-300 hover:text-ink"
                     >
-                      Zobrazit plodiny
+                      {pick(lang, "Zobrazit plodiny", EN.ui.viewFruit)}
                       <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
                     </button>
                   ) : null;
@@ -145,13 +148,13 @@ export const Orchards = ({ focus, onShowProduct }) => {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.7, ease: EASE, delay: Math.min(i * 0.05, 0.2) }}
             >
-              <OrchardPhoto loc={loc} className="h-52 w-full rounded-2xl border border-ink/15" />
-              <p className="mt-5 text-[11px] uppercase tracking-[0.3em] text-ink/45">{loc.place}</p>
-              <h3 className="mt-1.5 font-serif text-2xl leading-tight tracking-tight">{loc.name}</h3>
+              <OrchardPhoto loc={loc} lang={lang} className="h-52 w-full rounded-2xl border border-ink/15" />
+              <p className="mt-5 text-[11px] uppercase tracking-[0.3em] text-ink/45">{otx(loc.id, "place", loc.place)}</p>
+              <h3 className="mt-1.5 font-serif text-2xl leading-tight tracking-tight">{otx(loc.id, "name", loc.name)}</h3>
               <p className="mt-3 text-[11px] uppercase tracking-[0.25em] text-ink/45">
-                Plodiny: <span className="text-ink/80">{loc.crops}</span>
+                {pick(lang, "Plodiny", EN.ui.crops)}: <span className="text-ink/80">{otx(loc.id, "crops", loc.crops)}</span>
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-ink/65">{loc.text}</p>
+              <p className="mt-3 text-sm leading-relaxed text-ink/65">{otx(loc.id, "text", loc.text)}</p>
             </motion.li>
           ))}
         </ul>

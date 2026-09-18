@@ -1,11 +1,19 @@
 import { useRef } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { PROCESS } from "../data/catalog";
+import { EN } from "../data/en";
+import { useLang, pick } from "../langContext";
 
 const EASE = [0.65, 0, 0.35, 1];
 
 export const Process = () => {
   const listRef = useRef(null);
+  const { lang } = useLang();
+  const steps = PROCESS.steps.map((s, i) => ({
+    ...s,
+    title: pick(lang, s.title, EN.process.steps[i]?.title),
+    text: pick(lang, s.text, EN.process.steps[i]?.text),
+  }));
 
   // osa se dokresluje podle průchodu seznamem (začne, když osa vjede do 80 % viewportu)
   const { scrollYProgress } = useScroll({
@@ -24,14 +32,14 @@ export const Process = () => {
           transition={{ duration: 0.8, ease: EASE }}
           className="mb-6 text-[11px] font-semibold uppercase tracking-[0.35em] text-ink/50"
         >
-          03 · Proces
+          {pick(lang, "03 · Proces", EN.sectionLabels.process)}
         </motion.p>
 
         <div className="mb-16 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <h2 className="font-serif text-4xl leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-            {PROCESS.title}
+            {pick(lang, PROCESS.title, EN.process.title)}
           </h2>
-          <p className="max-w-sm font-serif text-lg font-light italic text-ink/60 sm:text-xl">{PROCESS.subtitle}</p>
+          <p className="max-w-sm font-serif text-lg font-light italic text-ink/60 sm:text-xl">{pick(lang, PROCESS.subtitle, EN.process.subtitle)}</p>
         </div>
 
         <ol ref={listRef} className="relative">
@@ -43,7 +51,7 @@ export const Process = () => {
             style={{ scaleY: lineScale }}
             className="absolute bottom-10 left-[2.4rem] top-10 hidden w-px origin-top bg-ink/40 sm:left-[3.4rem] sm:block"
           />
-          {PROCESS.steps.map((step, i) => (
+          {steps.map((step, i) => (
             <motion.li
               key={step.number}
               data-testid={`process-step-${step.number}`}

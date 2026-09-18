@@ -2,14 +2,38 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { NAV_ITEMS, CATEGORIES, categoryStartIndex } from "../data/catalog";
+import { EN } from "../data/en";
+import { useLang, pick } from "../langContext";
 import { useScroller } from "../scrollContext";
 
 const EASE = [0.65, 0, 0.35, 1];
+
+// elegantní přepínač jazyka — jen písmena, žádné vlajky
+const LangToggle = ({ lang, setLang, color, testidPrefix }) => (
+  <div data-testid={testidPrefix} className="flex items-center text-[11px] font-semibold uppercase tracking-[0.25em]" style={{ color }}>
+    <button
+      data-testid={`${testidPrefix}-cs`}
+      onClick={() => setLang("cs")}
+      className={`transition-opacity duration-300 ${lang === "cs" ? "opacity-100" : "opacity-35 hover:opacity-80"}`}
+    >
+      CZ
+    </button>
+    <span className="mx-1.5 opacity-25">/</span>
+    <button
+      data-testid={`${testidPrefix}-en`}
+      onClick={() => setLang("en")}
+      className={`transition-opacity duration-300 ${lang === "en" ? "opacity-100" : "opacity-35 hover:opacity-80"}`}
+    >
+      EN
+    </button>
+  </div>
+);
 
 export const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const lenis = useScroller();
+  const { lang, setLang } = useLang();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -71,20 +95,24 @@ export const Navigation = () => {
                 }`}
               >
                 <span className="mr-1.5 opacity-50">{item.id}</span>
-                {item.label}
+                {pick(lang, item.label, EN.nav[item.target])}
                 <span className="mt-0.5 block h-px w-0 bg-current transition-[width] duration-300 group-hover:w-full" />
               </button>
             ))}
+            <LangToggle lang={lang} setLang={setLang} color={navColor} testidPrefix="lang-toggle" />
           </nav>
 
-          <button
-            data-testid="menu-overlay-toggle"
-            onClick={() => setOpen(true)}
-            style={{ color: navColor }}
-            className={`text-[11px] font-semibold uppercase tracking-[0.25em] transition-colors duration-500 lg:hidden ${scrolled ? "text-ink" : ""}`}
-          >
-            Menu —
-          </button>
+          <div className="flex items-center gap-5 lg:hidden">
+            <LangToggle lang={lang} setLang={setLang} color={navColor} testidPrefix="lang-toggle-mobile" />
+            <button
+              data-testid="menu-overlay-toggle"
+              onClick={() => setOpen(true)}
+              style={{ color: navColor }}
+              className={`text-[11px] font-semibold uppercase tracking-[0.25em] transition-colors duration-500 ${scrolled ? "text-ink" : ""}`}
+            >
+              Menu —
+            </button>
+          </div>
         </div>
       </header>
 
@@ -104,7 +132,7 @@ export const Navigation = () => {
                 onClick={() => setOpen(false)}
                 className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-stone/70 transition-colors hover:text-stone"
               >
-                Zavřít <X size={16} />
+                {pick(lang, "Zavřít", EN.ui.closeMenu)} <X size={16} />
               </button>
             </div>
 
@@ -122,7 +150,7 @@ export const Navigation = () => {
                   >
                     <span className="font-sans text-xs tracking-[0.3em] text-stone/40">{item.id}</span>
                     <span className="font-serif text-4xl leading-none transition-all duration-300 group-hover:translate-x-3 group-hover:italic group-hover:text-stone sm:text-6xl lg:text-7xl">
-                      {item.label}
+                      {pick(lang, item.label, EN.nav[item.target])}
                     </span>
                   </motion.button>
                 </div>
@@ -143,7 +171,7 @@ export const Navigation = () => {
                   onClick={() => goCategory(c.id)}
                   className="text-[11px] uppercase tracking-[0.2em] text-stone/50 transition-colors hover:text-stone"
                 >
-                  {c.name}
+                  {pick(lang, c.name, EN.categories[c.id])}
                 </button>
               ))}
             </motion.div>

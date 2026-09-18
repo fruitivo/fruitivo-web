@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, animate, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, MapPin, Sprout } from "lucide-react";
-import { SCENES, HARVEST, MONTHS, sceneIndexOf } from "../data/catalog";
+import { SCENES, HARVEST, MONTHS, ORCHARDS, sceneIndexOf } from "../data/catalog";
+import { EN } from "../data/en";
+import { useLang, pick } from "../langContext";
 import { ExtraArt, ProductArt, ProductFlora } from "./ProductArt";
 
 const EASE = [0.65, 0, 0.35, 1];
@@ -59,6 +61,8 @@ const FLORA_SPOTS = [
 
 // ── jedna scéna: velký produkt, název nízko, pozadí řeší slider ───────────────
 const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
+  const { lang } = useLang();
+  const sceneName = pick(lang, scene.name, EN.products[scene.id]?.name);
   const L = LAYOUT[scene.id] || {};
   const ink = L.photo ? INK : inkOf();
   const rot = L.rot ?? 0;
@@ -98,9 +102,9 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
 
       {L.photo ? (
         /* foto scéna — béžové pozadí, čtvercová fotka vpravo, velký nápis + Více vlevo pod ním */
-        <div className="flex h-full items-center justify-center px-6">
-          <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-[7vw]">
-            <motion.div layoutId={`art-${scene.id}`} transition={{ duration: 0.9, ease: EASE }} className="order-1 lg:order-2">
+        <div className="flex h-full items-center">
+          <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-8 px-5 sm:px-10 lg:flex-row lg:justify-between lg:gap-12">
+            <motion.div layoutId={`art-${scene.id}`} transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }} className="order-1 lg:order-2">
               <motion.div style={{ x: ax, y: ay }}>
                 <motion.div
                   initial={instant ? false : { opacity: 0, scale: 0.94 }}
@@ -111,7 +115,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
                   <motion.div
                     animate={{ y: [0, -14, 0] }}
                     transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-                    className="w-[72vmin] overflow-hidden rounded-3xl shadow-[0_36px_44px_rgba(0,0,0,0.22)] sm:w-[52vmin] lg:w-[30vw]"
+                    className="w-[72vmin] overflow-hidden rounded-3xl shadow-[0_36px_44px_rgba(0,0,0,0.22)] sm:w-[52vmin] lg:w-[26vw]"
                   >
                     <img src={L.photo} alt={scene.displayName} className="aspect-square h-full w-full object-cover" draggable="false" />
                   </motion.div>
@@ -119,8 +123,8 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
               </motion.div>
             </motion.div>
             <div className="order-2 lg:order-1">
-              <h2 className="select-none text-center font-display font-semibold uppercase leading-[0.95] tracking-tight text-[15vw] sm:text-[12vw] lg:text-left lg:text-[7vw]">
-                {scene.name.split(" ").map((word, wi) => (
+              <h2 className="select-none text-center font-display font-semibold uppercase leading-[0.95] tracking-tight text-[15vw] sm:text-[12vw] lg:text-left lg:text-[4.6vw]">
+                {sceneName.split(" ").map((word, wi) => (
                   <span key={wi} className="block overflow-hidden">
                     <motion.span
                       initial={instant ? false : { y: "112%" }}
@@ -150,7 +154,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
                   />
                   <span aria-hidden className="absolute inset-0 rounded-2xl bg-ink opacity-0 transition-opacity duration-500 group-hover:opacity-10" />
                   <span className="relative flex items-center gap-2">
-                    Více
+                    {pick(lang, "Více", EN.ui.more)}
                     <ArrowRight size={18} className="transition-transform duration-500 group-hover:translate-x-1.5" />
                   </span>
                 </button>
@@ -225,7 +229,9 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
   );
 };
 
-export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
+export const ProductSlider = ({ onOpenOrchard, focus }) => {
+  const { lang } = useLang();
+  const ptx = (id, field, cs) => pick(lang, cs, EN.products[id]?.[field]);
   const [center, setCenter] = useState(0);
   const [bgIndex, setBgIndex] = useState(0); // barva pozadí míří na cíl hned při startu posunu
   const [range, setRange] = useState([-1, 1]); // okno vykreslených scén (rozšíří se při průletu)
@@ -399,28 +405,6 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
         })}
       </motion.div>
 
-      {/* štítek aktuální sklizně — vlevo nahoře, klik → sekce Sklizeň na daný měsíc */}
-      {(() => {
-        const nowMonth = new Date().getMonth();
-        const names = HARVEST.items
-          .filter((i) => i.months.includes(nowMonth))
-          .map((i) => SCENES.find((s) => s.id === i.productId)?.displayName)
-          .filter(Boolean)
-          .join(", ");
-        if (!names) return null;
-        return (
-          <button
-            data-testid="hero-harvest-badge"
-            onClick={() => onOpenHarvest?.(nowMonth)}
-            className="group absolute left-5 top-[76px] z-20 flex max-w-[72vw] items-center gap-2 rounded-full border px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] transition-transform duration-300 hover:scale-105 sm:left-10 sm:top-[84px]"
-            style={{ color: ink, borderColor: `${ink}45` }}
-          >
-            <span className="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-current" />
-            <span className="truncate">Právě se sklízí: {names}</span>
-          </button>
-        );
-      })()}
-
       {/* tlačítko Více — desktop: obdélník se zaoblenými rohy, zarovnaný s jednoslovným nápisem */}
       <button
         data-testid={`product-detail-open-${active.id}`}
@@ -436,7 +420,7 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
           />
           <span aria-hidden className="absolute inset-0 rounded-2xl bg-current opacity-0 transition-opacity duration-500 group-hover:opacity-10" />
           <span className="relative flex items-center gap-2">
-            Více
+            {pick(lang, "Více", EN.ui.more)}
             <ArrowRight size={18} className="transition-transform duration-500 group-hover:translate-x-1.5" />
           </span>
         </span>
@@ -449,14 +433,14 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
         className={`absolute bottom-24 right-5 z-20 rounded-full border px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.25em] lg:hidden ${LAYOUT[active.id]?.photo ? "hidden" : ""}`}
         style={{ color: ink, borderColor: `${ink}75` }}
       >
-        Více
+        {pick(lang, "Více", EN.ui.more)}
       </button>
 
       {/* mobil: šipky vpřed/vzad + přehled všech produktů (roleťka je na mobilu skrytá) */}
       <div className="absolute bottom-5 left-5 z-20 flex items-center gap-2 lg:hidden" style={{ color: ink }}>
         <button
           data-testid="mobile-prev-button"
-          aria-label="Předchozí produkt"
+          aria-label={pick(lang, "Předchozí produkt", EN.ui.prevProduct)}
           onClick={stepBack}
           className="flex h-10 w-10 items-center justify-center rounded-full border"
           style={{ borderColor: `${ink}60` }}
@@ -465,7 +449,7 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
         </button>
         <button
           data-testid="mobile-next-button"
-          aria-label="Další produkt"
+          aria-label={pick(lang, "Další produkt", EN.ui.nextProduct)}
           onClick={() => step()}
           className="flex h-10 w-10 items-center justify-center rounded-full border"
           style={{ borderColor: `${ink}60` }}
@@ -478,7 +462,7 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
           className="ml-1 rounded-full border px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.2em]"
           style={{ borderColor: `${ink}60` }}
         >
-          Všechny produkty
+          {pick(lang, "Všechny produkty", EN.ui.allProducts)}
         </button>
       </div>
 
@@ -494,13 +478,13 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
             className="grain fixed inset-0 z-40 flex flex-col bg-ink text-stone lg:hidden"
           >
             <div className="flex items-center justify-between px-5 py-4">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-stone/50">Všechny produkty</span>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-stone/50">{pick(lang, "Všechny produkty", EN.ui.allProducts)}</span>
               <button
                 data-testid="mobile-product-list-close"
                 onClick={() => setListOpen(false)}
                 className="text-[11px] font-semibold uppercase tracking-[0.25em] text-stone/70"
               >
-                Zavřít
+                {pick(lang, "Zavřít", EN.ui.close)}
               </button>
             </div>
             <nav className="flex flex-1 flex-col justify-center overflow-y-auto px-5 pb-10">
@@ -515,7 +499,7 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
                   className="group flex items-baseline gap-4 border-b border-stone/10 py-3 text-left"
                 >
                   <span className="text-[10px] tracking-[0.3em] text-stone/40">{String(i + 1).padStart(2, "0")}</span>
-                  <span className={`font-serif text-2xl leading-none ${i === center ? "italic" : ""}`}>{s.displayName}</span>
+                  <span className={`font-serif text-2xl leading-none ${i === center ? "italic" : ""}`}>{ptx(s.id, "displayName", s.displayName)}</span>
                 </button>
               ))}
             </nav>
@@ -523,11 +507,12 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
         )}
       </AnimatePresence>
 
-      {/* roletka produktů s časovačem — jen desktop (na mobilu šipky + seznam) */}
-      <div className="absolute inset-x-0 bottom-[6vh] z-20 hidden justify-center lg:flex" style={{ color: ink }}>
+      {/* roletka produktů s časovačem — jen desktop, zarovnaná na stejný levý okraj jako nápisy (na mobilu šipky + seznam) */}
+      <div className="absolute inset-x-0 bottom-[6vh] z-20 hidden lg:block" style={{ color: ink }}>
+        <div className="mx-auto flex w-full max-w-6xl justify-start px-10">
         <div
           data-testid="slider-tabs"
-          className="no-scrollbar flex max-w-full items-end justify-center gap-4 overflow-x-auto px-4 pb-1 pt-3 sm:gap-5 sm:px-8"
+          className="no-scrollbar flex max-w-full items-end justify-start gap-4 overflow-x-auto pb-1 pt-3 sm:gap-5"
         >
           {SCENES.map((s, i) => (
             <button
@@ -537,7 +522,7 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
               className="relative shrink-0 pb-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] transition-opacity duration-300 sm:text-[11px]"
               style={{ opacity: i === center ? 1 : 0.45 }}
             >
-              {s.displayName}
+              {ptx(s.id, "displayName", s.displayName)}
               {i === center && !selected && (
                 <motion.span
                   key={`progress-${center}`}
@@ -549,6 +534,7 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
               )}
             </button>
           ))}
+        </div>
         </div>
       </div>
 
@@ -569,7 +555,7 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
               initial={panelInitial}
               animate={panelTarget}
               exit={panelInitial}
-              transition={{ duration: 0.9, ease: EASE }}
+              transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
               className="absolute overflow-hidden"
               style={{ backgroundColor: selected.sceneBg }}
             >
@@ -582,12 +568,12 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
               />
               {selLayout.photo ? (
                 /* foto produkt — v detailu fotka vyplní celý panel okraj od okraje */
-                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.9, ease: EASE }} className="absolute inset-0">
+                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }} className="absolute inset-0">
                   <img src={selLayout.photo} alt={selected.displayName} className="h-full w-full object-cover" draggable="false" />
                 </motion.div>
               ) : (
               <div className="flex h-full items-center justify-center">
-                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.9, ease: EASE }}>
+                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}>
                   {/* bez parallax za myší — statická kompozice, zvětšená dle druhu */}
                   <div className="flex items-center justify-center">
                     <motion.div style={{ rotate: selLayout.rot ?? 0 }}>
@@ -614,21 +600,21 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
             >
               <div className="max-w-lg">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-ink/55">
-                  {selected.categoryName} · {selected.latin}
+                  {pick(lang, selected.categoryName, EN.categories[selected.categoryId])} · {selected.latin}
                 </p>
                 <h3 className="mt-3 font-display font-semibold uppercase leading-[0.95] tracking-tight text-5xl text-ink sm:text-6xl">
-                  {selected.name.split(" ").map((w, i) => (
+                  {ptx(selected.id, "name", selected.name).split(" ").map((w, i) => (
                     <span key={i} className="mr-[0.24em] inline-block last:mr-0">
                       {w}
                     </span>
                   ))}
                 </h3>
-                <p className="mt-4 font-serif text-xl italic font-light text-ink/75">{selected.subtitle}</p>
-                <p className="mt-6 text-sm leading-relaxed text-ink/75 sm:text-base">{selected.description}</p>
+                <p className="mt-4 font-serif text-xl italic font-light text-ink/75">{ptx(selected.id, "subtitle", selected.subtitle)}</p>
+                <p className="mt-6 text-sm leading-relaxed text-ink/75 sm:text-base">{ptx(selected.id, "description", selected.description)}</p>
 
                 {selected.usage && (
                   <p className="mt-4 font-serif text-sm font-light italic leading-relaxed text-ink/70 sm:text-base">
-                    {selected.usage}
+                    {ptx(selected.id, "usage", selected.usage)}
                   </p>
                 )}
 
@@ -637,29 +623,30 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
                     type="button"
                     data-testid="product-orchard-link"
                     onClick={() => {
-                      const name = selected.orchard.split(",")[0];
+                      const loc = ORCHARDS.locations.find((l) => selected.orchard.startsWith(l.name));
                       setSelected(null);
-                      onOpenOrchard?.(name);
+                      if (loc) onOpenOrchard?.(loc.id);
                     }}
                     className="group mt-5 flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-ink/45 transition-colors duration-300 hover:text-ink"
                   >
                     <MapPin size={13} className="shrink-0" />
-                    <span className="underline-offset-4 group-hover:underline">{selected.orchard}</span>
+                    <span className="underline-offset-4 group-hover:underline">{ptx(selected.id, "orchard", selected.orchard)}</span>
                   </button>
                 )}
 
                 <p className="mt-6 flex items-start gap-2 text-xs leading-relaxed text-ink/60 sm:text-sm">
                   <Sprout size={15} className="mt-0.5 shrink-0" />
-                  {selected.soil}
+                  {ptx(selected.id, "soil", selected.soil)}
                 </p>
 
                 {(() => {
                   const harvest = HARVEST.items.find((i) => i.productId === selected.id);
                   if (!harvest) return null;
-                  const months = [...harvest.months].sort((a, b) => a - b).map((m) => MONTHS[m].toLowerCase()).join(", ");
+                  const monthNames = lang === "en" ? EN.months : MONTHS;
+                  const months = [...harvest.months].sort((a, b) => a - b).map((m) => monthNames[m].toLowerCase()).join(", ");
                   return (
                     <p data-testid="product-detail-harvest" className="mt-4 text-[11px] uppercase tracking-[0.25em] text-ink/45">
-                      Sklizeň: <span className="text-ink/70">{months}</span>
+                      {pick(lang, "Sklizeň", EN.ui.harvestWord)}: <span className="text-ink/70">{months}</span>
                     </p>
                   );
                 })()}
@@ -674,7 +661,7 @@ export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
               exit={{ opacity: 0, transition: { duration: 0.15 } }}
               className="fixed left-5 top-5 z-10 flex items-center gap-2 rounded-full border border-ink/25 bg-stone px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.25em] text-ink transition-transform hover:scale-105 sm:left-10"
             >
-              <ArrowLeft size={14} /> Zpět
+              <ArrowLeft size={14} /> {pick(lang, "Zpět", EN.ui.back)}
             </motion.button>
           </motion.div>
         )}

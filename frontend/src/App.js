@@ -3,6 +3,7 @@ import Lenis from "lenis";
 import { AnimatePresence } from "framer-motion";
 import "@/App.css";
 import { ScrollContext } from "./scrollContext";
+import { LangContext } from "./langContext";
 import { Navigation } from "./components/Navigation";
 import { ProductSlider } from "./components/ProductSlider";
 import { Marquee } from "./components/Marquee";
@@ -19,11 +20,11 @@ function App() {
   const [secretMode, setSecretMode] = useState(false);
   const [orchardFocus, setOrchardFocus] = useState(null);
   const [productFocus, setProductFocus] = useState(null);
-  const [harvestFocus, setHarvestFocus] = useState(null);
+  const [lang, setLang] = useState("cs");
 
-  // detail produktu → klik na sad: zavřít detail, srolovat na mapu a vybrat značku
-  const openOrchard = (name) => {
-    setOrchardFocus({ name, at: Date.now() });
+  // detail produktu / kalendář → srolovat na mapu a vybrat značku (id sadu)
+  const openOrchard = (orchardId) => {
+    setOrchardFocus({ id: orchardId, at: Date.now() });
     setTimeout(() => lenis?.scrollTo("#sady", { duration: 1.4 }), 250);
   };
 
@@ -33,12 +34,6 @@ function App() {
     lenis?.scrollTo(0, { duration: 1.4 });
   };
 
-  // štítek „Právě se sklízí" → srolovat na Sklizeň a vybrat aktuální měsíc
-  const openHarvestMonth = (month) => {
-    setHarvestFocus({ month, at: Date.now() });
-    lenis?.scrollTo("#sklizen", { duration: 1.4 });
-  };
-
   useEffect(() => {
     const instance = new Lenis({ lerp: 0.09, smoothWheel: true, autoRaf: true });
     setLenis(instance);
@@ -46,16 +41,17 @@ function App() {
   }, []);
 
   return (
+    <LangContext.Provider value={{ lang, setLang }}>
     <ScrollContext.Provider value={lenis}>
       <div className="App bg-stone text-ink">
         <Navigation />
         <main>
-          <ProductSlider onOpenOrchard={openOrchard} focus={productFocus} onOpenHarvest={openHarvestMonth} />
+          <ProductSlider onOpenOrchard={openOrchard} focus={productFocus} />
           <Marquee />
           <Roots />
           <Process />
           <Orchards focus={orchardFocus} onShowProduct={showProduct} />
-          <Harvest onOpenOrchard={openOrchard} focus={harvestFocus} />
+          <Harvest onOpenOrchard={openOrchard} />
         </main>
         <Footer onUnlockSecret={() => setSecretMode(true)} />
         <AmbientAudio />
@@ -73,6 +69,7 @@ function App() {
         </AnimatePresence>
       </div>
     </ScrollContext.Provider>
+    </LangContext.Provider>
   );
 }
 

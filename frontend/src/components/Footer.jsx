@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { FOOTER } from "../data/catalog";
+import { EN } from "../data/en";
+import { useLang, pick } from "../langContext";
 
 export const Footer = ({ onUnlockSecret }) => {
   const [code, setCode] = useState("");
   const [sent, setSent] = useState(false);
+  const { lang } = useLang();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,16 +22,16 @@ export const Footer = ({ onUnlockSecret }) => {
   return (
     <footer id="kontakt" data-testid="footer-section" className="grain relative overflow-hidden bg-ink px-5 pb-10 pt-24 text-stone sm:px-10 sm:pt-32">
       <div className="relative z-10 mx-auto max-w-6xl">
-        <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.35em] text-stone/50">06 · Kontakt</p>
+        <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.35em] text-stone/50">{pick(lang, "06 · Kontakt", EN.sectionLabels.contact)}</p>
 
         <h2 className="mb-20 max-w-3xl font-serif text-4xl leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
-          {FOOTER.statement.split("živé zemi.")[0]}
-          <em className="font-light">živé zemi.</em>
+          {lang === "en" ? EN.footer.statementA : FOOTER.statement.split("živé zemi.")[0]}
+          <em className="font-light">{lang === "en" ? EN.footer.statementB : "živé zemi."}</em>
         </h2>
 
         <div className="mb-20 grid grid-cols-1 gap-12 border-t border-stone/15 pt-12 sm:grid-cols-3">
           <div>
-            <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-stone/40">Napište nám</p>
+            <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-stone/40">{pick(lang, "Napište nám", EN.footer.writeUs)}</p>
             <a
               data-testid="footer-email-link"
               href={`mailto:${FOOTER.email}`}
@@ -39,11 +42,11 @@ export const Footer = ({ onUnlockSecret }) => {
             <p className="mt-3 text-sm text-stone/60">{FOOTER.phone}</p>
           </div>
           <div>
-            <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-stone/40">Sídlo</p>
+            <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-stone/40">{pick(lang, "Sídlo", EN.footer.office)}</p>
             <p className="text-sm leading-relaxed text-stone/70">{FOOTER.address}</p>
           </div>
           <div>
-            <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-stone/40">Sledujte nás</p>
+            <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-stone/40">{pick(lang, "Sledujte nás", EN.footer.followUs)}</p>
             {/* TODO(SOCIAL): doplnit reálné odkazy na sociální sítě */}
             <ul className="space-y-2">
               {FOOTER.socials.map((s) => (
@@ -63,7 +66,7 @@ export const Footer = ({ onUnlockSecret }) => {
 
         {/* přístupový kód — pro budoucí uzavřenou část webu */}
         <div className="mb-20 max-w-md">
-          <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-stone/40">Vstup pro pozvané</p>
+          <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-stone/40">{pick(lang, "Vstup pro pozvané", EN.footer.invitees)}</p>
           <form
             onSubmit={handleSubmit}
             className="flex items-center gap-3"
@@ -73,7 +76,7 @@ export const Footer = ({ onUnlockSecret }) => {
               type="password"
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              placeholder="Přístupový kód"
+              placeholder={pick(lang, "Přístupový kód", EN.footer.accessCode)}
               className="w-full rounded-full border border-stone/25 bg-transparent px-5 py-3 text-sm text-stone placeholder:text-stone/35 focus:border-stone/60 focus:outline-none"
             />
             <button
@@ -81,13 +84,13 @@ export const Footer = ({ onUnlockSecret }) => {
               type="submit"
               className="shrink-0 rounded-full border border-stone/40 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] transition-colors duration-300 hover:bg-stone hover:text-ink"
             >
-              Vstoupit
+              {pick(lang, "Vstoupit", EN.footer.enter)}
             </button>
           </form>
           {sent && (
             <p data-testid="access-code-note" className="mt-3 text-xs text-stone/50">
               {/* TODO(ACCESS): napojit na ověření kódu, až bude existovat uzavřená část */}
-              Děkujeme — tato část webu zatím není dostupná.
+              {pick(lang, "Děkujeme — tato část webu zatím není dostupná.", EN.footer.notAvailable)}
             </p>
           )}
         </div>
@@ -100,8 +103,8 @@ export const Footer = ({ onUnlockSecret }) => {
         </p>
 
         <div className="flex flex-col justify-between gap-3 border-t border-stone/15 pt-6 text-[11px] uppercase tracking-[0.15em] text-stone/40 sm:flex-row">
-          <span>{FOOTER.copyright}</span>
-          <span>Obnovená půda · Čisté ovoce</span>
+          <span>{lang === "en" ? EN.footer.copyright : FOOTER.copyright}</span>
+          <span>{pick(lang, "Obnovená půda · Čisté ovoce", EN.footer.tagline)}</span>
         </div>
       </div>
     </footer>

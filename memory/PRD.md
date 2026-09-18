@@ -14,6 +14,12 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 18. 9. 2026 — zarovnání názvů, měkčí morph, EN verze, odstranění štítku
+- Štítek „Právě se sklízí" ze slideru odstraněn (včetně wiringu v App/Harvest).
+- Foto scény: pevný kontejner max-w-6xl — název vlevo zarovnaný na začátek roleťky (roletka nově zarovnaná vlevo na stejnou linku, ne centrovaně), fotka vpravo na pevné pozici (lg:w-[26vw]), název lg:text-[4.6vw]. Všechny scény sdílí stejnou geometrii.
+- Morph do detailu měkčí: 1.05 s, ease [0.22,1,0.36,1] (easeOutExpo) pro fotku i panel.
+- PŘEPÍNAČ JAZYKA CZ / EN v hlavičce (desktop i mobil, textový, bez vlajek): LangContext v App (langContext.js, helper pick), anglické texty v data/en.js (navigace, produkty, sady, příběh, proces, sklizeň, patička, marquee, skrytá stránka, měsíce, UI stringy). Propojení sadů přepnuto na id-based (funguje v obou jazycích).
+
 ### 18. 9. 2026 — finální pořadí sekcí + štítek „Právě se sklízí"
 - Pořadí stránky i navigace: 01 Produkty, 02 Příběh, 03 Proces, 04 Sady, 05 Sklizeň, 06 Kontakt (sekce Proces přesunuta před Sady; opravena duplicita Process v App.js, která při přesunu vznikla). Labely sekcí přečíslovány.
 - Nový štítek v levém horním rohu slideru „Právě se sklízí: …" (data z HARVEST dle reálného měsíce, pulzující tečka, barva dle scény) — klik sroluje na sekci Sklizeň a vybere aktuální měsíc (App.openHarvestMonth → Harvest focus prop).
