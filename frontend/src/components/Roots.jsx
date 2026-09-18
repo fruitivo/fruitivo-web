@@ -13,7 +13,7 @@ export const Roots = () => (
         transition={{ duration: 0.8, ease: EASE }}
         className="text-[11px] tracking-[0.35em] uppercase font-semibold text-ink/50 mb-6"
       >
-        01 · Příběh
+        02 · Příběh
       </motion.p>
 
       <h2 className="font-serif tracking-tight leading-[1.05] text-4xl sm:text-5xl lg:text-6xl max-w-3xl">

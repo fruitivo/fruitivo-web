@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, animate, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, MapPin, Sprout } from "lucide-react";
-import { SCENES, sceneIndexOf } from "../data/catalog";
+import { SCENES, HARVEST, MONTHS, sceneIndexOf } from "../data/catalog";
 import { ExtraArt, ProductArt, ProductFlora } from "./ProductArt";
 
 const EASE = [0.65, 0, 0.35, 1];
@@ -630,6 +630,17 @@ export const ProductSlider = ({ onOpenOrchard, focus }) => {
                   <Sprout size={15} className="mt-0.5 shrink-0" />
                   {selected.soil}
                 </p>
+
+                {(() => {
+                  const harvest = HARVEST.items.find((i) => i.productId === selected.id);
+                  if (!harvest) return null;
+                  const months = [...harvest.months].sort((a, b) => a - b).map((m) => MONTHS[m].toLowerCase()).join(", ");
+                  return (
+                    <p data-testid="product-detail-harvest" className="mt-4 text-[11px] uppercase tracking-[0.25em] text-ink/45">
+                      Sklizeň: <span className="text-ink/70">{months}</span>
+                    </p>
+                  );
+                })()}
               </div>
             </motion.div>
 

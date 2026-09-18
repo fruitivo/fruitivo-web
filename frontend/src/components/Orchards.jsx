@@ -36,7 +36,7 @@ export const Orchards = ({ focus, onShowProduct }) => {
           transition={{ duration: 0.8, ease: EASE }}
           className="mb-6 text-[11px] font-semibold uppercase tracking-[0.35em] text-ink/50"
         >
-          02 · Sady
+          03 · Sady
         </motion.p>
 
         <div className="mb-16 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
