@@ -14,19 +14,19 @@ const inkOf = () => "#F5F3EC";
 
 // ── velikost a natočení kompozice na míru každému produktu ───────────────────
 const LAYOUT = {
-  avocado: { scale: 1.16, rot: -6, extraRot: 16 },
+  avocado: { scale: 1.16, rot: -6, extraRot: 16, photo: "/assets/avocado-photo.jpg", extra: false },
   kiwi: { scale: 1.1, rot: 7, extraRot: -12 },
   lime: { scale: 1.02, rot: -10, extraRot: 18 },
-  pawpaw: { scale: 1.12, rot: 6, extraRot: -14 },
-  lemon: { scale: 1.06, rot: 8, extraRot: -16 },
+  pawpaw: { scale: 1.12, rot: 6, extraRot: -14, photo: "/assets/pawpaw-photo.jpg", extra: false },
+  lemon: { scale: 1.06, rot: 8, extraRot: -16, photo: "/assets/lemon-photo.jpg", extra: false },
   banana: { scale: 1.18, rot: -12, extraRot: 20 },
   passionfruit: { scale: 1.06, rot: -6, extraRot: 15 },
-  physalis: { scale: 1.0, rot: -8, extraRot: -16 },
-  mango: { scale: 1.14, rot: -9, extraRot: 13 },
-  papaya: { scale: 1.12, rot: 6, extraRot: -15 },
+  physalis: { scale: 1.0, rot: -8, extraRot: -16, photo: "/assets/physalis-photo.jpg", extra: false },
+  mango: { scale: 1.14, rot: -9, extraRot: 13, photo: "/assets/mango-photo.jpg", extra: false },
+  papaya: { scale: 1.12, rot: 6, extraRot: -15, photo: "/assets/papaya-photo.jpg", extra: false },
   watermelon: { scale: 1.12, rot: 4, extra: false },
-  pomegranate: { scale: 1.14, rot: -8, extraRot: 14 },
-  dragonfruit: { scale: 1.14, rot: -8, extraRot: 15 },
+  pomegranate: { scale: 1.14, rot: -8, extraRot: 14, photo: "/assets/pomegranate-photo.jpg", extra: false },
+  dragonfruit: { scale: 1.14, rot: -8, extraRot: 15, photo: "/assets/dragonfruit-photo.jpg", extra: false },
   lychee: { scale: 1.04, rot: 9, extraRot: -18 },
 };
 
@@ -58,9 +58,9 @@ const FLORA_SPOTS = [
 ];
 
 // ── jedna scéna: velký produkt, název nízko, pozadí řeší slider ───────────────
-const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
-  const ink = inkOf();
+const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
   const L = LAYOUT[scene.id] || {};
+  const ink = L.photo ? INK : inkOf();
   const rot = L.rot ?? 0;
   const ax = useTransform(smx, (v) => v * 28);
   const ay = useTransform(smy, (v) => v * 18);
@@ -96,6 +96,69 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
         ))}
       </motion.div>
 
+      {L.photo ? (
+        /* foto scéna — béžové pozadí, čtvercová fotka vpravo, velký nápis + Více vlevo pod ním */
+        <div className="flex h-full items-center justify-center px-6">
+          <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-24">
+            <motion.div layoutId={`art-${scene.id}`} transition={{ duration: 0.6, ease: EASE }} className="order-1 lg:order-2">
+              <motion.div style={{ x: ax, y: ay }}>
+                <motion.div
+                  initial={instant ? false : { opacity: 0, scale: 0.94 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={t || { duration: 0.7, ease: EASE, delay: 0.1 }}
+                  className={`relative ${hidden ? "invisible" : ""}`}
+                >
+                  <motion.div
+                    animate={{ y: [0, -14, 0] }}
+                    transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+                    className="w-[72vmin] overflow-hidden rounded-3xl shadow-[0_36px_44px_rgba(0,0,0,0.22)] sm:w-[52vmin] lg:w-[30vw]"
+                  >
+                    <img src={L.photo} alt={scene.displayName} className="aspect-square h-full w-full object-cover" draggable="false" />
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            </motion.div>
+            <div className="order-2 lg:order-1">
+              <h2 className="select-none text-center font-display font-semibold uppercase leading-[0.95] tracking-tight text-[15vw] sm:text-[12vw] lg:text-left lg:text-[7vw]">
+                {scene.name.split(" ").map((word, wi) => (
+                  <span key={wi} className="block overflow-hidden">
+                    <motion.span
+                      initial={instant ? false : { y: "112%" }}
+                      animate={{ y: 0 }}
+                      transition={t || { duration: 0.7, ease: EASE, delay: 0.2 + wi * 0.07 }}
+                      className="block"
+                    >
+                      {word}
+                    </motion.span>
+                  </span>
+                ))}
+              </h2>
+              <motion.div
+                initial={instant ? false : { opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={t || { duration: 0.6, ease: EASE, delay: 0.4 }}
+                className="mt-8 flex justify-center lg:justify-start"
+              >
+                <button
+                  data-testid={`product-detail-open-${scene.id}`}
+                  onClick={onOpen}
+                  className="group relative px-8 py-4 text-base font-semibold uppercase tracking-[0.3em] transition-transform duration-500 hover:scale-105"
+                >
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 rounded-2xl border border-ink/40 transition-transform duration-700 ease-out group-hover:-rotate-3 group-hover:scale-110"
+                  />
+                  <span aria-hidden className="absolute inset-0 rounded-2xl bg-ink opacity-0 transition-opacity duration-500 group-hover:opacity-10" />
+                  <span className="relative flex items-center gap-2">
+                    Více
+                    <ArrowRight size={18} className="transition-transform duration-500 group-hover:translate-x-1.5" />
+                  </span>
+                </button>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      ) : (
       <div className="flex h-full flex-col items-center">
         {/* vycentrovaná kompozice */}
         <div className="flex flex-1 items-center justify-center">
@@ -157,6 +220,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant }) => {
           ))}
         </h2>
       </div>
+      )}
     </section>
   );
 };
@@ -254,10 +318,10 @@ export const ProductSlider = () => {
   }, []);
 
   const active = SCENES[center];
-  const ink = inkOf();
+  const ink = LAYOUT[active.id]?.photo ? INK : inkOf();
 
   useEffect(() => {
-    document.documentElement.style.setProperty("--nav-ink", inkOf());
+    document.documentElement.style.setProperty("--nav-ink", LAYOUT[SCENES[center].id]?.photo ? INK : inkOf());
   }, [center]);
 
   // parallaxa kurzorem (jen slider — v detailu vypnutá na přání)
@@ -311,7 +375,7 @@ export const ProductSlider = () => {
           const i = wrap(center + o);
           return (
             <div key={SCENES[i].id} className="h-full w-full shrink-0">
-              <Slide scene={SCENES[i]} idx={i} smx={smx} smy={smy} hidden={!!selected && i === center} instant={firstDone.current} />
+              <Slide scene={SCENES[i]} idx={i} smx={smx} smy={smy} hidden={!!selected && i === center} instant={firstDone.current} onOpen={() => setSelected(SCENES[i])} />
             </div>
           );
         })}
@@ -321,7 +385,7 @@ export const ProductSlider = () => {
       <button
         data-testid={`product-detail-open-${active.id}`}
         onClick={() => setSelected(active)}
-        className="group absolute bottom-[12vh] right-[8%] z-20 hidden transition-transform duration-500 hover:scale-105 lg:block"
+        className={`group absolute bottom-[12vh] right-[8%] z-20 transition-transform duration-500 hover:scale-105 ${LAYOUT[active.id]?.photo ? "hidden" : "hidden lg:block"}`}
         style={{ color: ink }}
       >
         <span className="relative block px-8 py-4 text-base font-semibold uppercase tracking-[0.3em]">
@@ -342,7 +406,7 @@ export const ProductSlider = () => {
       <button
         data-testid="product-detail-open-mobile"
         onClick={() => setSelected(active)}
-        className="absolute bottom-24 right-5 z-20 rounded-full border px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.25em] lg:hidden"
+        className={`absolute bottom-24 right-5 z-20 rounded-full border px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.25em] lg:hidden ${LAYOUT[active.id]?.photo ? "hidden" : ""}`}
         style={{ color: ink, borderColor: `${ink}75` }}
       >
         Více
@@ -476,6 +540,12 @@ export const ProductSlider = () => {
                 className="pointer-events-none absolute inset-0"
                 style={{ background: "radial-gradient(120% 90% at 50% 40%, transparent 45%, rgba(33,30,27,0.3) 100%)" }}
               />
+              {selLayout.photo ? (
+                /* foto produkt — v detailu fotka vyplní celý panel okraj od okraje */
+                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.65, ease: EASE }} className="absolute inset-0">
+                  <img src={selLayout.photo} alt={selected.displayName} className="h-full w-full object-cover" draggable="false" />
+                </motion.div>
+              ) : (
               <div className="flex h-full items-center justify-center">
                 <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.65, ease: EASE }}>
                   {/* bez parallax za myší — statická kompozice, zvětšená dle druhu */}
@@ -491,6 +561,7 @@ export const ProductSlider = () => {
                   </div>
                 </motion.div>
               </div>
+              )}
             </motion.div>
 
             {/* text vlevo na barvě webu */}

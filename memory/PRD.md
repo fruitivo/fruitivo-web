@@ -14,6 +14,9 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 18. 9. 2026 — reálné fotky ovoce (finální rozhodnutí)
+- Foto layout (béžové pozadí #EEEBE1, čtvercová fotka vpravo, velký nápis vlevo, Více pod názvem) nasazen u 8 produktů: mango, papája, mochyně, asimina, avokádo, citron, dračí ovoce, granátové jablko. V detailu fotka vyplní celý panel. Vektorových zůstává 5 (kiwi, limetka, marakuja, vodní meloun, liči) — čeká se na fotky; u nich Více zůstává vpravo dole. Na foto scénách se navigace/roletka přepínají do tmavé.
+
 ### 16. 9. 2026 — ztmavení pozadí slideru sníženo
 - Vinětace hlavního slideru zeslabena: plochá vrstva bg-ink/25 → ink/10, radial okraje rgba(33,30,27,0.25) → 0.13. Barvy scén jsou výrazně sytější, jen náznak stínu.
 

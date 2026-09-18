@@ -36,7 +36,7 @@ export const CATEGORIES = [
         orchard: "Sad Peloponés, Řecko",
         notes: ["Rubínové víno", "Brusinka", "Dřevo"],
         soil: "Kamenité terasy s hlubokým kořenovým systémem",
-        sceneBg: "#A83232", sceneInk: "light",
+        sceneBg: "#EEEBE1", sceneInk: "light",
       },
       {
         id: "kiwi", name: "kiwi", displayName: "Kiwi", latin: "Actinidia deliciosa",
@@ -56,7 +56,7 @@ export const CATEGORIES = [
         orchard: "Sad Petorca, Chile",
         notes: ["Lískový oříšek", "Máslo", "Čerstvé obilí"],
         soil: "Pórovitá úrodná hlinitá půda",
-        sceneBg: "#4C7A3C", sceneInk: "light",
+        sceneBg: "#EEEBE1", sceneInk: "light",
       },
       {
         id: "watermelon", name: "vodní meloun", displayName: "Vodní meloun", latin: "Citrullus lanatus",
@@ -95,7 +95,7 @@ export const CATEGORIES = [
         orchard: "Sad San Joaquin, Kalifornie, USA",
         notes: ["Svěží kyselost", "Eukalyptus", "Květinový tón"],
         soil: "Regenerovaná kamenitá půda s jíchou z kopřiv",
-        sceneBg: "#ECD06F", sceneInk: "dark",
+        sceneBg: "#EEEBE1", sceneInk: "dark",
       },
     ],
   },
@@ -114,7 +114,7 @@ export const CATEGORIES = [
         orchard: "Sad Kuranda, Queensland, Austrálie",
         notes: ["Med", "Citrusová kůra", "Tropický nektar"],
         soil: "Hluboká červená jílovitá půda s vysokým podílem humusu",
-        sceneBg: "#EE9A3A", sceneInk: "dark",
+        sceneBg: "#EEEBE1", sceneInk: "dark",
       },
       {
         id: "papaya", name: "papája", displayName: "Papája", latin: "Carica papaya",
@@ -124,7 +124,7 @@ export const CATEGORIES = [
         orchard: "Sad Kuranda, Queensland, Austrálie",
         notes: ["Karamel", "Meloun", "Vanilka"],
         soil: "Vulkanický popel a regenerovaná lesní prsť",
-        sceneBg: "#DF7049", sceneInk: "light",
+        sceneBg: "#EEEBE1", sceneInk: "light",
       },
       {
         id: "dragonfruit", name: "dračí ovoce", displayName: "Dračí ovoce", latin: "Hylocereus undatus",
@@ -134,7 +134,7 @@ export const CATEGORIES = [
         orchard: "Sad León, Nikaragua",
         notes: ["Kiwi", "Ostružina", "Limetková svěžest"],
         soil: "Písčitohlinitá drenážovaná půda s biouhlem",
-        sceneBg: "#D8437B", sceneInk: "light",
+        sceneBg: "#EEEBE1", sceneInk: "light",
       },
       {
         id: "lychee", name: "liči", displayName: "Liči", latin: "Litchi chinensis",
@@ -173,7 +173,7 @@ export const CATEGORIES = [
         orchard: "Sad Karoo, Jižní Afrika",
         notes: ["Ananas", "Angrešt", "Karamel"],
         soil: "Suché obnovené stráně s lokální mykorhízou",
-        sceneBg: "#D99A2B", sceneInk: "dark",
+        sceneBg: "#EEEBE1", sceneInk: "dark",
       },
       {
         id: "pawpaw", name: "asimina", displayName: "Asimina", latin: "Asimina triloba",
@@ -183,7 +183,7 @@ export const CATEGORIES = [
         orchard: "Sad Ohio Valley, Ohio, USA",
         notes: ["Banánový krém", "Mango", "Kokosové mléko"],
         soil: "Hluboké lužní půdy s bohatým opadem",
-        sceneBg: "#9FAF55", sceneInk: "dark",
+        sceneBg: "#EEEBE1", sceneInk: "dark",
       },
     ],
   },
