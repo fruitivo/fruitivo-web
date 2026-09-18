@@ -14,6 +14,9 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 18. 9. 2026 — kompozice scény v mezích roleťky
+- Roletka roztažena na celou šířku scény (max-w-[1600px], justify-between). Název lg:text-[6vw] posunut vpravo od levé hrany roleťky (lg:pl-[2%]), fotka lg:w-[32vw] posunuta vlevo od pravé hrany (lg:pr-[2%]) — nic nepřesahuje hrany roleťky. Ověřeno měřením: název 230 ≥ 200, fotka 1696 ≤ 1720.
+
 ### 18. 9. 2026 — velké názvy zpět, konec zvuku, decentní CZ/EN
 - Názvy zpět na lg:text-[7vw], fotky lg:w-[30vw]; kontejner rozšířen na max-w-[1500px] (justify-between) — pozice názvu i fotky je pro všechny scény stejná.
 - AmbientAudio kompletně odstraněn (komponenta smazána, import i render z App.js pryč).
