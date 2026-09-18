@@ -14,6 +14,12 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 18. 9. 2026 — sekce Sklizeň + obousměrné propojení + swipe
+- NOVÁ sekce Harvest.jsx (id="sklizen", mezi Sady a Proces): roční osa 12 měsíců s barevnými tečkami dle accent barvy produktu, výchozí = aktuální měsíc, klik na měsíc → fade panel s plody (název, sad, lokalita), klik na plod → scroll na mapu + výběr značky (přes App.openOrchard). Data HARVEST + MONTHS v catalog.js. Mobil: horizontálně scrollovatelný pruh (no-scrollbar).
+- Navigace přečíslována: 01 Příběh, 02 Sady, 03 Produkty, 04 Sklizeň, 05 Proces, 06 Kontakt (upraveny i labely v Process.jsx a Footer.jsx).
+- Zpět z mapy: v panelu sadu odkaz „Zobrazit plodiny" (data-testid orchard-show-products) → App.showProduct → scroll nahoru + ProductSlider focus prop → jump na ovoce.
+- Mobil: přejetí prstem do stran přepíná produkty (onTouchStart/End na slideru, práh 60 px; optional chaining — dřívější chybový overlay pocházel z deformované syntetické události v testu, kterou zachytával Lenis; s korektní událostí bez chyb).
+
 ### 18. 9. 2026 — všech 13 produktů s fotkou + propojení detail ↔ mapa
 - Foto layout doplněn i pro kiwi, limetku, marakuji, vodní meloun a liči — všech 13 scén má reálné fotky, béžové pozadí, nápis vlevo (rozestup od fotky zvětšen na lg:gap-[7vw]) a Více pod názvem.
 - Přechod do detailu zjemněn: layoutId morph i animace panelu jednotně 0.9 s bez zpoždění, panel bez scale trhnutí — obrázek plynule „přepluje" do panelu.

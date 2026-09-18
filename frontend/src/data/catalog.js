@@ -11,8 +11,9 @@ export const NAV_ITEMS = [
   { id: "01", label: "Příběh", target: "#pribeh" },
   { id: "02", label: "Sady", target: "#sady" },
   { id: "03", label: "Produkty", target: "#produkty" },
-  { id: "04", label: "Proces", target: "#denik" },
-  { id: "05", label: "Kontakt", target: "#kontakt" },
+  { id: "04", label: "Sklizeň", target: "#sklizen" },
+  { id: "05", label: "Proces", target: "#denik" },
+  { id: "06", label: "Kontakt", target: "#kontakt" },
 ];
 
 export const MARQUEE_TEXT =
@@ -214,6 +215,31 @@ export const ROOTS = {
     { number: "04", title: "Zpátky k zemi a lidem", text: "A protože nám na těch místech záleží dál, část z každého prodeje se vrací zpátky tam, odkud ovoce přišlo — k zemi i k lidem, kteří nám s ní pomáhají." },
   ],
 };
+
+export const HARVEST = {
+  title: "Sklizeň",
+  subtitle: "Na některém z našich pozemků se sklízí prakticky pořád.",
+  intro: "Na některém z našich pozemků se sklízí prakticky pořád. Zatímco na Peloponésu dozrávají granátová jablka, v Queenslandu se právě sklízí mango. Sezóna nikdy úplně nekončí — jen se přesouvá po mapě.",
+  outro: "Sklizeň neděláme sami. Řídí se jí lidé, kteří na dané zemi pracují roky, často generace před námi. My jen přidáváme čas a péči, co si obnovená půda zaslouží — kdy přesně se trhá, pozná zkušenost, ne kalendář. Od utržení plodu po odjezd k vám uplyne jen pár dní.",
+  // months: 0 = leden … 11 = prosinec; sad se odvodí z údaje orchard u produktu
+  items: [
+    { productId: "mango", months: [11, 0, 1] },
+    { productId: "passionfruit", months: [1, 2, 3] },
+    { productId: "papaya", months: [0, 1, 2] },
+    { productId: "lychee", months: [10, 11] },
+    { productId: "dragonfruit", months: [5, 6, 7, 8] },
+    { productId: "lime", months: [4, 5, 6, 7] },
+    { productId: "lemon", months: [10, 11, 0] },
+    { productId: "physalis", months: [1, 2, 3] },
+    { productId: "pomegranate", months: [8, 9, 10] },
+    { productId: "avocado", months: [7, 8, 9, 10] },
+    { productId: "watermelon", months: [0, 1, 2] },
+    { productId: "kiwi", months: [9, 10] },
+    { productId: "pawpaw", months: [8, 9] },
+  ],
+};
+
+export const MONTHS = ["Leden", "Únor", "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"];
 
 export const ORCHARDS = {
   title: "Naše obnovené sady",

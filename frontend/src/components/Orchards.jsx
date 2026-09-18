@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ORCHARDS } from "../data/catalog";
+import { ArrowRight } from "lucide-react";
+import { ORCHARDS, SCENES } from "../data/catalog";
 
 const EASE = [0.65, 0, 0.35, 1];
 
@@ -14,7 +15,7 @@ const OrchardPhoto = ({ loc, className }) => (  <div className={`relative overfl
   </div>
 );
 
-export const Orchards = ({ focus }) => {
+export const Orchards = ({ focus, onShowProduct }) => {
   const [activeId, setActiveId] = useState(ORCHARDS.locations[0].id);
   const active = ORCHARDS.locations.find((l) => l.id === activeId);
 
@@ -114,6 +115,20 @@ export const Orchards = ({ focus }) => {
                 <p data-testid="orchard-detail-text" className="mt-4 max-w-md text-sm leading-relaxed text-ink/65">
                   {active.text}
                 </p>
+                {(() => {
+                  const product = SCENES.find((p) => p.orchard?.startsWith(active.name));
+                  return product ? (
+                    <button
+                      type="button"
+                      data-testid="orchard-show-products"
+                      onClick={() => onShowProduct?.(product.id)}
+                      className="group mt-6 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-ink/60 transition-colors duration-300 hover:text-ink"
+                    >
+                      Zobrazit plodiny
+                      <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+                    </button>
+                  ) : null;
+                })()}
               </motion.article>
             </AnimatePresence>
           </div>

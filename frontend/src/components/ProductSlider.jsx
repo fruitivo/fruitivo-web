@@ -225,12 +225,20 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
   );
 };
 
-export const ProductSlider = ({ onOpenOrchard }) => {
+export const ProductSlider = ({ onOpenOrchard, focus }) => {
   const [center, setCenter] = useState(0);
   const [bgIndex, setBgIndex] = useState(0); // barva pozadí míří na cíl hned při startu posunu
   const [range, setRange] = useState([-1, 1]); // okno vykreslených scén (rozšíří se při průletu)
   const [selected, setSelected] = useState(null);
   const [listOpen, setListOpen] = useState(false);
+  const touchX = useRef(null);
+
+  // externí požadavek z mapy sadů („Zobrazit plodiny") → přepnout na ovoce
+  useEffect(() => {
+    if (!focus?.id) return;
+    const i = SCENES.findIndex((s) => s.id === focus.id);
+    if (i >= 0 && i !== centerRef.current) jump(i);
+  }, [focus]);
   const centerRef = useRef(0);
   const pos = useMotionValue(0); // pozice vůči středu (ve scénách)
   const busyRef = useRef(false);
@@ -348,6 +356,16 @@ export const ProductSlider = ({ onOpenOrchard }) => {
     <section
       id="produkty"
       data-testid="product-slider"
+      onTouchStart={(e) => {
+        touchX.current = e.touches?.[0]?.clientX ?? null;
+      }}
+      onTouchEnd={(e) => {
+        const x = e.changedTouches?.[0]?.clientX;
+        if (touchX.current == null || x == null || selected) return;
+        const dx = x - touchX.current;
+        touchX.current = null;
+        if (Math.abs(dx) > 60) (dx < 0 ? step() : stepBack());
+      }}
       className="relative h-[100svh] min-h-[620px] overflow-hidden"
       onPointerMove={(e) => {
         mx.set(e.clientX / window.innerWidth - 0.5);

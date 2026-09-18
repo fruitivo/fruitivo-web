@@ -19,7 +19,7 @@ export const Footer = ({ onUnlockSecret }) => {
   return (
     <footer id="kontakt" data-testid="footer-section" className="grain relative overflow-hidden bg-ink px-5 pb-10 pt-24 text-stone sm:px-10 sm:pt-32">
       <div className="relative z-10 mx-auto max-w-6xl">
-        <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.35em] text-stone/50">05 · Kontakt</p>
+        <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.35em] text-stone/50">06 · Kontakt</p>
 
         <h2 className="mb-20 max-w-3xl font-serif text-4xl leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
           {FOOTER.statement.split("živé zemi.")[0]}
