@@ -239,6 +239,7 @@ export const ProductSlider = ({ onOpenOrchard, focus }) => {
   const [listOpen, setListOpen] = useState(false);
   const touchX = useRef(null);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   // externí požadavek z mapy sadů („Zobrazit plodiny") → přepnout na ovoce
   useEffect(() => {
     if (!focus?.id) return;
@@ -251,6 +252,7 @@ export const ProductSlider = ({ onOpenOrchard, focus }) => {
   const jumpRef = useRef(null);
   const firstDone = useRef(false);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     firstDone.current = true;
   }, []);
@@ -334,6 +336,7 @@ useEffect(() => {
   const active = SCENES[center];
   const ink = LAYOUT[active.id]?.photo ? INK : inkOf();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     document.documentElement.style.setProperty("--nav-ink", LAYOUT[SCENES[center].id]?.photo ? INK : inkOf());
   }, [center]);
