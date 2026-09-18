@@ -15,19 +15,19 @@ const inkOf = () => "#F5F3EC";
 // ── velikost a natočení kompozice na míru každému produktu ───────────────────
 const LAYOUT = {
   avocado: { scale: 1.16, rot: -6, extraRot: 16, photo: "/assets/avocado-photo.jpg", extra: false },
-  kiwi: { scale: 1.1, rot: 7, extraRot: -12 },
-  lime: { scale: 1.02, rot: -10, extraRot: 18 },
+  kiwi: { scale: 1.1, rot: 7, extraRot: -12, photo: "/assets/kiwi-photo.jpg", extra: false },
+  lime: { scale: 1.02, rot: -10, extraRot: 18, photo: "/assets/lime-photo.jpg", extra: false },
   pawpaw: { scale: 1.12, rot: 6, extraRot: -14, photo: "/assets/pawpaw-photo.jpg", extra: false },
   lemon: { scale: 1.06, rot: 8, extraRot: -16, photo: "/assets/lemon-photo.jpg", extra: false },
   banana: { scale: 1.18, rot: -12, extraRot: 20 },
-  passionfruit: { scale: 1.06, rot: -6, extraRot: 15 },
+  passionfruit: { scale: 1.06, rot: -6, extraRot: 15, photo: "/assets/passionfruit-photo.jpg", extra: false },
   physalis: { scale: 1.0, rot: -8, extraRot: -16, photo: "/assets/physalis-photo.jpg", extra: false },
   mango: { scale: 1.14, rot: -9, extraRot: 13, photo: "/assets/mango-photo.jpg", extra: false },
   papaya: { scale: 1.12, rot: 6, extraRot: -15, photo: "/assets/papaya-photo.jpg", extra: false },
-  watermelon: { scale: 1.12, rot: 4, extra: false },
+  watermelon: { scale: 1.12, rot: 4, extra: false, photo: "/assets/watermelon-photo.jpg", extra: false },
   pomegranate: { scale: 1.14, rot: -8, extraRot: 14, photo: "/assets/pomegranate-photo.jpg", extra: false },
   dragonfruit: { scale: 1.14, rot: -8, extraRot: 15, photo: "/assets/dragonfruit-photo.jpg", extra: false },
-  lychee: { scale: 1.04, rot: 9, extraRot: -18 },
+  lychee: { scale: 1.04, rot: 9, extraRot: -18, photo: "/assets/lychee-photo.jpg", extra: false },
 };
 
 // velikost ovoce v detailu — každý druh zvlášť, aby pěkně vyplnil barevný panel
@@ -99,8 +99,8 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
       {L.photo ? (
         /* foto scéna — béžové pozadí, čtvercová fotka vpravo, velký nápis + Více vlevo pod ním */
         <div className="flex h-full items-center justify-center px-6">
-          <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-24">
-            <motion.div layoutId={`art-${scene.id}`} transition={{ duration: 0.6, ease: EASE }} className="order-1 lg:order-2">
+          <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-[7vw]">
+            <motion.div layoutId={`art-${scene.id}`} transition={{ duration: 0.9, ease: EASE }} className="order-1 lg:order-2">
               <motion.div style={{ x: ax, y: ay }}>
                 <motion.div
                   initial={instant ? false : { opacity: 0, scale: 0.94 }}
@@ -225,7 +225,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
   );
 };
 
-export const ProductSlider = () => {
+export const ProductSlider = ({ onOpenOrchard }) => {
   const [center, setCenter] = useState(0);
   const [bgIndex, setBgIndex] = useState(0); // barva pozadí míří na cíl hned při startu posunu
   const [range, setRange] = useState([-1, 1]); // okno vykreslených scén (rozšíří se při průletu)
@@ -529,7 +529,7 @@ export const ProductSlider = () => {
               initial={panelInitial}
               animate={panelTarget}
               exit={panelInitial}
-              transition={{ duration: 0.75, ease: EASE, delay: 0.25 }}
+              transition={{ duration: 0.9, ease: EASE }}
               className="absolute overflow-hidden"
               style={{ backgroundColor: selected.sceneBg }}
             >
@@ -542,12 +542,12 @@ export const ProductSlider = () => {
               />
               {selLayout.photo ? (
                 /* foto produkt — v detailu fotka vyplní celý panel okraj od okraje */
-                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.65, ease: EASE }} className="absolute inset-0">
+                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.9, ease: EASE }} className="absolute inset-0">
                   <img src={selLayout.photo} alt={selected.displayName} className="h-full w-full object-cover" draggable="false" />
                 </motion.div>
               ) : (
               <div className="flex h-full items-center justify-center">
-                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.65, ease: EASE }}>
+                <motion.div layoutId={`art-${selected.id}`} transition={{ duration: 0.9, ease: EASE }}>
                   {/* bez parallax za myší — statická kompozice, zvětšená dle druhu */}
                   <div className="flex items-center justify-center">
                     <motion.div style={{ rotate: selLayout.rot ?? 0 }}>
@@ -593,27 +593,24 @@ export const ProductSlider = () => {
                 )}
 
                 {selected.orchard && (
-                  <p className="mt-5 flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-ink/45">
+                  <button
+                    type="button"
+                    data-testid="product-orchard-link"
+                    onClick={() => {
+                      const name = selected.orchard.split(",")[0];
+                      setSelected(null);
+                      onOpenOrchard?.(name);
+                    }}
+                    className="group mt-5 flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-ink/45 transition-colors duration-300 hover:text-ink"
+                  >
                     <MapPin size={13} className="shrink-0" />
-                    {selected.orchard}
-                  </p>
+                    <span className="underline-offset-4 group-hover:underline">{selected.orchard}</span>
+                  </button>
                 )}
-
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {selected.notes.map((n) => (
-                    <span key={n} className="rounded-full border border-ink/25 px-3 py-1.5 text-[11px] uppercase tracking-[0.12em] text-ink/70">
-                      {n}
-                    </span>
-                  ))}
-                </div>
 
                 <p className="mt-6 flex items-start gap-2 text-xs leading-relaxed text-ink/60 sm:text-sm">
                   <Sprout size={15} className="mt-0.5 shrink-0" />
                   {selected.soil}
-                </p>
-
-                <p className="mt-8 text-[10px] uppercase tracking-[0.2em] text-ink/40">
-                  TODO · Finální fotografický / 3D asset ve výrobě
                 </p>
               </div>
             </motion.div>

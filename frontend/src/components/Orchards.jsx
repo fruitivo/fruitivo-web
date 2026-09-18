@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ORCHARDS } from "../data/catalog";
 
@@ -14,9 +14,16 @@ const OrchardPhoto = ({ loc, className }) => (  <div className={`relative overfl
   </div>
 );
 
-export const Orchards = () => {
+export const Orchards = ({ focus }) => {
   const [activeId, setActiveId] = useState(ORCHARDS.locations[0].id);
   const active = ORCHARDS.locations.find((l) => l.id === activeId);
+
+  // klik na sad z detailu produktu → přepnout panel na odpovídající značku
+  useEffect(() => {
+    if (!focus?.name) return;
+    const loc = ORCHARDS.locations.find((l) => l.name === focus.name);
+    if (loc) setActiveId(loc.id);
+  }, [focus]);
 
   return (
     <section id="sady" data-testid="orchards-section" className="border-t border-ink/10 bg-sand px-5 py-28 sm:px-10 sm:py-40">

@@ -14,6 +14,12 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 18. 9. 2026 — všech 13 produktů s fotkou + propojení detail ↔ mapa
+- Foto layout doplněn i pro kiwi, limetku, marakuji, vodní meloun a liči — všech 13 scén má reálné fotky, béžové pozadí, nápis vlevo (rozestup od fotky zvětšen na lg:gap-[7vw]) a Více pod názvem.
+- Přechod do detailu zjemněn: layoutId morph i animace panelu jednotně 0.9 s bez zpoždění, panel bez scale trhnutí — obrázek plynule „přepluje" do panelu.
+- Z detailu odstraněny chuťové chipsy (notes) a zastaralý řádek TODO.
+- NOVÉ: řádek se sadem v detailu je klikací (data-testid product-orchard-link) — zavře detail, sroluje na #sady a v mapě vybere odpovídající značku (App: orchardFocus {name, at} → Orchards focus prop, Lenis scrollTo). Nic dalšího k propojení netřeba.
+
 ### 18. 9. 2026 — reálné fotky ovoce (finální rozhodnutí)
 - Foto layout (béžové pozadí #EEEBE1, čtvercová fotka vpravo, velký nápis vlevo, Více pod názvem) nasazen u 8 produktů: mango, papája, mochyně, asimina, avokádo, citron, dračí ovoce, granátové jablko. V detailu fotka vyplní celý panel. Vektorových zůstává 5 (kiwi, limetka, marakuja, vodní meloun, liči) — čeká se na fotky; u nich Více zůstává vpravo dole. Na foto scénách se navigace/roletka přepínají do tmavé.
 

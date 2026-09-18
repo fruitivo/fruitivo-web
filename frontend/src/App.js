@@ -16,6 +16,13 @@ import { SecretOverlay } from "./components/SecretOverlay";
 function App() {
   const [lenis, setLenis] = useState(null);
   const [secretMode, setSecretMode] = useState(false);
+  const [orchardFocus, setOrchardFocus] = useState(null);
+
+  // detail produktu → klik na sad: zavřít detail, srolovat na mapu a vybrat značku
+  const openOrchard = (name) => {
+    setOrchardFocus({ name, at: Date.now() });
+    setTimeout(() => lenis?.scrollTo("#sady", { duration: 1.4 }), 250);
+  };
 
   useEffect(() => {
     const instance = new Lenis({ lerp: 0.09, smoothWheel: true, autoRaf: true });
@@ -28,10 +35,10 @@ function App() {
       <div className="App bg-stone text-ink">
         <Navigation />
         <main>
-          <ProductSlider />
+          <ProductSlider onOpenOrchard={openOrchard} />
           <Marquee />
           <Roots />
-          <Orchards />
+          <Orchards focus={orchardFocus} />
           <Process />
         </main>
         <Footer onUnlockSecret={() => setSecretMode(true)} />
