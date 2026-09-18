@@ -104,7 +104,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
         /* foto scéna — béžové pozadí, čtvercová fotka vpravo, velký nápis + Více vlevo pod ním */
         <div className="flex h-full items-center">
           <div className="mx-auto flex w-full max-w-[1600px] flex-col items-center gap-8 px-5 sm:px-10 lg:flex-row lg:justify-between lg:gap-16">
-            <motion.div layoutId={`art-${scene.id}`} transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }} className="order-1 lg:order-2 lg:pr-[2%]">
+            <motion.div layoutId={`art-${scene.id}`} transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }} className="order-1 lg:order-2 lg:pr-[6%]">
               <motion.div style={{ x: ax, y: ay }}>
                 <motion.div
                   initial={instant ? false : { opacity: 0, scale: 0.94 }}
@@ -122,7 +122,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
                 </motion.div>
               </motion.div>
             </motion.div>
-            <div className="order-2 lg:order-1 lg:pl-[2%]">
+            <div className="order-2 lg:order-1 lg:pl-[6%]">
               <h2 className="select-none text-center font-display font-semibold uppercase leading-[0.95] tracking-tight text-[15vw] sm:text-[12vw] lg:text-left lg:text-[6vw]">
                 {sceneName.split(" ").map((word, wi) => (
                   <span key={wi} className="block overflow-hidden">
@@ -507,12 +507,12 @@ export const ProductSlider = ({ onOpenOrchard, focus }) => {
         )}
       </AnimatePresence>
 
-      {/* roletka produktů s časovačem — jen desktop, roztažená na celou šířku scény (na mobilu šipky + seznam) */}
+      {/* roletka produktů s časovačem — jen desktop, zarovnaná vlevo (na mobilu šipky + seznam) */}
       <div className="absolute inset-x-0 bottom-[6vh] z-20 hidden lg:block" style={{ color: ink }}>
-        <div className="mx-auto flex w-full max-w-[1600px] px-10">
+        <div className="mx-auto flex w-full max-w-6xl justify-start px-10">
         <div
           data-testid="slider-tabs"
-          className="no-scrollbar flex w-full max-w-full items-end justify-between gap-4 overflow-x-auto pb-1 pt-3 sm:gap-5"
+          className="no-scrollbar flex max-w-full items-end justify-start gap-4 overflow-x-auto pb-1 pt-3 sm:gap-5"
         >
           {SCENES.map((s, i) => (
             <button
