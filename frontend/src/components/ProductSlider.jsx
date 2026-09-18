@@ -317,19 +317,19 @@ export const ProductSlider = ({ onOpenOrchard, focus }) => {
 
   const go = (target) => jump(target);
 
-  // automatické přepínání po 3 s — jede pořád dokola, bez pauzy při najetí myší
-  useEffect(() => {
-    if (selected || listOpen) return;
-    const t = setTimeout(() => step(), 3000);
-    return () => clearTimeout(t);
-  }, [center, selected, listOpen]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+useEffect(() => {
+  if (selected || listOpen) return;
+  const t = setTimeout(() => step(), 3000);
+  return () => clearTimeout(t);
+}, [center, selected, listOpen]);
 
-  // externí skoky (overlay menu → kategorie)
-  useEffect(() => {
-    const h = (e) => go(e.detail);
-    window.addEventListener("goto-scene", h);
-    return () => window.removeEventListener("goto-scene", h);
-  }, []);
+// eslint-disable-next-line react-hooks/exhaustive-deps
+useEffect(() => {
+  const h = (e) => go(e.detail);
+  window.addEventListener("goto-scene", h);
+  return () => window.removeEventListener("goto-scene", h);
+}, []);
 
   const active = SCENES[center];
   const ink = LAYOUT[active.id]?.photo ? INK : inkOf();
