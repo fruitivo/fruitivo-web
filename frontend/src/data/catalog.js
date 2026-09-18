@@ -218,8 +218,8 @@ export const ROOTS = {
 
 export const HARVEST = {
   title: "Sklizeň",
-  subtitle: "Na některém z našich pozemků se sklízí prakticky pořád.",
-  intro: "Na některém z našich pozemků se sklízí prakticky pořád. Zatímco na Peloponésu dozrávají granátová jablka, v Queenslandu se právě sklízí mango. Sezóna nikdy úplně nekončí — jen se přesouvá po mapě.",
+  subtitle: "Na některých z našich pozemků se sklízí prakticky pořád.",
+  intro: "Na některých z našich pozemků se sklízí prakticky pořád. Zatímco na Peloponésu dozrávají granátová jablka, v Queenslandu se právě sklízí mango. Sezóna nikdy úplně nekončí — jen se přesouvá po mapě.",
   outro: "Sklizeň neděláme sami. Řídí se jí lidé, kteří na dané zemi pracují roky, často generace před námi. My jen přidáváme čas a péči, co si obnovená půda zaslouží — kdy přesně se trhá, pozná zkušenost, ne kalendář. Od utržení plodu po odjezd k vám uplyne jen pár dní.",
   // months: 0 = leden … 11 = prosinec; sad se odvodí z údaje orchard u produktu
   items: [
