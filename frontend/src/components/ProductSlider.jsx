@@ -240,7 +240,6 @@ export const ProductSlider = ({ onOpenOrchard, focus }) => {
   const touchX = useRef(null);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // externí požadavek z mapy sadů („Zobrazit plodiny") → přepnout na ovoce
   useEffect(() => {
     if (!focus?.id) return;
     const i = SCENES.findIndex((s) => s.id === focus.id);
