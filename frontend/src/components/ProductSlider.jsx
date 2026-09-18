@@ -225,7 +225,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
   );
 };
 
-export const ProductSlider = ({ onOpenOrchard, focus }) => {
+export const ProductSlider = ({ onOpenOrchard, focus, onOpenHarvest }) => {
   const [center, setCenter] = useState(0);
   const [bgIndex, setBgIndex] = useState(0); // barva pozadí míří na cíl hned při startu posunu
   const [range, setRange] = useState([-1, 1]); // okno vykreslených scén (rozšíří se při průletu)
@@ -398,6 +398,28 @@ export const ProductSlider = ({ onOpenOrchard, focus }) => {
           );
         })}
       </motion.div>
+
+      {/* štítek aktuální sklizně — vlevo nahoře, klik → sekce Sklizeň na daný měsíc */}
+      {(() => {
+        const nowMonth = new Date().getMonth();
+        const names = HARVEST.items
+          .filter((i) => i.months.includes(nowMonth))
+          .map((i) => SCENES.find((s) => s.id === i.productId)?.displayName)
+          .filter(Boolean)
+          .join(", ");
+        if (!names) return null;
+        return (
+          <button
+            data-testid="hero-harvest-badge"
+            onClick={() => onOpenHarvest?.(nowMonth)}
+            className="group absolute left-5 top-[76px] z-20 flex max-w-[72vw] items-center gap-2 rounded-full border px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] transition-transform duration-300 hover:scale-105 sm:left-10 sm:top-[84px]"
+            style={{ color: ink, borderColor: `${ink}45` }}
+          >
+            <span className="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-current" />
+            <span className="truncate">Právě se sklízí: {names}</span>
+          </button>
+        );
+      })()}
 
       {/* tlačítko Více — desktop: obdélník se zaoblenými rohy, zarovnaný s jednoslovným nápisem */}
       <button

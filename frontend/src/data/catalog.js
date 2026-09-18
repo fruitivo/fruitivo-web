@@ -10,9 +10,9 @@
 export const NAV_ITEMS = [
   { id: "01", label: "Produkty", target: "#produkty" },
   { id: "02", label: "Příběh", target: "#pribeh" },
-  { id: "03", label: "Sady", target: "#sady" },
-  { id: "04", label: "Sklizeň", target: "#sklizen" },
-  { id: "05", label: "Proces", target: "#denik" },
+  { id: "03", label: "Proces", target: "#denik" },
+  { id: "04", label: "Sady", target: "#sady" },
+  { id: "05", label: "Sklizeň", target: "#sklizen" },
   { id: "06", label: "Kontakt", target: "#kontakt" },
 ];
 

@@ -14,6 +14,10 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 18. 9. 2026 — finální pořadí sekcí + štítek „Právě se sklízí"
+- Pořadí stránky i navigace: 01 Produkty, 02 Příběh, 03 Proces, 04 Sady, 05 Sklizeň, 06 Kontakt (sekce Proces přesunuta před Sady; opravena duplicita Process v App.js, která při přesunu vznikla). Labely sekcí přečíslovány.
+- Nový štítek v levém horním rohu slideru „Právě se sklízí: …" (data z HARVEST dle reálného měsíce, pulzující tečka, barva dle scény) — klik sroluje na sekci Sklizeň a vybere aktuální měsíc (App.openHarvestMonth → Harvest focus prop).
+
 ### 18. 9. 2026 — navigace v pořadí scrollu + sklizeň v detailu
 - NAV_ITEMS seřazeny podle pořadí na stránce: 01 Produkty, 02 Příběh, 03 Sady, 04 Sklizeň, 05 Proces, 06 Kontakt; labely sekcí v Roots/Orchards přečíslovány. „01 Produkty" scrolluje na vršek (slider).
 - Detail produktu má nový řádek „Sklizeň: …" s měsíci z kalendáře (z HARVEST dat, data-testid product-detail-harvest).

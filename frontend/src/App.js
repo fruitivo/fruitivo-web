@@ -19,6 +19,7 @@ function App() {
   const [secretMode, setSecretMode] = useState(false);
   const [orchardFocus, setOrchardFocus] = useState(null);
   const [productFocus, setProductFocus] = useState(null);
+  const [harvestFocus, setHarvestFocus] = useState(null);
 
   // detail produktu → klik na sad: zavřít detail, srolovat na mapu a vybrat značku
   const openOrchard = (name) => {
@@ -32,6 +33,12 @@ function App() {
     lenis?.scrollTo(0, { duration: 1.4 });
   };
 
+  // štítek „Právě se sklízí" → srolovat na Sklizeň a vybrat aktuální měsíc
+  const openHarvestMonth = (month) => {
+    setHarvestFocus({ month, at: Date.now() });
+    lenis?.scrollTo("#sklizen", { duration: 1.4 });
+  };
+
   useEffect(() => {
     const instance = new Lenis({ lerp: 0.09, smoothWheel: true, autoRaf: true });
     setLenis(instance);
@@ -43,12 +50,12 @@ function App() {
       <div className="App bg-stone text-ink">
         <Navigation />
         <main>
-          <ProductSlider onOpenOrchard={openOrchard} focus={productFocus} />
+          <ProductSlider onOpenOrchard={openOrchard} focus={productFocus} onOpenHarvest={openHarvestMonth} />
           <Marquee />
           <Roots />
-          <Orchards focus={orchardFocus} onShowProduct={showProduct} />
-          <Harvest onOpenOrchard={openOrchard} />
           <Process />
+          <Orchards focus={orchardFocus} onShowProduct={showProduct} />
+          <Harvest onOpenOrchard={openOrchard} focus={harvestFocus} />
         </main>
         <Footer onUnlockSecret={() => setSecretMode(true)} />
         <AmbientAudio />

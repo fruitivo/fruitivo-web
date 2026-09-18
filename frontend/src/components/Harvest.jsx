@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { HARVEST, MONTHS, SCENES, ORCHARDS } from "../data/catalog";
@@ -10,9 +10,14 @@ const orchardOf = (product) => ORCHARDS.locations.find((l) => product?.orchard?.
 
 const entriesForMonth = (m) => HARVEST.items.filter((it) => it.months.includes(m));
 
-export const Harvest = ({ onOpenOrchard }) => {
+export const Harvest = ({ onOpenOrchard, focus }) => {
   const [active, setActive] = useState(() => new Date().getMonth());
   const entries = entriesForMonth(active);
+
+  // štítek „Právě se sklízí" ze slideru → vybrat daný měsíc
+  useEffect(() => {
+    if (typeof focus?.month === "number") setActive(focus.month);
+  }, [focus]);
 
   return (
     <section id="sklizen" data-testid="harvest-section" className="border-t border-ink/10 bg-stone px-5 py-28 sm:px-10 sm:py-40">
@@ -24,7 +29,7 @@ export const Harvest = ({ onOpenOrchard }) => {
           transition={{ duration: 0.8, ease: EASE }}
           className="mb-6 text-[11px] font-semibold uppercase tracking-[0.35em] text-ink/50"
         >
-          04 · Sklizeň
+          05 · Sklizeň
         </motion.p>
 
         <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
