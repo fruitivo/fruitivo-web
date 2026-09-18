@@ -14,6 +14,10 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 18. 9. 2026 — název produktu ještě více doprava
+- Blok s názvem scény (včetně tlačítka „Více") posunut doprava: levé odsazení z lg:pl-[6%] na lg:pl-[14%] v kontejneru max-w-[1600px] (justify-between). Fotka (lg:pr-[6%]) ani roleťka se neměnily. Ověřeno screenshoty na scénách LIMETKA a KIWI.
+- Uživatel zamítl: kontrolu EN překladů (nemusíš), 3D assety/360° spiny (nebudou), refactoring ProductSlider.jsx (nech tak).
+
 ### 18. 9. 2026 — kompozice scény v mezích roleťky
 - Roletka je zpět v původní podobě (zarovnaná vlevo, max-w-6xl). Název lg:text-[6vw] a fotka lg:w-[32vw] jsou posunuté ke středu (lg:pl/pr-[6%] v kontejneru max-w-[1600px]) — pozice je pro všechny scény totožná.
 
@@ -220,9 +224,9 @@ Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Ž�
 - Konzole bez chyb.
 
 ## Zbývá / backlog
-- P0: Reálné produktové assety (foto cut-outy, 360° spin nebo .glb) místо TODO ilustrací; skutečný intro film místo statické fotky.
-- P1: Skutečný ambientní zvukový záznam, reálné odkazy sociálních sítí.
-- P2: Stránky produktů s plným obsahem, vícejazyčnost (EN), napojení žurnálu na CMS.
+- P1: Skutečný intro film místo statické fotky; reálné odkazy sociálních sítí.
+- P2: Stránky produktů s plným obsahem, napojení žurnálu na CMS.
+- Zamítnuto uživatelem: 3D assety / 360° spiny (nebudou), refactoring ProductSlider.jsx (zůstává jak je).
 
 ## Poznámky
 - Žádné credentials nejsou potřeba (statický prototyp). /app/memory/test_credentials.md neobsahuje účty.

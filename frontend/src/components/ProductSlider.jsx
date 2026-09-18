@@ -122,7 +122,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
                 </motion.div>
               </motion.div>
             </motion.div>
-            <div className="order-2 lg:order-1 lg:pl-[6%]">
+            <div className="order-2 lg:order-1 lg:pl-[14%]">
               <h2 className="select-none text-center font-display font-semibold uppercase leading-[0.95] tracking-tight text-[15vw] sm:text-[12vw] lg:text-left lg:text-[6vw]">
                 {sceneName.split(" ").map((word, wi) => (
                   <span key={wi} className="block overflow-hidden">
