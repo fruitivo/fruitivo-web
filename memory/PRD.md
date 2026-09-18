@@ -14,6 +14,11 @@ Homepage a struktura produktového katalogu fiktivní prémiové ovocné značky
 Návštěvníci prezentačního webu značky (zákazníci, partneři, tisk). Žádné role/login.
 
 ## Implementováno
+### 18. 9. 2026 — velké názvy zpět, konec zvuku, decentní CZ/EN
+- Názvy zpět na lg:text-[7vw], fotky lg:w-[30vw]; kontejner rozšířen na max-w-[1500px] (justify-between) — pozice názvu i fotky je pro všechny scény stejná.
+- AmbientAudio kompletně odstraněn (komponenta smazána, import i render z App.js pryč).
+- Přepínač CZ/EN: menší (text-[10px], font-medium), nízká opacita (aktivní 60 % / neaktivní 25 %), odsazen ml-12 od záložek — nepůsobí jako položka navigace.
+
 ### 18. 9. 2026 — zarovnání názvů, měkčí morph, EN verze, odstranění štítku
 - Štítek „Právě se sklízí" ze slideru odstraněn (včetně wiringu v App/Harvest).
 - Foto scény: pevný kontejner max-w-6xl — název vlevo zarovnaný na začátek roleťky (roletka nově zarovnaná vlevo na stejnou linku, ne centrovaně), fotka vpravo na pevné pozici (lg:w-[26vw]), název lg:text-[4.6vw]. Všechny scény sdílí stejnou geometrii.

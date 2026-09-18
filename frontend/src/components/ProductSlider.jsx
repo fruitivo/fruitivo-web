@@ -103,7 +103,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
       {L.photo ? (
         /* foto scéna — béžové pozadí, čtvercová fotka vpravo, velký nápis + Více vlevo pod ním */
         <div className="flex h-full items-center">
-          <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-8 px-5 sm:px-10 lg:flex-row lg:justify-between lg:gap-12">
+          <div className="mx-auto flex w-full max-w-[1500px] flex-col items-center gap-8 px-5 sm:px-10 lg:flex-row lg:justify-between lg:gap-16">
             <motion.div layoutId={`art-${scene.id}`} transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }} className="order-1 lg:order-2">
               <motion.div style={{ x: ax, y: ay }}>
                 <motion.div
@@ -115,7 +115,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
                   <motion.div
                     animate={{ y: [0, -14, 0] }}
                     transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-                    className="w-[72vmin] overflow-hidden rounded-3xl shadow-[0_36px_44px_rgba(0,0,0,0.22)] sm:w-[52vmin] lg:w-[26vw]"
+                    className="w-[72vmin] overflow-hidden rounded-3xl shadow-[0_36px_44px_rgba(0,0,0,0.22)] sm:w-[52vmin] lg:w-[30vw]"
                   >
                     <img src={L.photo} alt={scene.displayName} className="aspect-square h-full w-full object-cover" draggable="false" />
                   </motion.div>
@@ -123,7 +123,7 @@ const Slide = ({ scene, idx, smx, smy, hidden, instant, onOpen }) => {
               </motion.div>
             </motion.div>
             <div className="order-2 lg:order-1">
-              <h2 className="select-none text-center font-display font-semibold uppercase leading-[0.95] tracking-tight text-[15vw] sm:text-[12vw] lg:text-left lg:text-[4.6vw]">
+              <h2 className="select-none text-center font-display font-semibold uppercase leading-[0.95] tracking-tight text-[15vw] sm:text-[12vw] lg:text-left lg:text-[7vw]">
                 {sceneName.split(" ").map((word, wi) => (
                   <span key={wi} className="block overflow-hidden">
                     <motion.span

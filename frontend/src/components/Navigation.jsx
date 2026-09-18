@@ -8,21 +8,21 @@ import { useScroller } from "../scrollContext";
 
 const EASE = [0.65, 0, 0.35, 1];
 
-// elegantní přepínač jazyka — jen písmena, žádné vlajky
+// elegantní přepínač jazyka — jen písmena, žádné vlajky; skoro nepovšimnutelný, stranou od záložek
 const LangToggle = ({ lang, setLang, color, testidPrefix }) => (
-  <div data-testid={testidPrefix} className="flex items-center text-[11px] font-semibold uppercase tracking-[0.25em]" style={{ color }}>
+  <div data-testid={testidPrefix} className="flex items-center text-[10px] font-medium uppercase tracking-[0.3em]" style={{ color }}>
     <button
       data-testid={`${testidPrefix}-cs`}
       onClick={() => setLang("cs")}
-      className={`transition-opacity duration-300 ${lang === "cs" ? "opacity-100" : "opacity-35 hover:opacity-80"}`}
+      className={`transition-opacity duration-300 ${lang === "cs" ? "opacity-60" : "opacity-25 hover:opacity-60"}`}
     >
       CZ
     </button>
-    <span className="mx-1.5 opacity-25">/</span>
+    <span className="mx-1 opacity-20">/</span>
     <button
       data-testid={`${testidPrefix}-en`}
       onClick={() => setLang("en")}
-      className={`transition-opacity duration-300 ${lang === "en" ? "opacity-100" : "opacity-35 hover:opacity-80"}`}
+      className={`transition-opacity duration-300 ${lang === "en" ? "opacity-60" : "opacity-25 hover:opacity-60"}`}
     >
       EN
     </button>
@@ -99,7 +99,9 @@ export const Navigation = () => {
                 <span className="mt-0.5 block h-px w-0 bg-current transition-[width] duration-300 group-hover:w-full" />
               </button>
             ))}
-            <LangToggle lang={lang} setLang={setLang} color={navColor} testidPrefix="lang-toggle" />
+            <div className="ml-12">
+              <LangToggle lang={lang} setLang={setLang} color={navColor} testidPrefix="lang-toggle" />
+            </div>
           </nav>
 
           <div className="flex items-center gap-5 lg:hidden">

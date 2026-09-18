@@ -12,7 +12,6 @@ import { Orchards } from "./components/Orchards";
 import { Harvest } from "./components/Harvest";
 import { Process } from "./components/Process";
 import { Footer } from "./components/Footer";
-import { AmbientAudio } from "./components/AmbientAudio";
 import { SecretOverlay } from "./components/SecretOverlay";
 
 function App() {
@@ -54,7 +53,6 @@ function App() {
           <Harvest onOpenOrchard={openOrchard} />
         </main>
         <Footer onUnlockSecret={() => setSecretMode(true)} />
-        <AmbientAudio />
         <AnimatePresence>
           {secretMode && (
             <SecretOverlay
